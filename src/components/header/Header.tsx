@@ -1,7 +1,7 @@
 import logo from '../../assets/icons/broken-heart.png';
 import Navbar from "./Navbar";
 import PostButton from "./PostButton";
-
+import BurgerMenu from "./BurgerMenu";
 function Header() {
     return (
         <header className="w-full px-8 py-6">
@@ -13,7 +13,8 @@ function Header() {
                     </a>
                 </div>
                 <Navbar />
-                <PostButton />
+                <PostButton location="header" />
+                <BurgerMenu className="flex lg:hidden" />
             </div>
         </header>
     );
