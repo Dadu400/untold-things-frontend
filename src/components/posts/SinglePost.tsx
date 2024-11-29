@@ -6,7 +6,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 function SinglePost() {
     return (
-        <div className="w-[340px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px] mx-auto h-[400px] bg-gray-100 flex flex-col rounded-2xl overflow-hidden shadow-lg">
+        <div className="w-[300px] mx-auto h-[400px] bg-gray-100 flex flex-col rounded-2xl overflow-hidden shadow-lg">
             <div className="bg-[#f6f6f7] border-b border-b-gray p-4 flex items-baseline justify-between">
                 <ChevronLeftIcon className="w-6 h-6 text-blue-500" />
                 <div className="flex flex-col items-center ml-2">
