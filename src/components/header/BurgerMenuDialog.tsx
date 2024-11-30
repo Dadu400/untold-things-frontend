@@ -33,6 +33,6 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
             </div>
         </div>
     );
-};
+}
 
 export default BurgerMenuDialog;
