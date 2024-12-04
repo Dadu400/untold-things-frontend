@@ -4,9 +4,9 @@ import ShareIcon from '@mui/icons-material/Share';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
-function SinglePost() {
+function SinglePost({ className }: { className?: string }) {
     return (
-        <div className="w-[300px] mx-auto h-[400px] bg-gray-100 flex flex-col rounded-2xl overflow-hidden shadow-lg">
+        <div className={`w-[300px] mx-auto h-[400px] bg-gray-100 flex flex-col rounded-2xl overflow-hidden shadow-lg ${className}`}>
             <div className="bg-[#f6f6f7] border-b border-b-gray-300 p-4 flex items-baseline justify-end gap-x-12">
                 <div className="flex flex-col items-center">
                     <AccountCircleIcon fontSize="large" style={{ color: '#999999' }} />
