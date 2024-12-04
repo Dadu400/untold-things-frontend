@@ -5,7 +5,7 @@ function PostButton({ location }: { location: 'header' | 'burger-menu' }) {
                 location === 'header'
                     ? 'hidden lg:flex'
                     : 'flex lg:hidden'
-            } font-bpg px-6 py-2 bg-main text-white rounded-xl`}
+            } font-firago px-6 py-2 bg-[#D93835] text-white rounded-xl`}
         >
             დაპოსტე
         </button>
