@@ -9,7 +9,7 @@ function SearchBar() {
                     <div className="relative w-full">
                         <input
                             placeholder="მოძებნე სახელის მიხედვით..."
-                            className="w-full border-gray border-[1px] outline-none text-sm md:text-lg rounded-xl h-10 py-6 px-4 font-firago"
+                            className="w-full border-gray border-[1px] outline-none text-sm md:text-lg rounded-xl h-10 py-6 px-4 font-dejavu tracking-widest"
                             aria-label="Search by name"
                         />
                         <button
