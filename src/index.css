@@ -18,14 +18,12 @@
 
 @font-face {
     font-family: 'DejaVuSans';
-    src: url('./assets/fonts/bpg_dejavu_sans.otf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
+    src: url('./assets/fonts/book.woff2') format('truetype');
 }
 
 @font-face {
     font-family: 'FiraGo';
-    src: url('./assets/fonts/NotoSansGeorgian-VariableFont_wdth,wght.ttf') format('truetype');
+    src: url('./assets/fonts/bold.woff2') format('truetype');
     font-style: normal;
 }
 

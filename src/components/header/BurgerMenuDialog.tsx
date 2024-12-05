@@ -1,7 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close';
 import PostButton from "./PostButton";
 
-
 export interface BurgerMenuDialogProps {
     setMenuOpen: (isOpen: boolean) => void;
 }
@@ -27,7 +26,7 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
                 </div>
                 <div className="flex justify-start gap-[15px] mt-5">
                     <div className="flex gap-[10px] justify-center items-center">
-                        <PostButton location="burger-menu" />
+                        <PostButton className="flex lg:hidden" />
                     </div>
                 </div>
             </div>

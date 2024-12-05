@@ -1,11 +1,7 @@
-function PostButton({ location }: { location: 'header' | 'burger-menu' }) {
+function PostButton({ className }: { className?: string }) {
     return (
         <button
-            className={`${
-                location === 'header'
-                    ? 'hidden lg:flex'
-                    : 'flex lg:hidden'
-            } font-firago px-6 py-2 bg-[#D93835] text-white rounded-xl`}
+            className={`${className} font-firago px-6 py-2 bg-[#D93835] text-white rounded-xl tracking-widest`}
         >
             დაპოსტე
         </button>

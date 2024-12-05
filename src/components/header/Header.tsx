@@ -15,7 +15,7 @@ function Header() {
                 {/*    </a>*/}
                 {/*</div>*/}
                 <Navbar/>
-                <PostButton location="header" />
+                <PostButton className="hidden lg:flex" />
                 <BurgerMenu className="flex lg:hidden" />
             </div>
         </header>
