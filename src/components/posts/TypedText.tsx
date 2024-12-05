@@ -20,7 +20,7 @@ function TypedText() {
     }, []);
     return (
         <div>
-            <span ref={textRef}  className='text-xl font-light tracking-wider font-bpg'></span>
+            <span ref={textRef}  className='text-xl md:text-3xl font-light tracking-wider font-firago'></span>
         </div>
     );
 }
