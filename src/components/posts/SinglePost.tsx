@@ -1,8 +1,6 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShareIcon from '@mui/icons-material/Share';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 function SinglePost({ className }: { className?: string }) {
     return (

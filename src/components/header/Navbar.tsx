@@ -3,13 +3,13 @@ function Navbar() {
     return (
         <nav>
             <ul className="hidden lg:flex items-center gap-10">
-                <li className="uppercase text-base font-firago tracking-wider">
+                <li className="uppercase text-lg font-dejavu tracking-wider">
                     <Link to="/">პოსტები</Link>
                 </li>
-                <li className="uppercase text-base font-firago tracking-wider">
+                <li className="uppercase text-lg font-dejavu tracking-wider">
                     <Link to="/">ანონიმური SMS</Link>
                 </li>
-                <li className="uppercase text-base font-firago tracking-wider">
+                <li className="uppercase text-lg font-dejavu tracking-wider">
                     <Link to="/aboutus">ჩვენზე</Link>
                 </li>
             </ul>
