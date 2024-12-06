@@ -1,8 +1,8 @@
-import NewMessage from "../components/submit/NewMessage";
+import NewPost from "../components/submit/NewPost";
 
 const Submit = () => {
     return (
-            <NewMessage />
+            <NewPost />
     );
 };
 
