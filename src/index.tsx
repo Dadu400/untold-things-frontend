@@ -12,10 +12,12 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Layout />}>
+                <Route path="/" element={<Layout useParticles={false} />}>
                     <Route index element={<Home />} />
                     <Route path="aboutus" element={<AboutUs />} />
-                    <Route path="submit" element={<Submit />} />
+                </Route>
+                <Route path="/submit" element={<Layout useParticles={true} />}>
+                    <Route element={<Submit />} />
                 </Route>
             </Routes>
         </BrowserRouter>

@@ -1,5 +1,6 @@
 import { useState, useRef, ChangeEvent } from "react";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ParticlesBackground from "../../ParticlesBackground";
 
 function NewPost() {
     const [text, setText] = useState<string>("");

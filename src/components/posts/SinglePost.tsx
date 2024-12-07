@@ -28,7 +28,7 @@ function SinglePost({ className }: { className?: string }) {
                 </div>
                 <div className="flex flex-col self-end max-w-[240px] mt-3">
                             <span className="word-break bg-[#248bf5] p-2 text-sm leading-normal rounded-xl text-white text-wrap">
-                                ნეტავ ვიცოდე როდემდე უნდა ვღელავდეე შენს სიყვბარულში ყელამდე დავიცვადე
+                               ზამთრის სეზონის დადგომასთან ერთად ავტომობილებს განსაკუთრებული მომზადება სჭირდებათ. მათ შორის საბურავების შეცვლა და ანტიფრიზის განახლება. იმისთვის, რომ ზამთრის სეზონისთვის მოამზადო შენი
                             </span>
                     <p className="mr-2 my-1 flex items-center text-gray-500 self-end text-xs font-semibold">Delivered</p>
                 </div>
