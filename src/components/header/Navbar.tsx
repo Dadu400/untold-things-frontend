@@ -16,15 +16,8 @@ function Navbar() {
                         პოსტები
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink
-                        to="/ssms"
-                        className={({ isActive }) =>
-                            `${ClassName} ${isActive ? "text-white bg-black rounded-xl" : "text-gray-700"}`
-                        }
-                    >
-                        ანონიმური SMS
-                    </NavLink>
+                <li className={`${ClassName} cursor-pointer`}>
+                    ანონიმური SMS
                 </li>
                 <li>
                     <NavLink
