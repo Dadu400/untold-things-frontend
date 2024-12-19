@@ -17,7 +17,7 @@ export default function App() {
                     <Route path="aboutus" element={<AboutUs />} />
                 </Route>
                 <Route path="/submit" element={<Layout useParticles={true} />}>
-                    <Route element={<Submit />} />
+                    <Route path="/submit" element={<Submit />} />
                 </Route>
             </Routes>
         </BrowserRouter>
