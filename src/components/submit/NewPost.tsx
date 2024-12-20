@@ -16,13 +16,12 @@ function NewPost() {
     };
 
     return (
-        <section>
-            <div className="w-[360px] mx-auto h-[400px] flex flex-col rounded-2xl overflow-hidden shadow-lg py-2 z-10 bg-bgColor">
+        <section className="mb-4 flex items-center">
+            <div className="w-[340px] mx-auto h-[400px] flex flex-col rounded-2xl overflow-hidden shadow-lg z-10 bg-bgColor">
                 <header className="bg-[#f6f6f7] border-b border-b-gray-300 p-4 flex items-baseline justify-center gap-x-16">
                     <h2 className="text-lg font-firago">მიწერე</h2>
-                    {/*<button className="text-blue-500 font-semibold">preview</button>*/}
                 </header>
-                <div className="bg-[#ffffff]">
+                <div className="bg-bgColor">
                         <div className="flex items-baseline border-b border-gray-300">
                             <span className="text-[#3c3c43] pl-4 pr-2 font-firago">ვის:</span>
                             <input
@@ -31,9 +30,9 @@ function NewPost() {
                                 className="flex-1 py-2 px-2 outline-none text-sm placeholder:font-dejavu placeholder:tracking-wider"/>
                         </div>
                 </div>
-                <div className="flex-1 bg-white"></div>
+                <div className="flex-1 bg-bgColor z-10"></div>
                 <footer
-                    className="bg-white p-2 flex justify-between items-center border-[1px] border-gray-300 rounded-xl mx-3 my-2">
+                    className="bg-bgColor p-2 my-4 flex justify-between items-center border-[1px] border-gray-300 rounded-xl mx-3 z-10">
                    <textarea
                        ref={textareaRef}
                        placeholder="ყოველთვის მინდოდა მეთქვა, რომ..."

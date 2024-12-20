@@ -8,7 +8,7 @@ interface LayoutProps {
 
 const Layout = ({ particlesComponent }: LayoutProps) => {
     return (
-        <div className="relative">
+        <div className="relative min-h-[100vh] flex flex-col justify-between">
             {particlesComponent && (
                 <div className="absolute inset-0 -z-10">
                     {particlesComponent}

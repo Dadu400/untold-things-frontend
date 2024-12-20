@@ -3,7 +3,7 @@ import searchIcon from "../../assets/icons/loupe.png";
 function SearchBar() {
 
     return (
-        <section className="w-full my-10">
+        <section className="w-full">
             <form>
                 <div className="flex items-center mx-auto h-10 w-[90%] lg:w-[70%] mt-4">
                     <div className="relative w-full">

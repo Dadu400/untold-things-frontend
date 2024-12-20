@@ -58,7 +58,7 @@ const PostsList = () => {
     };
 
     return (
-        <section ref={postsRef} className="w-[90%] md:w-[85%] flex flex-col mx-auto my-20">
+        <section ref={postsRef} className="w-[90%] md:w-[85%] flex flex-col mx-auto my-10">
             <TypedText />
             <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-12 mt-10 place-items-center">
                 {posts.map((post) => (
