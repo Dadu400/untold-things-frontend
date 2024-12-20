@@ -1,18 +1,17 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
-import ParticlesBackground from "../ParticlesBackground";
 
 interface LayoutProps {
-    useParticles?: boolean;
+    particlesComponent?: React.ReactNode;
 }
 
-const Layout = ({ useParticles = false } : LayoutProps) => {
+const Layout = ({ particlesComponent }: LayoutProps) => {
     return (
         <div className="relative">
-            {useParticles && (
+            {particlesComponent && (
                 <div className="absolute inset-0 -z-10">
-                    <ParticlesBackground />
+                    {particlesComponent}
                 </div>
             )}
             <Header />

@@ -1,6 +1,5 @@
 import { useState, useRef, ChangeEvent } from "react";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import ParticlesBackground from "../../ParticlesBackground";
 
 function NewPost() {
     const [text, setText] = useState<string>("");
@@ -18,14 +17,14 @@ function NewPost() {
 
     return (
         <section>
-            <div className="w-[300px] mx-auto h-[400px] flex flex-col rounded-2xl overflow-hidden shadow-lg py-2 z-10 bg-bgColor">
+            <div className="w-[360px] mx-auto h-[400px] flex flex-col rounded-2xl overflow-hidden shadow-lg py-2 z-10 bg-bgColor">
                 <header className="bg-[#f6f6f7] border-b border-b-gray-300 p-4 flex items-baseline justify-center gap-x-16">
-                    <h2 className="text-lg font-dejavu">მიწერე</h2>
+                    <h2 className="text-lg font-firago">მიწერე</h2>
                     {/*<button className="text-blue-500 font-semibold">preview</button>*/}
                 </header>
                 <div className="bg-[#ffffff]">
                         <div className="flex items-baseline border-b border-gray-300">
-                            <span className="text-[#3c3c43] pl-4 pr-2 font-dejavu">ვის:</span>
+                            <span className="text-[#3c3c43] pl-4 pr-2 font-firago">ვის:</span>
                             <input
                                 placeholder='სახელი'
                                 type="text"
