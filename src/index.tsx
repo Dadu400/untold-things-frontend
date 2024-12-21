@@ -7,6 +7,7 @@ import Layout from "./pages/Layout";
 import AboutUs from "./pages/AboutUs";
 import Home from "./pages/Home";
 import Submit from "./pages/Submit";
+import Terms from "./pages/Terms";
 import SinglePost from "./components/posts/SinglePost";
 import HeartParticlesBackground from "./HeartParticlesBackground";
 import ParticlesBackground from "./ParticlesBackground";
@@ -18,6 +19,7 @@ export default function App() {
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
                     <Route path="aboutus" element={<AboutUs />} />
+                    <Route path="terms" element={<Terms />} />
                 </Route>
                 <Route path="/post/:postId" element={<Layout particlesComponent={<HeartParticlesBackground />} />}>
                     <Route index element={
