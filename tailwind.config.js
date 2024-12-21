@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       fontFamily: {
         bpg: ['BPGExtraSquare', 'sans-serif'],
-        alk: ['AlkSanet', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
         dejavu: ['DejaVuSans', 'sans-serif'],
         firago: ['FiraGo', 'sans-serif'],
         sans: [...fontFamily.sans],

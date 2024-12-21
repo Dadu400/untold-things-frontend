@@ -10,10 +10,8 @@
 }
 
 @font-face {
-    font-family: 'AlkSanet';
-    src: url('./assets/fonts/Alk-Sanet.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
+    font-family: 'Roboto';
+    src: url('./assets/fonts/regular.woff2') format('truetype');
 }
 
 @font-face {
@@ -24,7 +22,6 @@
 @font-face {
     font-family: 'FiraGo';
     src: url('./assets/fonts/bold.woff2') format('truetype');
-    font-style: normal;
 }
 
 body {
