@@ -1,4 +1,4 @@
-import logo from '../../assets/icons/raccc.png';
+import logo from '../../assets/icons/banner.png';
 function Banner() {
     return (
         <section className='w-[80%] mx-auto my-6'>
