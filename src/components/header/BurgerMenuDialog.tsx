@@ -17,7 +17,7 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
                         <NavLink
                             to="/"
                             className= "text-lg font-dejavu tracking-wider">
-                            პოსტები
+                            წერილები
                         </NavLink>
                     </li>
                     <li className="text-lg font-dejavu tracking-wider">

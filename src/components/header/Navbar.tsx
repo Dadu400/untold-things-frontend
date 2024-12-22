@@ -13,7 +13,7 @@ function Navbar() {
                             `${ClassName} ${isActive ? "text-white bg-black rounded-xl" : "text-gray-700"}`
                         }
                     >
-                        პოსტები
+                        წერილები
                     </NavLink>
                 </li>
                 <li className={`${ClassName} cursor-pointer`}>

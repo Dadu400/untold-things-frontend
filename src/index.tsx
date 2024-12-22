@@ -25,7 +25,7 @@ export default function App() {
                     <Route index element={
                             <SinglePost
                                 message="Hello"
-                                author="Author"
+                                recipient="recipient"
                                 time="Today 12:00PM"
                                 likes={10}
                                 shares={5}

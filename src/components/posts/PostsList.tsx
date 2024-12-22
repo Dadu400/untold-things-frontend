@@ -14,7 +14,7 @@ const PostsList = () => {
     const [posts, setPosts] = useState(
         Array.from({ length: 30 }).map((_, index) => ({
             id: index,
-            author: `Author ${index + 1}`,
+            recipient: `recipient ${index + 1}`,
             message: `Message content for post ${index + 1}`,
             time: `Today 12:${index}PM`,
             likes: Math.floor(Math.random() * 100),
@@ -50,7 +50,6 @@ const PostsList = () => {
         setPosts((prev) =>
             prev.map((post) => (post.id === id ? { ...post, shares: post.shares + 1 } : post))
         );
-        alert("Post shared!");
     };
 
     const navigateToPost = (id: number) => {
@@ -65,7 +64,7 @@ const PostsList = () => {
                     <SinglePost
                         key={post.id}
                         className="single-post"
-                        author={post.author}
+                        recipient={post.recipient}
                         message={post.message}
                         time={post.time}
                         likes={post.likes}
