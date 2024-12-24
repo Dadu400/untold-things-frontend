@@ -1,7 +1,11 @@
 import './index.css';
+import Loader from './Loader';
 function App() {
+
   return (
-    <div className="App"></div>
+    <div className="App">
+      <Loader />
+    </div>
   );
 }
 
