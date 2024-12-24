@@ -1,10 +1,10 @@
-import { useState, useRef, ChangeEvent } from "react";
+import { useState, useRef, ChangeEvent, FormEvent } from "react";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import SubmitDialog from "../posts/SubmitDialog";
 
 function NewPost() {
     const [text, setText] = useState<string>("");
-    const [recipient, setRecipient] = useState<string>("");
+    const [to, setTo] = useState<string>("");
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -18,9 +18,45 @@ function NewPost() {
         }
     };
 
+    const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (text.trim() && to.trim()) {
+            setIsModalOpen(true);
+        }
+    };
+
+    const isButtonDisabled = !text.trim() || !to.trim();
+
+
+    const handlePostSubmit = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/v1/messages", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    to: to,
+                    message: text,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to submit post");
+            }
+
+            setTo("");
+            setText("");
+
+
+        } catch (error) {
+            console.error("Error submitting post:", error);
+        }
+    };
+
     return (
         <section className="mb-4 flex items-center">
-            <div className="w-[340px] mx-auto h-[400px] flex flex-col rounded-2xl overflow-hidden shadow-lg bg-bgColor">
+            <form className="w-[340px] mx-auto h-[400px] flex flex-col rounded-2xl overflow-hidden shadow-lg bg-bgColor" onSubmit={handleFormSubmit}>
                 <header className="bg-[#f6f6f7] border-b border-b-gray-300 p-4 flex items-baseline justify-center gap-x-16">
                     <h2 className="text-xl font-firago">მიწერე წერილი</h2>
                 </header>
@@ -30,16 +66,14 @@ function NewPost() {
                         <input
                             placeholder="სახელი"
                             type="text"
-                            value={recipient}
-                            onChange={(e) => setRecipient(e.target.value)}
-                            className="flex-1 py-2 px-2 bg-bgColor outline-none text-sm placeholder:font-dejavu placeholder:tracking-wider"
+                            value={to}
+                            onChange={(e) => setTo(e.target.value)}
+                            className="font-roboto flex-1 py-2 px-2 bg-bgColor outline-none text-sm placeholder:font-dejavu placeholder:tracking-wider"
                         />
                     </div>
                 </div>
                 <div className="flex-1 bg-bgColor"></div>
-                <footer
-                    className="bg-bgColor p-2 my-4 flex justify-between items-center border-[1px] border-gray-300 rounded-xl mx-3"
-                >
+                <footer className="bg-bgColor p-2 my-4 flex justify-between items-center border-[1px] border-gray-300 rounded-xl mx-3">
                     <textarea
                         ref={textareaRef}
                         placeholder="ყოველთვის მინდოდა მეთქვა, რომ..."
@@ -48,21 +82,20 @@ function NewPost() {
                         className="w-full outline-none resize-none bg-bgColor overflow-hidden text-sm h-[20px] pl-2 placeholder:font-dejavu placeholder:tracking-wider"
                     />
                     <button
-                        className={`p-[2px] rounded-full flex items-center self-end text-white ml-3 ${
-                            text.trim() ? "bg-[#007aff]" : "bg-gray-300"
-                        }`}
-                        disabled={!text.trim()}
-                        onClick={() => setIsModalOpen(true)}
+                        type="submit"
+                        className={`p-[2px] rounded-full flex items-center self-end text-white ml-3 ${isButtonDisabled ? "bg-gray-300" : "bg-[#007aff]"}`}
+                        disabled={isButtonDisabled}
                     >
                         <ArrowUpwardIcon style={{ fontSize: "14px" }} />
                     </button>
                 </footer>
-            </div>
+            </form>
             <SubmitDialog
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
-                recipient={recipient}
+                messageTo={to}
                 message={text}
+                onSubmit={handlePostSubmit}
             />
         </section>
     );

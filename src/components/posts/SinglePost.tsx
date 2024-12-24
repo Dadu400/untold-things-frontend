@@ -5,8 +5,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ShareDialog from "./ShareDialog";
 
-interface SinglePostProps {
-    recipient: string;
+import { useNavigate } from "react-router-dom";
+
+export interface SinglePostProps {
+    id: number;
+    messageTo: string;
     message: string;
     time: string;
     likes: number;
@@ -18,9 +21,17 @@ interface SinglePostProps {
     className?: string;
 }
 
-const SinglePost: FC<SinglePostProps> = ({recipient, message, time, likes, shares, liked, onLike, onShare, onClick, className,}) => {
+const SinglePost: FC<SinglePostProps> = ({id, messageTo, message, time, likes, shares, liked, onLike, onShare, onClick, className,}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [shareCount, setShareCount] = useState(shares);
+    const navigate = useNavigate();
+
+    const handlePostClick = (e: React.MouseEvent) => {
+
+        e.stopPropagation();
+        navigate(`/post/${id}`);
+        onClick();
+    };
 
     const handleShareClick = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -34,12 +45,14 @@ const SinglePost: FC<SinglePostProps> = ({recipient, message, time, likes, share
     };
 
     return (
-        <div onClick={onClick}
-            className={`w-[300px] mx-auto h-[400px] bg-gray-100 flex flex-col rounded-2xl overflow-hidden shadow-lg cursor-pointer ${className}`}>
+        <div
+            onClick={handlePostClick}
+            className={`w-[300px] mx-auto h-[400px] bg-gray-100 flex flex-col rounded-2xl overflow-hidden shadow-lg cursor-pointer ${className}`}
+        >
             <div className="bg-[#f6f6f7] border-b border-b-gray-300 p-4 flex items-baseline justify-end gap-x-12">
                 <div className="flex flex-col items-center">
                     <AccountCircleIcon fontSize="large" style={{ color: "#999999" }} />
-                    <span className="text-sm">{recipient}</span>
+                    <span className="text-sm">{messageTo}</span>
                 </div>
                 <div className="flex gap-2">
                     <div
@@ -89,5 +102,6 @@ const SinglePost: FC<SinglePostProps> = ({recipient, message, time, likes, share
         </div>
     );
 };
+
 
 export default SinglePost;

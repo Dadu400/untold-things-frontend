@@ -8,9 +8,9 @@ import AboutUs from "./pages/AboutUs";
 import Home from "./pages/Home";
 import Submit from "./pages/Submit";
 import Terms from "./pages/Terms";
-import SinglePost from "./components/posts/SinglePost";
 import HeartParticlesBackground from "./HeartParticlesBackground";
 import ParticlesBackground from "./ParticlesBackground";
+import PostWrapper from "./components/posts/PostWrapper";
 
 export default function App() {
     return (
@@ -21,23 +21,9 @@ export default function App() {
                     <Route path="aboutus" element={<AboutUs />} />
                     <Route path="terms" element={<Terms />} />
                 </Route>
-                <Route path="/post/:postId" element={<Layout particlesComponent={<HeartParticlesBackground />} />}>
-                    <Route index element={
-                            <SinglePost
-                                message="Hello"
-                                recipient="recipient"
-                                time="Today 12:00PM"
-                                likes={10}
-                                shares={5}
-                                liked={false}
-                                onLike={() => {}}
-                                onShare={() => {}}
-                                onClick={() => {}}
-                                className=""
-                            />
-                        }
-                    />
-                </Route>
+                <Route path="/post/:id" element={<Layout particlesComponent={<HeartParticlesBackground />} />}>
+                    <Route index element={<PostWrapper />} />
+                   </Route>
                 <Route path="/submit" element={<Layout particlesComponent={<ParticlesBackground />} />} >
                     <Route index element={<Submit />} />
                 </Route>

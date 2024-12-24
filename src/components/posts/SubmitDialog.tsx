@@ -6,16 +6,17 @@ import "./SubmitDialog.css";
 interface SubmitDialogProps {
     isModalOpen: boolean;
     setIsModalOpen: (isOpen: boolean) => void;
-    recipient: string;
+    messageTo: string;
     message: string;
     onSubmit?: () => void;
 }
 
-const SubmitDialog: React.FC<SubmitDialogProps> = ({ isModalOpen, setIsModalOpen, recipient, message, onSubmit}) => {
+const SubmitDialog: React.FC<SubmitDialogProps> = ({ isModalOpen, setIsModalOpen, messageTo, message, onSubmit }) => {
     const [isClicked, setIsClicked] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
 
     const handleButtonClick = async () => {
-        if (!isClicked) {
+        if (!isClicked && isChecked) {
             setIsClicked(true);
             await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -31,7 +32,8 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ isModalOpen, setIsModalOpen
                 <h2 className="text-xl font-firago tracking-wider my-2">გადახედე წერილს</h2>
                 <div className="mb-4">
                     <SinglePost
-                        recipient={recipient || "Unknown"}
+                        id={0}
+                        messageTo={messageTo || "Unknown"}
                         message={message}
                         time={new Date().toLocaleString()}
                         likes={0}
@@ -44,27 +46,28 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ isModalOpen, setIsModalOpen
                 </div>
                 <div className="flex flex-col justify-end">
                     <div className="flex">
-                        <input type="checkbox" className="mr-2" />
+                        <input
+                            type="checkbox"
+                            className="mr-2"
+                            checked={isChecked}
+                            onChange={(e) => setIsChecked(e.target.checked)}
+                        />
                         <label className="text-md font-dejavu tracking-wider">
                             გავეცანი და ვეთანხმები <a href="/terms" className="text-blue-500">წესებს</a>
                         </label>
                     </div>
                     <button
-                        className={`button font-dejavu bg-[#D93835] text-white py-2 rounded-xl tracking-widest mt-4 flex justify-center items-center gap-1 ${
-                            isClicked ? "clicked" : "" }`}
-                        onClick={handleButtonClick} >
+                        className={`button font-dejavu bg-[#D93835] text-white py-2 rounded-xl tracking-widest mt-4 flex justify-center items-center gap-1 ${isClicked ? "clicked" : ""} ${!isChecked ? "opacity-50 cursor-not-allowed" : ""}`}
+                        onClick={handleButtonClick}
+                        disabled={!isChecked}
+                    >
                         {isClicked ? "მიმდინარეობს გადამოწმება!" : "დადასტურება"}
                         <svg
                             version="1.1"
                             xmlns="http://www.w3.org/2000/svg"
-                            xmlnsXlink="http://www.w3.org/1999/xlink"
                             width="24px"
                             height="20px"
-                            x="0px"
-                            y="0px"
                             viewBox="0 0 512 512"
-                            enableBackground="new 0 0 512 512"
-                            xmlSpace="preserve"
                             fill="white"
                             className="w-6 h-6"
                         >
