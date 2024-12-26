@@ -4,7 +4,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ShareDialog from "./ShareDialog";
-
 import { useNavigate } from "react-router-dom";
 
 export interface SinglePostProps {
@@ -15,22 +14,32 @@ export interface SinglePostProps {
     likes: number;
     shares: number;
     liked: boolean;
-    onLike: () => void;
+    onLike: (id: number, liked: boolean) => void;
     onShare: () => void;
     onClick: () => void;
     className?: string;
 }
 
-const SinglePost: FC<SinglePostProps> = ({id, messageTo, message, time, likes, shares, liked, onLike, onShare, onClick, className,}) => {
+const SinglePost: FC<SinglePostProps> = ({id, messageTo, message, time, likes, shares, liked: initialLiked, onLike, onShare, onClick, className,
+                                         }) => {
+    const [liked, setLiked] = useState(initialLiked);
+    const [likeCount, setLikeCount] = useState(likes);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [shareCount, setShareCount] = useState(shares);
     const navigate = useNavigate();
 
     const handlePostClick = (e: React.MouseEvent) => {
-
         e.stopPropagation();
         navigate(`/post/${id}`);
         onClick();
+    };
+
+    const handleLikeClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        const newLikedState = !liked;
+        setLiked(newLikedState);
+        setLikeCount((prev) => (newLikedState ? prev + 1 : prev - 1));
+        onLike(id, newLikedState);
     };
 
     const handleShareClick = (e: React.MouseEvent) => {
@@ -57,17 +66,14 @@ const SinglePost: FC<SinglePostProps> = ({id, messageTo, message, time, likes, s
                 <div className="flex gap-2">
                     <div
                         className="flex flex-col items-center cursor-pointer"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            onLike();
-                        }}
+                        onClick={handleLikeClick}
                     >
                         {liked ? (
                             <FavoriteIcon style={{ color: "#0078FE" }} />
                         ) : (
                             <FavoriteBorderIcon style={{ color: "#0078FE" }} />
                         )}
-                        <span className="text-xs text-gray-500">{likes}</span>
+                        <span className="text-xs text-gray-500">{likeCount}</span>
                     </div>
                     <div
                         className="flex flex-col items-center cursor-pointer"
@@ -102,6 +108,5 @@ const SinglePost: FC<SinglePostProps> = ({id, messageTo, message, time, likes, s
         </div>
     );
 };
-
 
 export default SinglePost;

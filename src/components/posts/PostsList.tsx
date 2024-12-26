@@ -1,27 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SinglePost from "./SinglePost";
 import TypedText from "./TypedText";
 import { useNavigate } from "react-router-dom";
+import useFetch from "../../UseFetch";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const PostsList = () => {
+    const { posts, loading } = useFetch({ url: "http://localhost:8080/v1/messages" });
     const postsRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
-
-    const [posts, setPosts] = useState(
-        Array.from({ length: 30 }).map((_, index) => ({
-            id: index,
-            recipient: `recipient ${index + 1}`,
-            message: `Message content for post ${index + 1}`,
-            time: `Today 12:${index}PM`,
-            likes: Math.floor(Math.random() * 100),
-            shares: Math.floor(Math.random() * 20),
-            liked: false,
-        }))
-    );
 
     useEffect(() => {
         gsap.context(() => {
@@ -34,27 +24,28 @@ const PostsList = () => {
                     gsap.to(batch, { opacity: 1, y: 0, stagger: 0.2, duration: 1 }),
             });
         }, postsRef);
-    }, []);
+    }, [posts]);
 
-    const handleLike = (id: number) => {
-        setPosts((prev) =>
-            prev.map((post) =>
-                post.id === id
-                    ? { ...post, liked: !post.liked, likes: post.liked ? post.likes - 1 : post.likes + 1 }
-                    : post
-            )
-        );
+    const handleLike = (id: number, liked: boolean) => {
+        console.log(`Post ${id} liked status is now: ${liked}`);
     };
 
     const handleShare = (id: number) => {
-        setPosts((prev) =>
-            prev.map((post) => (post.id === id ? { ...post, shares: post.shares + 1 } : post))
-        );
+
     };
 
     const navigateToPost = (id: number) => {
+        console.log(id);
         navigate(`/post/${id}`);
     };
+
+    if (loading) {
+        return <div>Loading posts...</div>;
+    }
+
+    if (!posts.length) {
+        return <div>No posts available.</div>;
+    }
 
     return (
         <section ref={postsRef} className="w-[90%] md:w-[85%] flex flex-col mx-auto my-10">
@@ -64,13 +55,14 @@ const PostsList = () => {
                     <SinglePost
                         key={post.id}
                         className="single-post"
-                        recipient={post.recipient}
+                        id={post.id}
+                        messageTo={post.messageTo}
                         message={post.message}
-                        time={post.time}
+                        time={new Date(post.timestamp).toLocaleString()}
                         likes={post.likes}
                         shares={post.shares}
-                        liked={post.liked}
-                        onLike={() => handleLike(post.id)}
+                        liked={false}
+                        onLike={() => handleLike(post.id , true)}
                         onShare={() => handleShare(post.id)}
                         onClick={() => navigateToPost(post.id)}
                     />
