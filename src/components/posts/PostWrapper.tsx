@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import SinglePost from "./SinglePost";
+import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
+
+import SinglePost from "./SinglePost";
 
 interface MessageData {
     id: number;
@@ -69,18 +71,34 @@ function PostWrapper() {
     }
 
     return (
-        <SinglePost
-            id={postData.id}
-            messageTo={postData.MessageTo}
-            message={postData.message}
-            time={postData.time}
-            likes={postData.likes}
-            shares={postData.shares}
-            liked={postData.liked}
-            onLike={() => console.log("Liked!")}
-            onShare={() => console.log("Shared!")}
-            onClick={() => console.log("Post clicked!")}
-        />
+        <>
+            <Helmet>
+                <title>{`უთქმელი სიტყვები ${postData.MessageTo}ს, პოსტი #${postData.id} - რაც ვერ გითხარი`}</title>
+                <meta
+                    name="description"
+                    content={`უთქმელი სიტყვები ${postData.MessageTo}ს, პოსტი ID: ${postData.id}`}
+                />
+                <meta property="og:title" content={`Post #${postData.id} - Untold Words`} />
+                <meta
+                    property="og:description"
+                    content={`უთქმელი სიტყვები ${postData.MessageTo}, პოსტი ID: ${postData.id}`}
+                />
+                <meta property="og:type" content="article" />
+                <meta property="og:url" content={`http://localhost:3000/post/${postData.id}`} />
+            </Helmet>
+            <SinglePost
+                id={postData.id}
+                messageTo={postData.MessageTo}
+                message={postData.message}
+                time={postData.time}
+                likes={postData.likes}
+                shares={postData.shares}
+                liked={postData.liked}
+                onLike={() => console.log("Liked!")}
+                onShare={() => console.log("Shared!")}
+                onClick={() => console.log("Post clicked!")}
+            />
+        </>
     );
 }
 
