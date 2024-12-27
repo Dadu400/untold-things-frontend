@@ -64,6 +64,7 @@ const PostsList = () => {
                         onLike={() => handleLike(post.id , true)}
                         onShare={() => handleShare(post.id)}
                         onClick={() => navigateToPost(post.id)}
+                        disabled={false}
                     />
                 ))}
             </div>

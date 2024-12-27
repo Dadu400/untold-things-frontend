@@ -18,9 +18,10 @@ export interface SinglePostProps {
     onShare: () => void;
     onClick: () => void;
     className?: string;
+    disabled?: boolean;
 }
 
-function SinglePost ({ id, messageTo, message, time, likes, shares, liked: initialLiked, onLike, onShare, onClick, className } : SinglePostProps) {
+function SinglePost ({ id, messageTo, message, time, likes, shares, liked: initialLiked, onLike, onShare, onClick, className, disabled} : SinglePostProps) {
 
     const getInitialLikedState = () => {
         const storedLiked = localStorage.getItem(`post_${id}_liked`);
@@ -39,6 +40,7 @@ function SinglePost ({ id, messageTo, message, time, likes, shares, liked: initi
 
     const handlePostClick = (e: React.MouseEvent) => {
         e.stopPropagation();
+        if (disabled) return;
         navigate(`/post/${id}`);
         onClick();
     };
@@ -46,8 +48,12 @@ function SinglePost ({ id, messageTo, message, time, likes, shares, liked: initi
     const handleLikeClick = async (e: React.MouseEvent) => {
         e.stopPropagation();
 
+        if (disabled) return;
+
         if (liked) {
-            console.log("Post is already liked.");
+            setLiked(false);
+            setLikeCount((prev) => prev - 1);
+            localStorage.setItem(`post_${id}_liked`, JSON.stringify(false));
             return;
         }
 
@@ -76,6 +82,7 @@ function SinglePost ({ id, messageTo, message, time, likes, shares, liked: initi
 
     const handleShareClick = (e: React.MouseEvent) => {
         e.stopPropagation();
+        if (disabled) return;
         setIsModalOpen(true);
     };
 
@@ -108,7 +115,7 @@ function SinglePost ({ id, messageTo, message, time, likes, shares, liked: initi
                 <div className="flex gap-2">
                     <div className="flex flex-col items-center cursor-pointer"
                         onClick={handleLikeClick} >
-                        {liked ? (
+                        {liked && !disabled ? (
                             <FavoriteIcon style={{ color: "#0078FE" }} />
                         ) : (
                             <FavoriteBorderIcon style={{ color: "#0078FE" }} />

@@ -42,6 +42,7 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ isModalOpen, setIsModalOpen
                         onLike={() => {}}
                         onShare={() => {}}
                         onClick={() => {}}
+                        disabled={true}
                     />
                 </div>
                 <div className="flex flex-col justify-end">
