@@ -3,16 +3,21 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import SubmitDialog from "../posts/SubmitDialog";
 
 function NewPost() {
+    const MAX_TEXT_LENGTH = 230;
+    const MAX_INPUT_LENGTH = 10;
     const [text, setText] = useState<string>("");
     const [to, setTo] = useState<string>("");
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-    const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setText(e.target.value);
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setTo(e.target.value.slice(0, MAX_INPUT_LENGTH));
+    };
+
+    const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setText(e.target.value.slice(0, MAX_TEXT_LENGTH));
 
         if (textareaRef.current) {
-            textareaRef.current.style.fontFamily = "dejavu";
             textareaRef.current.style.height = "0px";
             textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
         }
@@ -26,7 +31,6 @@ function NewPost() {
     };
 
     const isButtonDisabled = !text.trim() || !to.trim();
-
 
     const handlePostSubmit = async () => {
         try {
@@ -47,8 +51,6 @@ function NewPost() {
 
             setTo("");
             setText("");
-
-
         } catch (error) {
             console.error("Error submitting post:", error);
         }
@@ -67,7 +69,8 @@ function NewPost() {
                             placeholder="სახელი"
                             type="text"
                             value={to}
-                            onChange={(e) => setTo(e.target.value)}
+                            onChange={handleInputChange}
+                            maxLength={MAX_INPUT_LENGTH}
                             className="font-roboto flex-1 py-2 px-2 bg-bgColor outline-none text-sm placeholder:font-dejavu placeholder:tracking-wider"
                         />
                     </div>
@@ -78,12 +81,13 @@ function NewPost() {
                         ref={textareaRef}
                         placeholder="ყოველთვის მინდოდა მეთქვა, რომ..."
                         value={text}
-                        onChange={handleInputChange}
-                        className="w-full outline-none resize-none bg-bgColor overflow-hidden text-sm h-[20px] pl-2 placeholder:font-dejavu placeholder:tracking-wider"
+                        onChange={handleTextareaChange}
+                        maxLength={MAX_TEXT_LENGTH}
+                        className="w-full font-roboto outline-none resize-none bg-bgColor overflow-hidden text-sm h-[20px] pl-2 placeholder:font-dejavu placeholder:tracking-wider"
                     />
                     <button
                         type="submit"
-                        className={`p-[2px] rounded-full flex items-center self-end text-white ml-3 ${isButtonDisabled ? "bg-gray-300" : "bg-[#007aff]"}`}
+                        className={`p-[2px] rounded-full flex items-center self-end text-white mt-2 ${isButtonDisabled ? "bg-gray-300" : "bg-[#007aff]"}`}
                         disabled={isButtonDisabled}
                     >
                         <ArrowUpwardIcon style={{ fontSize: "14px" }} />

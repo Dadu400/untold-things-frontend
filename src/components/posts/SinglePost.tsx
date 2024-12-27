@@ -81,7 +81,7 @@ function SinglePost ({ id, messageTo, message, time, likes, shares, liked: initi
 
     const handleSharePost = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/v1/messages/${id}/share`, {
+             await fetch(`http://localhost:8080/v1/messages/${id}/share`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

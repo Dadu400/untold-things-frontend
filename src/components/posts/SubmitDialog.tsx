@@ -29,11 +29,11 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ isModalOpen, setIsModalOpen
     return (
         <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)} className="max-w-[460px]">
             <div className="p-4 flex flex-col items-center">
-                <h2 className="text-xl font-firago tracking-wider my-2">გადახედე წერილს</h2>
+                <h2 className="text-2xl font-firago tracking-wider mb-2">გადახედე წერილს</h2>
                 <div className="mb-4">
                     <SinglePost
                         id={0}
-                        messageTo={messageTo || "Unknown"}
+                        messageTo={messageTo}
                         message={message}
                         time={new Date().toLocaleString()}
                         likes={0}
