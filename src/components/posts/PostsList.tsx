@@ -27,7 +27,6 @@ const PostsList = () => {
     }, [posts]);
 
     const handleLike = (id: number, liked: boolean) => {
-        console.log(`Post ${id} liked status is now: ${liked}`);
     };
 
     const handleShare = (id: number) => {

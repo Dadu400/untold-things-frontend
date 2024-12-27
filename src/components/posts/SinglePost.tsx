@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -20,13 +20,22 @@ export interface SinglePostProps {
     className?: string;
 }
 
-const SinglePost: FC<SinglePostProps> = ({id, messageTo, message, time, likes, shares, liked: initialLiked, onLike, onShare, onClick, className,
-                                         }) => {
-    const [liked, setLiked] = useState(initialLiked);
+function SinglePost ({ id, messageTo, message, time, likes, shares, liked: initialLiked, onLike, onShare, onClick, className } : SinglePostProps) {
+
+    const getInitialLikedState = () => {
+        const storedLiked = localStorage.getItem(`post_${id}_liked`);
+        return storedLiked !== null ? JSON.parse(storedLiked) : initialLiked;
+    };
+
+    const [liked, setLiked] = useState(getInitialLikedState());
     const [likeCount, setLikeCount] = useState(likes);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [shareCount, setShareCount] = useState(shares);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        localStorage.setItem(`post_${id}_liked`, JSON.stringify(liked));
+    }, [liked, id]);
 
     const handlePostClick = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -34,40 +43,71 @@ const SinglePost: FC<SinglePostProps> = ({id, messageTo, message, time, likes, s
         onClick();
     };
 
-    const handleLikeClick = (e: React.MouseEvent) => {
+    const handleLikeClick = async (e: React.MouseEvent) => {
         e.stopPropagation();
-        const newLikedState = !liked;
-        setLiked(newLikedState);
-        setLikeCount((prev) => (newLikedState ? prev + 1 : prev - 1));
-        onLike(id, newLikedState);
+
+        if (liked) {
+            console.log("Post is already liked.");
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8080/v1/messages/${id}/like`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ postId: id }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            setLiked(true);
+            setLikeCount((prev) => prev + 1);
+            localStorage.setItem(`post_${id}_liked`, JSON.stringify(true));
+
+        } catch (error) {
+            console.error("Error liking post:", error);
+        }
     };
+
 
     const handleShareClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         setIsModalOpen(true);
     };
 
-    const handleSharePost = () => {
+    const handleSharePost = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/v1/messages/${id}/share`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ postId: id }),
+            });
+        }
+        catch (error) {
+            console.error("Error sharing post:", error);
+        }
+
         setShareCount((prev) => prev + 1);
         onShare();
         setIsModalOpen(false);
     };
 
     return (
-        <div
-            onClick={handlePostClick}
-            className={`w-[300px] mx-auto h-[400px] bg-gray-100 flex flex-col rounded-2xl overflow-hidden shadow-lg cursor-pointer ${className}`}
-        >
+        <div onClick={handlePostClick} className={`w-[300px] mx-auto h-[400px] bg-gray-100 flex flex-col rounded-2xl overflow-hidden shadow-lg cursor-pointer ${className}`}>
             <div className="bg-[#f6f6f7] border-b border-b-gray-300 p-4 flex items-baseline justify-end gap-x-12">
                 <div className="flex flex-col items-center">
                     <AccountCircleIcon fontSize="large" style={{ color: "#999999" }} />
                     <span className="text-sm">{messageTo}</span>
                 </div>
                 <div className="flex gap-2">
-                    <div
-                        className="flex flex-col items-center cursor-pointer"
-                        onClick={handleLikeClick}
-                    >
+                    <div className="flex flex-col items-center cursor-pointer"
+                        onClick={handleLikeClick} >
                         {liked ? (
                             <FavoriteIcon style={{ color: "#0078FE" }} />
                         ) : (
@@ -104,6 +144,8 @@ const SinglePost: FC<SinglePostProps> = ({id, messageTo, message, time, likes, s
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
                 onSharePost={handleSharePost}
+                shareUrl={`https://racvergitxari.ge/post/${id}`}
+                shareMessage={`უთქმელი სიტყვები ${messageTo}ს: "${message}"`}
             />
         </div>
     );
