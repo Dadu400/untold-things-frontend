@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -51,6 +51,23 @@ function SinglePost ({ id, messageTo, message, time, likes, shares, liked: initi
         if (disabled) return;
 
         if (liked) {
+            try {
+                const response = await fetch(`http://localhost:8080/v1/messages/${id}/unlike`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ postId: id }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+            }
+            catch (error) {
+                console.error("Error unliking post:", error);
+            }
+
             setLiked(false);
             setLikeCount((prev) => prev - 1);
             localStorage.setItem(`post_${id}_liked`, JSON.stringify(false));

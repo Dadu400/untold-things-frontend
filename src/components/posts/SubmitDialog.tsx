@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Dialog from "../posts/Dialog";
 import SinglePost from "./SinglePost";
 import "./SubmitDialog.css";
@@ -14,6 +16,7 @@ interface SubmitDialogProps {
 const SubmitDialog: React.FC<SubmitDialogProps> = ({ isModalOpen, setIsModalOpen, messageTo, message, onSubmit }) => {
     const [isClicked, setIsClicked] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+    const navigate = useNavigate();
 
     const handleButtonClick = async () => {
         if (!isClicked && isChecked) {
@@ -23,6 +26,7 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ isModalOpen, setIsModalOpen
             setIsClicked(false);
             setIsModalOpen(false);
             onSubmit?.();
+            navigate("/");
         }
     };
 

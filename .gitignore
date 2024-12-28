@@ -24,3 +24,8 @@ yarn-error.log*
 
 # ignore .idea folder
 .idea/
+
+# amplify
+.amplify
+amplify_outputs*
+amplifyconfiguration*
