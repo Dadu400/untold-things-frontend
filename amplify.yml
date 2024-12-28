@@ -1,0 +1,18 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - nvm install 18.19.0         # Install Node.js version 18.19.0
+        - nvm use 18.19.0             # Use that specific version
+    build:
+      commands:
+        - npm install                # Install dependencies
+        - npm run build              # Build the project
+  artifacts:
+    baseDirectory: /build          # The folder to deploy from
+    files:
+      - '**/*'                     # Include all files from the build folder
+  cache:
+    paths:
+      - node_modules/**/*          # Cache node_modules to speed up builds
