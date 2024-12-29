@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -21,8 +21,7 @@ export interface SinglePostProps {
     disabled?: boolean;
 }
 
-function SinglePost ({ id, messageTo, message, time, likes, shares, liked: initialLiked, onLike, onShare, onClick, className, disabled} : SinglePostProps) {
-
+function SinglePost({ id, messageTo, message, time, likes, shares, liked: initialLiked, onShare, onClick, className, disabled }: SinglePostProps) {
     const getInitialLikedState = () => {
         const storedLiked = localStorage.getItem(`post_${id}_liked`);
         return storedLiked !== null ? JSON.parse(storedLiked) : initialLiked;
@@ -47,55 +46,31 @@ function SinglePost ({ id, messageTo, message, time, likes, shares, liked: initi
 
     const handleLikeClick = async (e: React.MouseEvent) => {
         e.stopPropagation();
-
         if (disabled) return;
 
-        if (liked) {
-            try {
-                const response = await fetch(`http://localhost:8080/v1/messages/${id}/unlike`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ postId: id }),
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-            }
-            catch (error) {
-                console.error("Error unliking post:", error);
-            }
-
-            setLiked(false);
-            setLikeCount((prev) => prev - 1);
-            localStorage.setItem(`post_${id}_liked`, JSON.stringify(false));
-            return;
-        }
+        const url = `${process.env.REACT_APP_API_URL}/v1/messages/${id}/${liked ? "unlike" : "like"}`;
+        const method = liked ? "DELETE" : "POST";
 
         try {
-            const response = await fetch(`http://localhost:8080/v1/messages/${id}/like`, {
-                method: 'POST',
+            const response = await fetch(url, {
+                method,
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ postId: id }),
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                new Error(`HTTP error! status: ${response.status}`);
             }
 
-            setLiked(true);
-            setLikeCount((prev) => prev + 1);
-            localStorage.setItem(`post_${id}_liked`, JSON.stringify(true));
-
+            setLiked(!liked);
+            setLikeCount((prev) => (liked ? prev - 1 : prev + 1));
+            localStorage.setItem(`post_${id}_liked`, JSON.stringify(!liked));
         } catch (error) {
-            console.error("Error liking post:", error);
+            console.error("Error toggling like state:", error);
         }
     };
-
 
     const handleShareClick = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -105,15 +80,14 @@ function SinglePost ({ id, messageTo, message, time, likes, shares, liked: initi
 
     const handleSharePost = async () => {
         try {
-             await fetch(`http://localhost:8080/v1/messages/${id}/share`, {
-                method: 'POST',
+            await fetch(`${process.env.REACT_APP_API_URL}/v1/messages/${id}/share`, {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ postId: id }),
             });
-        }
-        catch (error) {
+        } catch (error) {
             console.error("Error sharing post:", error);
         }
 
@@ -121,7 +95,6 @@ function SinglePost ({ id, messageTo, message, time, likes, shares, liked: initi
         onShare();
         setIsModalOpen(false);
     };
-
     return (
         <div onClick={handlePostClick} className={`w-[300px] mx-auto h-[400px] bg-gray-100 flex flex-col rounded-2xl overflow-hidden shadow-lg cursor-pointer ${className}`}>
             <div className="bg-[#f6f6f7] border-b border-b-gray-300 p-4 flex items-baseline justify-end gap-x-12">
@@ -173,6 +146,6 @@ function SinglePost ({ id, messageTo, message, time, likes, shares, liked: initi
             />
         </div>
     );
-};
+}
 
 export default SinglePost;

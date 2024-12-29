@@ -9,7 +9,7 @@ import useFetch from "../../UseFetch";
 gsap.registerPlugin(ScrollTrigger);
 
 const PostsList = () => {
-    const { posts, loading } = useFetch({ url: "http://localhost:8080/v1/messages" });
+    const { posts, loading } = useFetch({url: `${process.env.REACT_APP_API_URL}/v1/messages`, });
     const postsRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
 

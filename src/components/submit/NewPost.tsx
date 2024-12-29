@@ -34,7 +34,7 @@ function NewPost() {
 
     const handlePostSubmit = async () => {
         try {
-            const response = await fetch("http://localhost:8080/v1/messages", {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/v1/messages`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -46,7 +46,7 @@ function NewPost() {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to submit post");
+                new Error("Failed to submit post");
             }
 
             setTo("");
@@ -55,7 +55,6 @@ function NewPost() {
             console.error("Error submitting post:", error);
         }
     };
-
     return (
         <section className="mb-4 flex items-center">
             <form className="w-[340px] mx-auto h-[400px] flex flex-col rounded-2xl overflow-hidden shadow-lg bg-bgColor" onSubmit={handleFormSubmit}>

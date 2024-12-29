@@ -23,9 +23,9 @@ function PostWrapper() {
     useEffect(() => {
         const fetchPostData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/v1/messages/${params.id}`);
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/v1/messages/${params.id}`);
                 if (!response.ok) {
-                    throw new Error(`Error fetching post: ${response.statusText}`);
+                    new Error(`Error fetching post: ${response.statusText}`);
                 }
 
                 const data = await response.json();
@@ -55,7 +55,7 @@ function PostWrapper() {
             }
         };
 
-        fetchPostData();
+        fetchPostData().then(r => r);
     }, [params.id]);
 
     if (loading) {
