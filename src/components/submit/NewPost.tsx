@@ -1,5 +1,9 @@
 import { useState, useRef, ChangeEvent, FormEvent } from "react";
+
+import {useNavigate} from "react-router-dom";
+
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+
 import SubmitDialog from "../posts/SubmitDialog";
 
 function NewPost() {
@@ -9,6 +13,7 @@ function NewPost() {
     const [to, setTo] = useState<string>("");
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const navigate = useNavigate();
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTo(e.target.value.slice(0, MAX_INPUT_LENGTH));
@@ -40,13 +45,24 @@ function NewPost() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    to: to,
+                    to,
                     message: text,
                 }),
             });
 
             if (!response.ok) {
+                const errorText = await response.text();
+                console.error("API error response:", errorText);
                 new Error("Failed to submit post");
+            }
+
+            const data = await response.json();
+
+            if (data && data.messageId ) {
+                navigate(`/post/${data.messageId}`);
+            } else {
+                console.error("Invalid response structure or missing messageId:", data);
+                new Error("Response does not contain a valid message ID");
             }
 
             setTo("");
@@ -55,6 +71,8 @@ function NewPost() {
             console.error("Error submitting post:", error);
         }
     };
+
+
     return (
         <section className="mb-4 flex items-center">
             <form className="w-[340px] mx-auto h-[400px] flex flex-col rounded-2xl overflow-hidden shadow-lg bg-bgColor" onSubmit={handleFormSubmit}>

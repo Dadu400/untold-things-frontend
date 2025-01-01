@@ -7,11 +7,18 @@ import { useNavigate } from "react-router-dom";
 import useFetch from "../../UseFetch";
 
 gsap.registerPlugin(ScrollTrigger);
+type PostsListProps = {
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-const PostsList = () => {
-    const { posts, loading } = useFetch({url: `${process.env.REACT_APP_API_URL}/v1/messages`, });
+const PostsList: React.FC<PostsListProps> = ({ setLoading }) => {
+    const { posts, loading } = useFetch({ url: `${process.env.REACT_APP_API_URL}/v1/messages` });
     const postsRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setLoading(loading);
+    }, [loading, setLoading]);
 
     useEffect(() => {
         gsap.context(() => {
@@ -26,23 +33,11 @@ const PostsList = () => {
         }, postsRef);
     }, [posts]);
 
-    const handleLike = (id: number, liked: boolean) => {
-    };
+    const handleLike = (id: number, liked: boolean) => { };
+    const handleShare = (id: number) => { };
+    const navigateToPost = (id: number) => navigate(`/post/${id}`);
 
-    const handleShare = (id: number) => {
-
-    };
-
-    const navigateToPost = (id: number) => {
-        console.log(id);
-        navigate(`/post/${id}`);
-    };
-
-    if (loading) {
-        return <div>Loading posts...</div>;
-    }
-
-    if (!posts.length) {
+    if (!posts.length && !loading) {
         return <div>No posts available.</div>;
     }
 
@@ -60,8 +55,9 @@ const PostsList = () => {
                         time={new Date(post.timestamp).toLocaleString()}
                         likes={post.likes}
                         shares={post.shares}
+                        status={post.messageStatus}
                         liked={false}
-                        onLike={() => handleLike(post.id , true)}
+                        onLike={() => handleLike(post.id, true)}
                         onShare={() => handleShare(post.id)}
                         onClick={() => navigateToPost(post.id)}
                         disabled={false}

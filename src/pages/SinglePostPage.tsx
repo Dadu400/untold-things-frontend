@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 
-import SinglePost from "./SinglePost";
+import SinglePost from "../components/posts/SinglePost";
+import WarningBadge from "../components/posts/WarningBadge";
+
+import warningGif from "../assets/icons/warning.gif";
+import Rejected from "../assets/icons/rejected.svg";
 
 interface MessageData {
     id: number;
@@ -12,9 +16,10 @@ interface MessageData {
     likes: number;
     shares: number;
     liked: boolean;
+    messageStatus: string;
 }
 
-function PostWrapper() {
+function SinglePostPage() {
     const params = useParams<{ id: string }>();
     const [postData, setPostData] = useState<MessageData | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -37,6 +42,7 @@ function PostWrapper() {
                     likes,
                     shares,
                     timestamp,
+                    messageStatus
                 } = data.message;
 
                 setPostData({
@@ -46,7 +52,8 @@ function PostWrapper() {
                     likes,
                     shares,
                     liked: false,
-                    time: new Date(timestamp).toLocaleString()
+                    time: new Date(timestamp).toLocaleString(),
+                    messageStatus,
                 });
             } catch (err: any) {
                 setError(err.message);
@@ -58,14 +65,6 @@ function PostWrapper() {
         fetchPostData().then(r => r);
     }, [params.id]);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
-
     if (!postData) {
         return <div>No post found.</div>;
     }
@@ -74,22 +73,36 @@ function PostWrapper() {
         <>
             <Helmet>
                 <title>{`უთქმელი სიტყვები ${postData.MessageTo}ს, პოსტი #${postData.id} - რაც ვერ გითხარი`}</title>
-                <meta
-                    name="description"
-                    content={`უთქმელი სიტყვები ${postData.MessageTo}ს, პოსტი ID: ${postData.id}`}
-                />
+                <meta name="description" content={`უთქმელი სიტყვები ${postData.MessageTo}ს, პოსტი ID: ${postData.id}`} />
                 <meta property="og:title" content={`Post #${postData.id} - Untold Words`} />
-                <meta
-                    property="og:description"
-                    content={`უთქმელი სიტყვები ${postData.MessageTo}, პოსტი ID: ${postData.id}`}
-                />
+                <meta property="og:description" content={`უთქმელი სიტყვები ${postData.MessageTo}, პოსტი ID: ${postData.id}`} />
                 <meta property="og:type" content="article" />
-                <meta property="og:url" content={`http://localhost:3000/post/${postData.id}`} />
+                <meta property="og:url" content={`https://racvergitxari.ge/post/${postData.id}`} />
             </Helmet>
+            {postData.messageStatus === "PENDING" && (
+                <WarningBadge
+                    className="border-[#ffcc00]"
+                    text="მიმდინარეობს წერილის გადამოწმება"
+                    icon={warningGif}
+                    altText="Pending"
+                />
+            )}
+            {postData.messageStatus === "REJECTED" && (
+                <div className="flex flex-col self-center items-center gap-y-2 bg-white">
+                    <WarningBadge
+                    className="border-[#cc3300]"
+                    text="წერილი უარყოფილია"
+                    icon={Rejected}
+                    altText="Rejected"
+                    />
+                    <a href="/terms" className="font-dejavu text-lg text-[#cc3300]">გადახედე წესებს</a>
+                </div>
+            )}
             <SinglePost
                 id={postData.id}
                 messageTo={postData.MessageTo}
                 message={postData.message}
+                status={postData.messageStatus}
                 time={postData.time}
                 likes={postData.likes}
                 shares={postData.shares}
@@ -102,4 +115,4 @@ function PostWrapper() {
     );
 }
 
-export default PostWrapper;
+export default SinglePostPage;

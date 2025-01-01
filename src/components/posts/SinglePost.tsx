@@ -14,6 +14,7 @@ export interface SinglePostProps {
     likes: number;
     shares: number;
     liked: boolean;
+    status: string;
     onLike: (id: number, liked: boolean) => void;
     onShare: () => void;
     onClick: () => void;
@@ -21,7 +22,8 @@ export interface SinglePostProps {
     disabled?: boolean;
 }
 
-function SinglePost({ id, messageTo, message, time, likes, shares, liked: initialLiked, onShare, onClick, className, disabled }: SinglePostProps) {
+function SinglePost({ id, messageTo, message, time, likes, shares, liked: initialLiked, status, onShare, onClick, className, disabled }: SinglePostProps) {
+
     const getInitialLikedState = () => {
         const storedLiked = localStorage.getItem(`post_${id}_liked`);
         return storedLiked !== null ? JSON.parse(storedLiked) : initialLiked;

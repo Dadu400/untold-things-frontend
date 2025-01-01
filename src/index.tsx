@@ -1,4 +1,5 @@
 import ReactDOM from "react-dom/client";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import './index.css';
@@ -8,9 +9,10 @@ import AboutUs from "./pages/AboutUs";
 import Home from "./pages/Home";
 import Submit from "./pages/Submit";
 import Terms from "./pages/Terms";
+import SinglePostPage from "./pages/SinglePostPage";
+
 import HeartParticlesBackground from "./HeartParticlesBackground";
 import ParticlesBackground from "./ParticlesBackground";
-import PostWrapper from "./components/posts/PostWrapper";
 
 export default function App() {
     return (
@@ -22,7 +24,7 @@ export default function App() {
                     <Route path="terms" element={<Terms />} />
                 </Route>
                 <Route path="/post/:id" element={<Layout particlesComponent={<HeartParticlesBackground />} />}>
-                    <Route index element={<PostWrapper />} />
+                    <Route index element={<SinglePostPage />} />
                    </Route>
                 <Route path="/submit" element={<Layout particlesComponent={<ParticlesBackground />} />} >
                     <Route index element={<Submit />} />

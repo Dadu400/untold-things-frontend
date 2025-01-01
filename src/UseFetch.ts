@@ -6,6 +6,7 @@ export interface Post {
     timestamp: number;
     likes: number;
     shares: number;
+    messageStatus: string;
 }
 
 interface useFetchProps {
