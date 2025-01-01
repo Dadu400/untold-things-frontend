@@ -6,8 +6,8 @@ import {NavLink} from "react-router-dom";
 
 function Header() {
     return (
-        <header className="w-full px-8 py-2.5 bg-bgColor z-10">
-            <div className="w-[90%] md:w-[85%] lg:mx-auto flex items-center justify-between">
+        <header className="w-full px-8 py-2 bg-bgColor z-10 flex items-center justify-between">
+            <div className="w-full lg:w-[90%] lg:mx-auto flex items-center justify-between">
                 <NavLink
                     to="/">
                     <img src={logo} alt="logo" className="w-[70px] h-[70px]"/>

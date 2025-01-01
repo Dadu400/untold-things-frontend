@@ -70,7 +70,7 @@ function SinglePostPage() {
     }
 
     return (
-        <>
+        <section className="flex flex-col my-2 gap-2">
             <Helmet>
                 <title>{`უთქმელი სიტყვები ${postData.MessageTo}ს, პოსტი #${postData.id} - რაც ვერ გითხარი`}</title>
                 <meta name="description" content={`უთქმელი სიტყვები ${postData.MessageTo}ს, პოსტი ID: ${postData.id}`} />
@@ -111,7 +111,7 @@ function SinglePostPage() {
                 onShare={() => console.log("Shared!")}
                 onClick={() => console.log("Post clicked!")}
             />
-        </>
+        </section>
     );
 }
 

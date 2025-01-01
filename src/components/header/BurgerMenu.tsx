@@ -10,8 +10,8 @@ function BurgerMenu({ className }: BurgerMenuProps) {
     const [isMenuOpen, setMenuOpen] = useState(false);
 
     return (
-        <div className={`${className} cursor-pointer`}>
-            <MenuIcon onClick={() => setMenuOpen(!isMenuOpen)} />
+        <div className={`${className} cursor-pointer pt-4`}>
+            <MenuIcon onClick={() => setMenuOpen(!isMenuOpen)} fontSize={"medium"}/>
             {isMenuOpen && (
                 <BurgerMenuDialog setMenuOpen={setMenuOpen} />
             )}

@@ -104,7 +104,7 @@ function NewPost() {
                     />
                     <button
                         type="submit"
-                        className={`p-[2px] rounded-full flex items-center self-end text-white mt-2 ${isButtonDisabled ? "bg-gray-300" : "bg-[#007aff]"}`}
+                        className={`p-[2px] rounded-full flex items-center self-end text-white ${isButtonDisabled ? "bg-gray-300" : "bg-[#007aff]"}`}
                         disabled={isButtonDisabled}
                     >
                         <ArrowUpwardIcon style={{ fontSize: "14px" }} />
