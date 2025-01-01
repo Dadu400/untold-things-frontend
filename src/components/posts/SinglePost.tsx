@@ -24,6 +24,23 @@ export interface SinglePostProps {
 
 function SinglePost({ id, messageTo, message, time, likes, shares, liked: initialLiked, status, onShare, onClick, className, disabled }: SinglePostProps) {
 
+    const formatTime = (timeString: string) => {
+        const date = new Date(timeString);
+
+        const weekday = new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(date);
+        const day = new Intl.DateTimeFormat("en-US", { day: "numeric" }).format(date);
+        const month = new Intl.DateTimeFormat("en-US", { month: "short" }).format(date);
+        const time = new Intl.DateTimeFormat("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+        }).format(date);
+
+        return `${weekday}, ${day} ${month} at ${time}`;
+    };
+
+    const formattedTime = formatTime(time);
+
     const getInitialLikedState = () => {
         const storedLiked = localStorage.getItem(`post_${id}_liked`);
         return storedLiked !== null ? JSON.parse(storedLiked) : initialLiked;
@@ -126,7 +143,7 @@ function SinglePost({ id, messageTo, message, time, likes, shares, liked: initia
             <div className="flex flex-col items-center mb-32 p-2">
                 <div className="flex flex-col items-center">
                     <span className="text-xs text-gray-500 font-medium">Message</span>
-                    <span className="text-xs text-gray-500">{time}</span>
+                    <span className="text-xs text-gray-500">{formattedTime}</span>
                 </div>
                 <div className="flex flex-col self-end max-w-[240px] mt-3 mr-2 gap-1">
                     <div className="flex self-end">
