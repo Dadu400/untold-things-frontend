@@ -7,6 +7,7 @@ import WarningBadge from "../components/posts/WarningBadge";
 
 import warningGif from "../assets/icons/warning.gif";
 import Rejected from "../assets/icons/rejected.svg";
+import Loader from "../Loader";
 
 interface MessageData {
     id: number;
@@ -26,6 +27,7 @@ function SinglePostPage() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        setLoading(true);
         const fetchPostData = async () => {
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/v1/messages/${params.id}`);
@@ -58,15 +60,17 @@ function SinglePostPage() {
             } catch (err: any) {
                 setError(err.message);
             } finally {
-                setLoading(false);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 1000);
             }
         };
 
         fetchPostData().then(r => r);
     }, [params.id]);
 
-    if (!postData) {
-        return <div>No post found.</div>;
+    if (!postData || loading) {
+        return <Loader />;
     }
 
     return (

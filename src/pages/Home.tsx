@@ -37,7 +37,9 @@ const Home = () => {
         } catch (error) {
             console.error("Error fetching posts:", error);
         } finally {
-            setIsLoading(false);
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 1000);
         }
     };
 

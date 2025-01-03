@@ -3,7 +3,7 @@ import "./Loader.css";
 
 const Loader = () => {
     return (
-        <div className="flex flex-col items-center justify-center w-full h-full bg-rose-100">
+        <div className="fixed inset-0 flex flex-col items-center justify-center bg-rose-100 z-50">
             <div className="wing right"></div>
             <div className="wing left"></div>
             <div className="heart"></div>

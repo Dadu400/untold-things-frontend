@@ -58,7 +58,7 @@ const PostsList: React.FC<PostsListProps> = ({ posts }) => {
     return (
         <section ref={postsRef} className="w-[90%] md:w-[85%] flex flex-col mx-auto my-10">
             <TypedText />
-            <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-12 mt-10 place-items-center">
+            <div className="container grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 gap-y-12 mt-10 place-items-center">
                 {posts.map((post) => (
                     <SinglePost
                         key={post.id}
