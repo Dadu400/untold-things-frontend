@@ -74,7 +74,7 @@ function SinglePostPage() {
     }
 
     return (
-        <section className="flex flex-col my-2 gap-2">
+        <section className="flex flex-col my-2 gap-5">
             <Helmet>
                 <title>{`უთქმელი სიტყვები ${postData.MessageTo}ს, პოსტი #${postData.id} - რაც ვერ გითხარი`}</title>
                 <meta name="description" content={`უთქმელი სიტყვები ${postData.MessageTo}ს, პოსტი ID: ${postData.id}`} />

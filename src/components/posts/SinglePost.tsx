@@ -120,7 +120,7 @@ function SinglePost({ id, messageTo, message, time, likes, shares, liked: initia
         setIsModalOpen(false);
     };
     return (
-        <div onClick={handlePostClick} className={`w-[300px] h-[400px] bg-gray-100 flex flex-col rounded-2xl overflow-hidden shadow-lg cursor-pointer ${className}`}>
+        <div onClick={handlePostClick} className={`w-[300px] h-[400px] mx-auto bg-gray-100 flex flex-col rounded-2xl overflow-hidden shadow-lg cursor-pointer ${className}`}>
             <div className="bg-[#f6f6f7] border-b border-b-gray-300 px-4 py-5 flex items-center">
                 <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center">
                     <AccountCircleIcon fontSize="large" style={{color: "#999999", fontSize: "38px"}}/>

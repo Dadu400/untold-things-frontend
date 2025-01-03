@@ -15,45 +15,39 @@ const HeartParticlesBackground = () => {
         particles: {
             color: {
                 value: [
-                    "#F1CDE3", "#E03424",
+                    "#d93835", "#a4bafc",
                 ],
             },
             move: {
                 angle: {
                     offset: 0,
-                    value: 15,
+                    value: 30,
                 },
                 direction: "top",
                 enable: true,
                 outModes: {
                     default: "out",
                 },
-                speed: 3,
+                speed: 4,
             },
             number: {
-                value: 400,
+                value: 200,
             },
             opacity: {
-                value: 1,
+                value: 0.7,
             },
             shape: {
                 type: "heart",
             },
             size: {
                 value: 20,
-                random: true,
-            },
-            roll: {
-                enlighten: {
+                random: {
                     enable: true,
-                    value: 30,
+                    minimumValue: 15,
                 },
-                enable: true,
-                mode: "horizontal",
-                speed: {
-                    min: 5,
-                    max: 15,
-                },
+            },
+            stroke: {
+                width: 1,
             },
             zIndex: {
                 value: {
