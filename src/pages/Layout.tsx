@@ -4,9 +4,10 @@ import Footer from "../components/footer/Footer";
 
 interface LayoutProps {
     particlesComponent?: React.ReactNode;
+    resetHomeKey?: () => void;
 }
 
-const Layout = ({ particlesComponent }: LayoutProps) => {
+const Layout = ({ particlesComponent, resetHomeKey }: LayoutProps) => {
     return (
         <div className="relative min-h-[100vh] flex flex-col justify-between">
             {particlesComponent && (
@@ -14,7 +15,7 @@ const Layout = ({ particlesComponent }: LayoutProps) => {
                     {particlesComponent}
                 </div>
             )}
-            <Header />
+            <Header resetHomeKey={resetHomeKey} />
             <Outlet />
             <Footer />
         </div>

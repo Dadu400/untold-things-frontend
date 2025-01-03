@@ -1,15 +1,27 @@
 import { NavLink } from "react-router-dom";
 
-function Navbar() {
+interface NavbarProps {
+    resetHomeKey?: () => void;
+}
+
+function Navbar({ resetHomeKey }: NavbarProps) {
     const ClassName = "text-lg font-dejavu tracking-wider transition-colors duration-200 px-4 py-2";
+
+    const handleHomeClick = () => {
+        if (resetHomeKey) resetHomeKey();
+    };
 
     return (
         <nav>
             <ul className="hidden lg:flex items-center gap-6">
                 <li>
-                    <NavLink to="/" className={({ isActive }) =>
+                    <NavLink
+                        to="/"
+                        className={({ isActive }) =>
                             `${ClassName} ${isActive ? "text-white bg-black rounded-xl" : "text-gray-950"}`
-                        } >
+                        }
+                        onClick={handleHomeClick}
+                    >
                         წერილები
                     </NavLink>
                 </li>

@@ -4,28 +4,35 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SinglePost from "./SinglePost";
 import TypedText from "./TypedText";
 import { useNavigate } from "react-router-dom";
-import useFetch from "../../UseFetch";
+
+import NoPostsAvailable from "./NoPostsAvailable";
 
 gsap.registerPlugin(ScrollTrigger);
-type PostsListProps = {
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+
+type Post = {
+    id: number;
+    messageTo: string;
+    message: string;
+    timestamp: string;
+    likes: number;
+    shares: number;
+    messageStatus: string;
 };
 
-const PostsList: React.FC<PostsListProps> = ({ setLoading }) => {
-    const { posts, loading } = useFetch({ url: `${process.env.REACT_APP_API_URL}/v1/messages` });
+type PostsListProps = {
+    posts: Post[];
+};
+
+const PostsList: React.FC<PostsListProps> = ({ posts }) => {
     const postsRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        setLoading(loading);
-    }, [loading, setLoading]);
-
-    useEffect(() => {
         gsap.context(() => {
-            const posts = document.querySelectorAll(".single-post");
-            gsap.set(posts, { opacity: 0, y: 50 });
+            const postElements = document.querySelectorAll(".single-post");
+            gsap.set(postElements, { opacity: 0, y: 50 });
 
-            ScrollTrigger.batch(posts, {
+            ScrollTrigger.batch(postElements, {
                 start: "top 90%",
                 onEnter: (batch) =>
                     gsap.to(batch, { opacity: 1, y: 0, stagger: 0.2, duration: 1 }),
@@ -33,12 +40,19 @@ const PostsList: React.FC<PostsListProps> = ({ setLoading }) => {
         }, postsRef);
     }, [posts]);
 
-    const handleLike = (id: number, liked: boolean) => { };
-    const handleShare = (id: number) => { };
+
+    const handleLike = (id: number, liked: boolean) => {
+        console.log(`Post ${id} liked: ${liked}`);
+    };
+
+    const handleShare = (id: number) => {
+        console.log(`Post ${id} shared`);
+    };
+
     const navigateToPost = (id: number) => navigate(`/post/${id}`);
 
-    if (!posts.length && !loading) {
-        return <div>No posts available.</div>;
+    if (!posts.length) {
+        return <NoPostsAvailable />
     }
 
     return (
