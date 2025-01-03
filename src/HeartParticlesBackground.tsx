@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
 import { loadHeartShape } from 'tsparticles-shape-heart';
@@ -6,9 +6,44 @@ import type { Engine } from 'tsparticles-engine';
 import type { ISourceOptions } from 'tsparticles-engine';
 
 const HeartParticlesBackground = () => {
+    const [screenSize, setScreenSize] = useState<string>('lg');
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 1280) {
+                setScreenSize('lg');
+            } else if (window.innerWidth >= 1024) {
+                setScreenSize('md');
+            } else if (window.innerWidth >= 640) {
+                setScreenSize('sm');
+            } else {
+                setScreenSize('xs');
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize();
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const particlesInit = async (main: Engine) => {
         await loadFull(main);
         await loadHeartShape(main);
+    };
+
+    const getParticleNumber = (screen: string) => {
+        switch (screen) {
+            case 'lg':
+                return 300;
+            case 'md':
+                return 200;
+            case 'sm':
+                return 150;
+            case 'xs':
+            default:
+                return 100;
+        }
     };
 
     const particlesOptions: ISourceOptions = {
@@ -31,7 +66,7 @@ const HeartParticlesBackground = () => {
                 speed: 4,
             },
             number: {
-                value: 200,
+                value: getParticleNumber(screenSize),
             },
             opacity: {
                 value: 0.7,
