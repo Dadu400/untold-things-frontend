@@ -13,7 +13,7 @@ type Post = {
     id: number;
     messageTo: string;
     message: string;
-    timestamp: string;
+    timestamp: number;
     likes: number;
     shares: number;
     messageStatus: string;
@@ -66,7 +66,7 @@ const PostsList: React.FC<PostsListProps> = ({ posts }) => {
                         id={post.id}
                         messageTo={post.messageTo}
                         message={post.message}
-                        time={new Date(post.timestamp).toLocaleString()}
+                        timestamp={post.timestamp}
                         likes={post.likes}
                         shares={post.shares}
                         status={post.messageStatus}
