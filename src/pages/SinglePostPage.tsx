@@ -13,7 +13,7 @@ interface MessageData {
     id: number;
     MessageTo: string;
     message: string;
-    time: string;
+    timestamp: number;
     likes: number;
     shares: number;
     liked: boolean;
@@ -54,7 +54,7 @@ function SinglePostPage() {
                     likes,
                     shares,
                     liked: false,
-                    time: new Date(timestamp).toLocaleString(),
+                    timestamp,
                     messageStatus,
                 });
             } catch (err: any) {
@@ -107,7 +107,7 @@ function SinglePostPage() {
                 messageTo={postData.MessageTo}
                 message={postData.message}
                 status={postData.messageStatus}
-                time={postData.time}
+                timestamp={postData.timestamp}
                 likes={postData.likes}
                 shares={postData.shares}
                 liked={postData.liked}

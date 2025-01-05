@@ -10,7 +10,7 @@ export interface SinglePostProps {
     id: number;
     messageTo: string;
     message: string;
-    time: string;
+    timestamp: number;
     likes: number;
     shares: number;
     liked: boolean;
@@ -22,24 +22,20 @@ export interface SinglePostProps {
     disabled?: boolean;
 }
 
-function SinglePost({ id, messageTo, message, time, likes, shares, liked: initialLiked, status, onShare, onClick, className, disabled }: SinglePostProps) {
+function SinglePost({ id, messageTo, message, timestamp, likes, shares, liked: initialLiked, status, onShare, onClick, className, disabled }: SinglePostProps) {
 
-    const formatTime = (timeString: string) => {
-        const date = new Date(timeString);
-
-        const weekday = new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(date);
-        const day = new Intl.DateTimeFormat("en-US", { day: "numeric" }).format(date);
-        const month = new Intl.DateTimeFormat("en-US", { month: "short" }).format(date);
-        const time = new Intl.DateTimeFormat("en-US", {
+    const formatTime = (timestamp : number) => {
+        const date = new Date(timestamp);
+        return new Intl.DateTimeFormat("en-US", {
+            weekday: "short",
+            day: "numeric",
+            month: "short",
             hour: "2-digit",
             minute: "2-digit",
             hour12: false,
+            timeZone: "Asia/Tbilisi",
         }).format(date);
-
-        return `${weekday}, ${day} ${month} at ${time}`;
     };
-
-    const formattedTime = formatTime(time);
 
     const getInitialLikedState = () => {
         const storedLiked = localStorage.getItem(`post_${id}_liked`);
@@ -145,7 +141,7 @@ function SinglePost({ id, messageTo, message, time, likes, shares, liked: initia
             <div className="flex flex-col items-center mb-32 p-2">
                 <div className="flex flex-col items-center">
                     <span className="text-xs text-gray-500 font-medium">Message</span>
-                    <span className="text-xs text-gray-500">{formattedTime}</span>
+                    <span className="text-xs text-gray-500">{formatTime(timestamp)}</span>
                 </div>
                 <div className="flex flex-col self-end max-w-[240px] mt-3 mr-2 gap-1">
                     <div className="flex self-end">
