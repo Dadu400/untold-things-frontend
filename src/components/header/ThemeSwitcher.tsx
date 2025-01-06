@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -8,9 +8,18 @@ interface ThemeSwitcherProps {
 }
 
 function ThemeSwitcher({ className }: ThemeSwitcherProps) {
-    const [darkMode, setDarkMode] = useState(
-        window.localStorage.getItem("theme") === "dark"
-    );
+    const [darkMode, setDarkMode] = useState(false);
+
+    useEffect(() => {
+        const theme = window.localStorage.getItem("theme");
+        if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+            setDarkMode(true);
+        } else if (theme === "light") {
+            document.documentElement.classList.remove("dark");
+            setDarkMode(false);
+        }
+    }, []);
 
     const toggleDarkMode = () => {
         const newDarkMode = !darkMode;
