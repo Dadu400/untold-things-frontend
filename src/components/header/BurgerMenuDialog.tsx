@@ -1,6 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close';
 import PostButton from "./PostButton";
 import {NavLink} from "react-router-dom";
+import ThemeSwitcher from './ThemeSwitcher';
 
 export interface BurgerMenuDialogProps {
     setMenuOpen: (isOpen: boolean) => void;
@@ -10,7 +11,7 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
         setMenuOpen(false);
     };
     return (
-        <div className="navbar fixed top-0 right-0 h-screen w-48 p-6 bg-bgColor shadow-lg cursor-normal z-10">
+        <div className="navbar fixed top-0 right-0 h-screen w-48 p-6 bg-bgColor dark:bg-bgDark shadow-lg cursor-normal z-10">
             <div className="flex justify-end mb-5">
                 <CloseIcon onClick={handleMenuClick} />
             </div>
@@ -19,21 +20,21 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
                     <li>
                         <NavLink
                             to="/"
-                            className= "text-lg font-dejavu tracking-wider text-gray-950"
+                            className= "text-lg font-dejavu tracking-wider text-gray-950 dark:text-white"
                             onClick={handleMenuClick}>
                             წერილები
                         </NavLink>
                     </li>
-                    <li className="text-lg font-dejavu tracking-wider text-gray-500">
+                    <li className="text-lg font-dejavu tracking-wider text-gray-500 cursor-default dark:text-gray-300">
                         ანონიმური SMS
                     </li>
-                    <li className="text-lg font-dejavu tracking-wider text-gray-500">
+                    <li className="text-lg font-dejavu tracking-wider text-gray-500 cursor-default dark:text-gray-300">
                         ჩვენზე
                     </li>
                     <li>
                         <NavLink
                             to="/terms"
-                            className= "text-lg font-dejavu tracking-wider text-gray-950"
+                            className= "text-lg font-dejavu tracking-wider text-gray-950 dark:text-white"
                             onClick={handleMenuClick} >
                             წესები
                         </NavLink>
@@ -41,8 +42,9 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
                 </ul>
             </div>
             <div className="flex justify-start gap-[15px] mt-5">
-                <div className="flex gap-[10px] justify-center items-center">
+                <div className="flex gap-[10px] items-center">
                     <PostButton className="flex lg:hidden" onClick={handleMenuClick}/>
+                    <ThemeSwitcher className="flex lg:hidden" />
                 </div>
             </div>
         </div>

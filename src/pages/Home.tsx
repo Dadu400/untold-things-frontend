@@ -82,7 +82,7 @@ const Home = () => {
                 <meta property="og:locale" content="ka_GE" />
             </Helmet>
             {isLoading && (
-                <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
+                <div className="fixed inset-0 flex items-center justify-center z-50">
                     <Loader />
                 </div>
             )}

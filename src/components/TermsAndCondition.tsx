@@ -1,8 +1,8 @@
 function TermsAndCondition() {
     return (
-        <section className="w-[90%] md:w-[80%] flex flex-col mx-auto">
-            <div className="mb-10">
-                <h1 className="text-3xl font-firago tracking-wider">წესები და პირობები</h1>
+        <section className="w-[90%] md:w-[80%] flex flex-col mx-auto mt-10 xl:mt-0">
+            <div className="mb-10 flex">
+                <h1 className="text-3xl font-firago tracking-wider self-center">წესები და პირობები</h1>
             </div>
             <div className="flex flex-col space-y-6 font-roboto">
                 <span className="font-roboto text-[16px]">⛔ პლატფორმაზე აკრძალულია სხვა პირის პირადი ან იდენტიფიცირებადი ინფორმაციის გამოქვეყნება, როგორიცაა:

@@ -75,36 +75,36 @@ function NewPost() {
 
     return (
         <section className="mb-4 flex items-center">
-            <form className="w-[340px] mx-auto h-[400px] flex flex-col rounded-2xl overflow-hidden shadow-lg bg-bgColor" onSubmit={handleFormSubmit}>
-                <header className="bg-[#f6f6f7] border-b border-b-gray-300 p-4 flex items-baseline justify-center gap-x-16">
+            <form className="w-[340px] mx-auto h-[400px] flex flex-col rounded-2xl overflow-hidden shadow-lg bg-bgColor dark:bg-[#1f1f1f]" onSubmit={handleFormSubmit}>
+                <header className="bg-[#f6f6f7] dark:bg-[#1f1f1f] border-b border-b-gray-300 dark:border-gray-500 p-4 flex items-baseline justify-center gap-x-16">
                     <h2 className="text-xl font-firago">მიწერე წერილი</h2>
                 </header>
-                <div className="bg-bgColor">
-                    <div className="flex items-baseline border-b border-gray-300">
-                        <span className="text-[#3c3c43] pl-4 pr-2 font-firago">ვის:</span>
+                <div className=" dark:bg-[#1f1f1f]">
+                    <div className="flex items-baseline border-b border-gray-300 dark:border-gray-500 z-10 bg-bgColor dark:bg-[#1f1f1f]">
+                        <span className="text-[#3c3c43] dark:text-white pl-4 pr-2 font-firago">ვის:</span>
                         <input
                             placeholder="სახელი"
                             type="text"
                             value={to}
                             onChange={handleInputChange}
                             maxLength={MAX_INPUT_LENGTH}
-                            className="font-roboto flex-1 py-2 px-2 bg-bgColor outline-none text-sm placeholder:font-dejavu placeholder:tracking-wider"
+                            className="font-roboto flex-1 py-2 px-2 bg-bgColor dark:bg-[#1f1f1f] outline-none text-sm placeholder:font-dejavu placeholder:tracking-wider"
                         />
                     </div>
                 </div>
-                <div className="flex-1 bg-bgColor"></div>
-                <footer className="bg-bgColor p-2 my-4 flex justify-between items-center border-[1px] border-gray-300 rounded-xl mx-3">
+                <div className="flex-1 bg-bgColor dark:bg-[#1f1f1f]"></div>
+                <footer className="dark:bg-[#1f1f1f] p-2 my-4 flex justify-between items-center border-[1px] border-gray-300 dark:border-gray-500 rounded-xl mx-3 z-10 bg-bgColor">
                     <textarea
                         ref={textareaRef}
                         placeholder="ყოველთვის მინდოდა მეთქვა, რომ..."
                         value={text}
                         onChange={handleTextareaChange}
                         maxLength={MAX_TEXT_LENGTH}
-                        className="w-full font-roboto outline-none resize-none bg-bgColor overflow-hidden text-sm h-[20px] pl-2 placeholder:font-dejavu placeholder:tracking-wider"
+                        className="w-full font-roboto outline-none resize-none bg-bgColor dark:bg-[#1f1f1f] overflow-hidden text-sm h-[20px] pl-2 placeholder:font-dejavu placeholder:tracking-wider"
                     />
                     <button
                         type="submit"
-                        className={`p-[2px] rounded-full flex items-center self-end text-white ${isButtonDisabled ? "bg-gray-300" : "bg-[#007aff]"}`}
+                        className={`p-[2px] rounded-full flex items-center self-end text-white ${isButtonDisabled ? "bg-gray-300 dark:bg-gray-500" : "bg-[#007aff]"}`}
                         disabled={isButtonDisabled}
                     >
                         <ArrowUpwardIcon style={{ fontSize: "14px" }} />

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import SinglePost from "../components/posts/SinglePost";
 import WarningBadge from "../components/posts/WarningBadge";
 
-import warningGif from "../assets/icons/warning.gif";
+import warning from "../assets/icons/warning.svg";
 import Rejected from "../assets/icons/rejected.svg";
 import Loader from "../Loader";
 
@@ -85,16 +85,16 @@ function SinglePostPage() {
             </Helmet>
             {postData.messageStatus === "PENDING" && (
                 <WarningBadge
-                    className="border-[#ffcc00]"
+                    className="border-[#ffcc00] bg-bg dark:bg-bgDark"
                     text="მიმდინარეობს წერილის გადამოწმება"
-                    icon={warningGif}
+                    icon={warning}
                     altText="Pending"
                 />
             )}
             {postData.messageStatus === "REJECTED" && (
-                <div className="flex flex-col self-center items-center gap-y-2 bg-white">
+                <div className="flex flex-col self-center items-center gap-y-2 bg-bgColor dark:bg-bgDark rounded-md">
                     <WarningBadge
-                    className="border-[#cc3300]"
+                    className="border-[#cc3300] bg-bgColor dark:bg-bgDark"
                     text="წერილი უარყოფილია"
                     icon={Rejected}
                     altText="Rejected"
@@ -115,6 +115,7 @@ function SinglePostPage() {
                 onShare={() => console.log("Shared!")}
                 onClick={() => console.log("Post clicked!")}
             />
+            <span>{error}</span>
         </section>
     );
 }

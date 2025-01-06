@@ -14,7 +14,7 @@ function SearchBar({ setQueryValue, onSearchClicked } : { setQueryValue: (value:
                 <div className="relative w-full">
                     <input
                         placeholder="მოძებნე სახელის მიხედვით..."
-                        className="w-full border-gray border-[1px] outline-none text-sm md:text-lg rounded-xl h-10 py-6 px-4 font-dejavu tracking-widest"
+                        className="w-full border-gray border-[1px] outline-none text-sm dark:text-gray-100 md:text-lg rounded-xl h-10 py-6 px-4 font-dejavu tracking-widest dark:bg-bgDark"
                         aria-label="Search by name"
                         onChange={e => setQueryValue(e.target.value)}
                         onKeyDown={e => handleKeyDown(e)}

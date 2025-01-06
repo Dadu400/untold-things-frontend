@@ -29,7 +29,7 @@ function ShareDialog({ isModalOpen, setIsModalOpen, onSharePost, shareUrl, share
     };
 
     return (
-        <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)} className="max-w-[300px] md:max-w-[340px]">
+        <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)} className="max-w-[300px] md:max-w-[340px] dark:bg-bgDark">
             <div className="flex flex-col items-center">
                 <h2 className="text-2xl font-semibold font-firago">გააზიარე წერილი</h2>
                 <div className="flex space-x-4 py-3">

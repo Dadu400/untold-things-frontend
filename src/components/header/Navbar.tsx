@@ -18,24 +18,24 @@ function Navbar({ resetHomeKey }: NavbarProps) {
                     <NavLink
                         to="/"
                         className={({ isActive }) =>
-                            `${ClassName} ${isActive ? "text-white bg-black rounded-xl" : "text-gray-950"}`
+                            `${ClassName} ${isActive ? "text-white bg-black rounded-xl dark:text-gray-950 dark:bg-white" : "text-gray-950 dark:text-white"}`
                         }
                         onClick={handleHomeClick}
                     >
                         წერილები
                     </NavLink>
                 </li>
-                <li className={`${ClassName} text-gray-500 cursor-default`}>
+                <li className={`${ClassName} text-gray-500 cursor-default dark:text-gray-300`}>
                     ანონიმური SMS
                 </li>
-                <li className={`${ClassName} text-gray-500 cursor-default`}>
+                <li className={`${ClassName} text-gray-500 cursor-default dark:text-gray-300`}>
                     ჩვენზე
                 </li>
                 <li>
                     <NavLink
                         to="/terms"
                         className={({ isActive }) =>
-                            `${ClassName} ${isActive ? "text-white bg-black rounded-xl" : "text-gray-950"}`
+                            `${ClassName} ${isActive ? "text-white bg-black rounded-xl dark:text-gray-950 dark:bg-white" : "text-gray-950 dark:text-white"}`
                         }
                     >
                         წესები
