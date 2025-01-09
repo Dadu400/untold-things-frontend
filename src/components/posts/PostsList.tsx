@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SinglePost from "./SinglePost";
-import TypedText from "./TypedText";
 import { useNavigate } from "react-router-dom";
 
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import SinglePost from "./SinglePost";
+import TypedText from "./TypedText";
 import NoPostsAvailable from "./NoPostsAvailable";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -28,19 +29,24 @@ const PostsList: React.FC<PostsListProps> = ({ posts }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        gsap.context(() => {
-            const postElements = document.querySelectorAll(".single-post");
-            gsap.set(postElements, { opacity: 0, y: 50 });
+        const context = gsap.context(() => {
+            const postElements = postsRef.current?.querySelectorAll(".single-post");
 
-            ScrollTrigger.batch(postElements, {
-                start: "top 90%",
-                onEnter: (batch) =>
-                    gsap.to(batch, { opacity: 1, y: 0, stagger: 0.2, duration: 1 }),
-            });
+            if (postElements && postElements.length > 0) {
+                gsap.set(postElements, { opacity: 0, y: 50 });
+
+                ScrollTrigger.batch(postElements, {
+                    start: "top 90%",
+                    onEnter: (batch) =>
+                        gsap.to(batch, { opacity: 1, y: 0, stagger: 0.2, duration: 1 }),
+                });
+            }
         }, postsRef);
+
+        return () => {
+            context.revert();
+        };
     }, [posts]);
-
-
     const handleLike = (id: number, liked: boolean) => {
         console.log(`Post ${id} liked: ${liked}`);
     };
