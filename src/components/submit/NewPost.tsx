@@ -93,7 +93,7 @@ function NewPost() {
                     </div>
                 </div>
                 <div className="flex-1 bg-bgColor dark:bg-[#1f1f1f]"></div>
-                <footer className="dark:bg-[#1f1f1f] p-2 my-4 flex justify-between items-center border-[1px] border-gray-300 dark:border-gray-500 rounded-xl mx-3 z-10 bg-bgColor">
+                <footer className="dark:bg-[#1f1f1f] p-2 my-4 flex justify-between items-center border-[1px] border-gray-300 dark:border-gray-500 rounded-xl mx-3 bg-bgColor">
                     <textarea
                         ref={textareaRef}
                         placeholder="ყოველთვის მინდოდა მეთქვა, რომ..."

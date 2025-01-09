@@ -1,17 +1,37 @@
+import { useEffect, useRef } from 'react';
+import { NavLink } from "react-router-dom";
+
 import CloseIcon from '@mui/icons-material/Close';
+
 import PostButton from "./PostButton";
-import {NavLink} from "react-router-dom";
 import ThemeSwitcher from './ThemeSwitcher';
 
 export interface BurgerMenuDialogProps {
     setMenuOpen: (isOpen: boolean) => void;
 }
 function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
+    const dialogRef = useRef<HTMLDivElement>(null);
     const handleMenuClick = () => {
         setMenuOpen(false);
     };
+
+    const handleClickOutside = (e: MouseEvent) => {
+        if (dialogRef.current && !dialogRef.current.contains(e.target as Node)) {
+            setMenuOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
     return (
-        <div className="navbar fixed top-0 right-0 h-screen w-48 p-6 bg-bgColor dark:bg-bgDark shadow-lg cursor-normal z-10">
+        <div
+            ref={dialogRef}
+            className="navbar fixed top-0 right-0 h-screen w-48 p-6 bg-bgColor shadow-lg cursor-normal z-10">
             <div className="flex justify-end mb-5">
                 <CloseIcon onClick={handleMenuClick} />
             </div>
