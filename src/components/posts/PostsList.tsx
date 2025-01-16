@@ -47,6 +47,7 @@ const PostsList: React.FC<PostsListProps> = ({ posts }) => {
             context.revert();
         };
     }, [posts]);
+    
     const handleLike = (id: number, liked: boolean) => {
         console.log(`Post ${id} liked: ${liked}`);
     };
@@ -55,7 +56,9 @@ const PostsList: React.FC<PostsListProps> = ({ posts }) => {
         console.log(`Post ${id} shared`);
     };
 
-    const navigateToPost = (id: number) => navigate(`/post/${id}`);
+    const navigateToPost = (id: number) => {
+        navigate(`/post/${id}`, { state: { fromList: true } });
+    };
 
     if (!posts.length) {
         return <NoPostsAvailable />

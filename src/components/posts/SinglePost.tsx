@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -50,21 +49,23 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, liked: i
     const [likeCount, setLikeCount] = useState(likes);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [shareCount, setShareCount] = useState(shares);
-    const navigate = useNavigate();
 
     useEffect(() => {
         localStorage.setItem(`post_${id}_liked`, JSON.stringify(liked));
     }, [liked, id]);
 
     const handlePostClick = (e: React.MouseEvent) => {
+        e.preventDefault();
         e.stopPropagation();
         if (disabled) return;
-        navigate(`/post/${id}`);
-        onClick();
+        onClick(); 
     };
 
+
     const handleLikeClick = async (e: React.MouseEvent) => {
+        e.preventDefault();
         e.stopPropagation();
+
         if (disabled) return;
 
         const nextLikedState = !liked;
@@ -97,6 +98,7 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, liked: i
     };
 
     const handleShareClick = (e: React.MouseEvent) => {
+        e.preventDefault();
         e.stopPropagation();
         if (disabled) return;
         setIsModalOpen(true);
