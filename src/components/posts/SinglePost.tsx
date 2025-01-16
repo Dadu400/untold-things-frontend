@@ -26,7 +26,7 @@ export interface SinglePostProps {
     disabled?: boolean;
 }
 
-function SinglePost({ id, messageTo, message, timestamp, likes, shares, liked: initialLiked, status, onShare, onClick, className, disabled }: SinglePostProps) {
+function SinglePost({ id, messageTo, message, timestamp, likes, shares, liked: initialLiked, onShare, onClick, className, disabled }: SinglePostProps) {
 
     const formatTime = (timestamp : number) => {
         const date = new Date(timestamp);
@@ -120,7 +120,7 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, liked: i
         setIsModalOpen(false);
     };
     return (
-        <div onClick={handlePostClick} className={`w-[300px] h-[400px] mx-auto bg-gray-100 dark:bg-[#1f1f1f] flex flex-col rounded-2xl overflow-hidden shadow-lg cursor-pointer ${className}`}>
+        <div onClick={handlePostClick} className={`w-[300px] h-[410px] mx-auto bg-gray-100 dark:bg-[#1f1f1f] flex flex-col rounded-2xl overflow-hidden shadow-lg cursor-pointer ${className}`}>
             <div className="bg-[#f6f6f7] dark:bg-[#1f1f1f] border-b border-b-gray-300 dark:border-b-gray-600 px-4 py-5 flex items-center">
                 <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center">
                     <img src={UserIcon} alt="User" className="w-12 h-12 rounded-full"/>
