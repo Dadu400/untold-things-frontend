@@ -27,7 +27,7 @@ export interface SinglePostProps {
 
 function SinglePost({ id, messageTo, message, timestamp, likes, shares, liked: initialLiked, onShare, onClick, className, disabled }: SinglePostProps) {
 
-    const formatTime = (timestamp : number) => {
+    const formatTime = (timestamp: number) => {
         const date = new Date(timestamp);
         return new Intl.DateTimeFormat("en-US", {
             weekday: "short",
@@ -58,9 +58,8 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, liked: i
         e.preventDefault();
         e.stopPropagation();
         if (disabled) return;
-        onClick(); 
+        onClick();
     };
-
 
     const handleLikeClick = async (e: React.MouseEvent) => {
         e.preventDefault();
@@ -121,45 +120,59 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, liked: i
         onShare();
         setIsModalOpen(false);
     };
+    
     return (
-        <div onClick={handlePostClick} className={`w-[300px] h-[410px] mx-auto bg-gray-100 dark:bg-[#1f1f1f] flex flex-col rounded-2xl overflow-hidden shadow-lg cursor-pointer ${className}`}>
-            <div className="bg-[#f6f6f7] dark:bg-[#1f1f1f] border-b border-b-gray-300 dark:border-b-gray-600 px-4 py-5 flex items-center">
-                <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center">
-                    <img src={UserIcon} alt="User" className="w-12 h-12 rounded-full"/>
-                    <span className="text-sm">{messageTo}</span>
-                </div>
-                <div className="ml-auto flex gap-2">
-                    <div className="flex flex-col items-center cursor-pointer" onClick={handleLikeClick}>
-                        {liked && !disabled ? (
-                            <FavoriteIcon style={{color: "#0078FE"}}/>
-                        ) : (
-                            <FavoriteBorderIcon style={{color: "#0078FE"}}/>
-                        )}
-                        <span className="text-xs text-gray-500 dark:text-gray-300">{likeCount}</span>
+        <div className={`w-[300px] h-[410px] mx-auto bg-gray-100 dark:bg-[#1f1f1f] flex flex-col rounded-2xl overflow-hidden shadow-lg ${className}`}>
+            <a
+                href={`/post/${id}`}
+                className="flex flex-col h-full cursor-pointer"
+                onClick={handlePostClick}
+                role="article"
+                aria-label={`View message to ${messageTo}`}
+            >
+                <div className="bg-[#f6f6f7] dark:bg-[#1f1f1f] border-b border-b-gray-300 dark:border-b-gray-600 px-4 py-5 flex items-center">
+                    <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center">
+                        <img src={UserIcon} alt="User" className="w-12 h-12 rounded-full" />
+                        <span className="text-sm">{messageTo}</span>
                     </div>
-                    <div className="flex flex-col items-center cursor-pointer" onClick={handleShareClick}>
-                        <ShareIcon style={{color: "#0078FE"}}/>
-                        <span className="text-xs text-gray-500 dark:text-gray-300">{shareCount}</span>
+                    <div className="ml-auto flex gap-2">
+                        <button
+                            className="flex flex-col items-center cursor-pointer"
+                            onClick={handleLikeClick}
+                        >
+                            {liked && !disabled ? (
+                                <FavoriteIcon style={{ color: "#0078FE" }} />
+                            ) : (
+                                <FavoriteBorderIcon style={{ color: "#0078FE" }} />
+                            )}
+                            <span className="text-xs text-gray-500 dark:text-gray-300">{likeCount}</span>
+                        </button>
+                        <button
+                            className="flex flex-col items-center cursor-pointer"
+                            onClick={handleShareClick}
+                        >
+                            <ShareIcon style={{ color: "#0078FE" }} />
+                            <span className="text-xs text-gray-500 dark:text-gray-300">{shareCount}</span>
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div className="flex flex-col items-center mb-32 p-2">
-                <div className="flex flex-col items-center">
-                    <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Message</span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{formatTime(timestamp)}</span>
-                </div>
-                <div className="flex flex-col self-end max-w-[240px] mt-3 mr-2 gap-1">
-                    <div className="flex self-end">
-                        <span
-                            className="word-break bg-[#248bf5] p-2 text-sm leading-normal rounded-xl text-white text-wrap">
-                            {message}
-                        </span>
+                <div className="flex flex-col items-center mb-32 p-2">
+                    <div className="flex flex-col items-center">
+                        <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Message</span>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">{formatTime(timestamp)}</span>
                     </div>
-                    <p className="flex items-center text-gray-500 dark:text-gray-400 self-end text-xs font-semibold">
-                        Delivered
-                    </p>
+                    <div className="flex flex-col self-end max-w-[240px] mt-3 mr-2 gap-1">
+                        <div className="flex self-end">
+                            <span className="word-break bg-[#248bf5] p-2 text-sm leading-normal rounded-xl text-white text-wrap">
+                                {message}
+                            </span>
+                        </div>
+                        <p className="flex items-center text-gray-500 dark:text-gray-400 self-end text-xs font-semibold">
+                            Delivered
+                        </p>
+                    </div>
                 </div>
-            </div>
+            </a>
             <ShareDialog
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
