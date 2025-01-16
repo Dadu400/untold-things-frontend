@@ -25,7 +25,7 @@ export interface SinglePostProps {
     disabled?: boolean;
 }
 
-function SinglePost({ id, messageTo, message, timestamp, likes, shares, liked: initialLiked, onShare, onClick, className, disabled }: SinglePostProps) {
+function SinglePost({ id, messageTo, message, timestamp, likes, shares, status, liked: initialLiked, onShare, onClick, className, disabled }: SinglePostProps) {
 
     const formatTime = (timestamp: number) => {
         const date = new Date(timestamp);
@@ -54,10 +54,14 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, liked: i
         localStorage.setItem(`post_${id}_liked`, JSON.stringify(liked));
     }, [liked, id]);
 
+    const isInteractionDisabled = status === "PENDING" || status === "REJECTED";
+
     const handlePostClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        if (disabled) return;
+        
+        if (disabled || isInteractionDisabled) return;
+
         onClick();
     };
 
@@ -65,7 +69,7 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, liked: i
         e.preventDefault();
         e.stopPropagation();
 
-        if (disabled) return;
+        if (disabled || isInteractionDisabled) return;
 
         const nextLikedState = !liked;
         const nextLikeCount = liked ? likeCount - 1 : likeCount + 1;
@@ -99,7 +103,8 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, liked: i
     const handleShareClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        if (disabled) return;
+
+        if (disabled || isInteractionDisabled) return;
         setIsModalOpen(true);
     };
 
@@ -120,7 +125,7 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, liked: i
         onShare();
         setIsModalOpen(false);
     };
-    
+
     return (
         <div className={`w-[300px] h-[410px] mx-auto bg-gray-100 dark:bg-[#1f1f1f] flex flex-col rounded-2xl overflow-hidden shadow-lg ${className}`}>
             <a
