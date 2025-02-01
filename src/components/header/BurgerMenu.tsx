@@ -14,6 +14,7 @@ function BurgerMenu({ className }: BurgerMenuProps) {
             {isMenuOpen && (
                 <BurgerMenuDialog setMenuOpen={setMenuOpen} />
             )}
+
         </div>
     )
 };
