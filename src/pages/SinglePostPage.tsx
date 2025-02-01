@@ -1,91 +1,37 @@
-import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 
 import SinglePost from "../components/posts/SinglePost";
 import WarningBadge from "../components/posts/WarningBadge";
+import Loader from "../Loader";
 
 import warning from "../assets/icons/warning.svg";
 import Rejected from "../assets/icons/rejected.svg";
-import Loader from "../Loader";
 
-interface MessageData {
-    id: number;
-    MessageTo: string;
-    message: string;
-    timestamp: number;
-    likes: number;
-    shares: number;
-    liked: boolean;
-    messageStatus: string;
-}
+import { useSinglePost } from "../hooks/useSinglePost";
+import NoPostsAvailable from "../components/posts/NoPostsAvailable";
 
 function SinglePostPage() {
-    const params = useParams<{ id: string }>();
-    const [postData, setPostData] = useState<MessageData | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+    const { id } = useParams<{ id: string }>();
+    const { postData, loading, error } = useSinglePost(id || "");
 
-    useEffect(() => {
-        setLoading(true);
-        const fetchPostData = async () => {
-            try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/v1/messages/${params.id}`);
-                if (!response.ok) {
-                    new Error(`Error fetching post: ${response.statusText}`);
-                }
-
-                const data = await response.json();
-
-                const {
-                    id,
-                    message,
-                    messageTo,
-                    likes,
-                    shares,
-                    timestamp,
-                    messageStatus
-                } = data.message;
-
-                setPostData({
-                    id,
-                    message,
-                    MessageTo: messageTo,
-                    likes,
-                    shares,
-                    liked: false,
-                    timestamp,
-                    messageStatus,
-                });
-            } catch (err: any) {
-                setError(err.message);
-            } finally {
-                setTimeout(() => {
-                    setLoading(false);
-                }, 1000);
-            }
-        };
-
-        fetchPostData().then(r => r);
-    }, [params.id]);
-
-    if (!postData || loading) {
-        return <Loader />;
-    }
+    if (loading) return <Loader />;
+    if (error) return <NoPostsAvailable />;
+    if (!postData) return <NoPostsAvailable />;
 
     return (
         <section className="flex flex-col my-2 gap-5">
             <Helmet>
-                <title>{`უთქმელი სიტყვები ${postData.MessageTo}ს, პოსტი #${postData.id} - რაც ვერ გითხარი`}</title>
-                <link rel="icon" href="./favicon.ico" />
-                <meta name="description" content={`უთქმელი სიტყვები ${postData.MessageTo}ს, პოსტი ID: ${postData.id}`}/>
-                <meta property="og:title" content={`Post #${postData.id} - Untold Words`}/>
-                <meta property="og:description" content={`უთქმელი სიტყვები ${postData.MessageTo}, პოსტი ID: ${postData.id}`}/>
-                <meta property="og:image" content="https://i.imghippo.com/files/FTnu8581Boo.jpg"/>
-                <meta property="og:type" content="article"/>
-                <meta property="og:url" content={`https://racvergitxari.ge/post/${postData.id}`}/>
+                <title>{`უთქმელი სიტყვები ${postData.messageTo}ს, პოსტი #${postData.id} - რაც ვერ გითხარი`}</title>
+                <meta name="description" content={`უთქმელი სიტყვები ${postData.messageTo}ს, პოსტი ID: ${postData.id}`} />
+                <meta property="og:title" content={`Post #${postData.id} - Untold Words`} />
+                <meta property="og:description" content={`უთქმელი სიტყვები ${postData.messageTo}, პოსტი ID: ${postData.id}`} />
+                <meta property="og:image" content="https://i.imghippo.com/files/FTnu8581Boo.jpg" />
+                <meta property="og:type" content="article" />
+                <meta property="og:url" content={`https://racvergitxari.ge/post/${postData.id}`} />
             </Helmet>
-            {postData.messageStatus === "PENDING" && (
+
+            {postData.status === "PENDING" && (
                 <WarningBadge
                     className="border-[#ffcc00] bg-bg dark:bg-bgDark"
                     text="მიმდინარეობს წერილის გადამოწმება"
@@ -93,31 +39,32 @@ function SinglePostPage() {
                     altText="Pending"
                 />
             )}
-            {postData.messageStatus === "REJECTED" && (
+
+            {postData.status === "REJECTED" && (
                 <div className="flex flex-col self-center items-center gap-y-2 bg-bgColor dark:bg-bgDark rounded-md">
                     <WarningBadge
-                    className="border-[#cc3300] bg-bgColor dark:bg-bgDark"
-                    text="წერილი უარყოფილია"
-                    icon={Rejected}
-                    altText="Rejected"
+                        className="border-[#cc3300] bg-bgColor dark:bg-bgDark"
+                        text="წერილი უარყოფილია"
+                        icon={Rejected}
+                        altText="Rejected"
                     />
                     <a href="/terms" className="font-dejavu text-lg text-[#cc3300]">გადახედე წესებს</a>
                 </div>
             )}
+
             <SinglePost
                 id={postData.id}
-                messageTo={postData.MessageTo}
+                messageTo={postData.messageTo}
                 message={postData.message}
-                status={postData.messageStatus}
+                status={postData.status}
                 timestamp={postData.timestamp}
                 likes={postData.likes}
                 shares={postData.shares}
-                liked={postData.liked}
+                liked={false}
                 onLike={() => console.log("Liked!")}
                 onShare={() => console.log("Shared!")}
                 onClick={() => console.log("Post clicked!")}
             />
-            <span>{error}</span>
         </section>
     );
 }

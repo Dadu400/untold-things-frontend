@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { gsap } from "gsap";
@@ -9,15 +9,23 @@ import TypedText from "./TypedText";
 import NoPostsAvailable from "./NoPostsAvailable";
 
 import { PostsListProps } from "../../types/types";
+import Loader from "../../Loader";
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface Props {
+    posts: PostsListProps["posts"];
+    loading: boolean;
+    error: string | null;
+}
 
-const PostsList: React.FC<PostsListProps> = ({ posts }) => {
+function PostsList({ posts, loading, error }: Props) {
     const postsRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (posts.length === 0) return;
+
         const context = gsap.context(() => {
             const postElements = postsRef.current?.querySelectorAll(".single-post");
 
@@ -36,7 +44,7 @@ const PostsList: React.FC<PostsListProps> = ({ posts }) => {
             context.revert();
         };
     }, [posts]);
-    
+
     const handleLike = (id: number, liked: boolean) => {
         console.log(`Post ${id} liked: ${liked}`);
     };
@@ -49,8 +57,16 @@ const PostsList: React.FC<PostsListProps> = ({ posts }) => {
         navigate(`/post/${id}`, { state: { fromList: true } });
     };
 
+    if (loading) {
+        return <Loader />;
+    }
+
+    if (error) {
+        return <NoPostsAvailable />;
+    }
+
     if (!posts.length) {
-        return <NoPostsAvailable />
+        return <NoPostsAvailable />;
     }
 
     return (
@@ -78,6 +94,6 @@ const PostsList: React.FC<PostsListProps> = ({ posts }) => {
             </div>
         </section>
     );
-};
+}
 
 export default PostsList;

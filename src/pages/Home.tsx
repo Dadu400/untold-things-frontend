@@ -1,69 +1,13 @@
-import {useEffect, useState} from "react";
-
 import { Helmet } from "react-helmet";
 
 import Banner from "../components/banner/Banner";
 import PostsList from "../components/posts/PostsList";
 import SearchBar from "../components/search/Searchbar";
-import Loader from "../Loader";
+
+import { usePosts } from "../hooks/usePosts";
 
 const Home = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [postList, setPostList] = useState([]);
-
-    const fetchPostsForQuery = async () => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/v1/messages/filtered`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ query: searchQuery }),
-            });
-            const data = await response.json();
-            setPostList(data.messages);
-        } catch (error) {
-            console.error("Error fetching posts for query:", error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const fetchAllPosts = async () => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/v1/messages`);
-            const data = await response.json();
-            setPostList(data.messages);
-        } catch (error) {
-            console.error("Error fetching posts:", error);
-        } finally {
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 1000);
-        }
-    };
-
-    const onSearchClicked = () => {
-        if (searchQuery && searchQuery.length > 0) {
-            setIsLoading(true);
-            fetchPostsForQuery();
-        } else {
-            setIsLoading(true);
-            fetchAllPosts();
-        }
-    };
-
-    useEffect(() => {
-        if (searchQuery === "") {
-            setIsLoading(true);
-            fetchAllPosts();
-        }
-    }, [searchQuery]);
-
-    useEffect(() => {
-        fetchAllPosts();
-    }, []);
+    const { posts, loading, error,  setQuery, searchPosts } = usePosts();
 
     return (
         <>
@@ -80,14 +24,9 @@ const Home = () => {
                 <meta property="og:type" content="website"/>
                 <meta property="og:locale" content="ka_GE"/>
             </Helmet>
-            {isLoading && (
-                <div className="fixed inset-0 flex items-center justify-center z-50">
-                    <Loader />
-                </div>
-            )}
             <Banner />
-            <SearchBar setQueryValue={setSearchQuery} onSearchClicked={onSearchClicked} />
-            <PostsList posts={postList} />
+            <SearchBar setQueryValue={setQuery} onSearchClicked={searchPosts} />
+            <PostsList posts={posts} loading={loading} error={error} />
         </>
     );
 };
