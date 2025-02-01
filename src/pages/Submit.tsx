@@ -9,6 +9,7 @@ const Submit = () => {
         <>
             <Helmet>
                 <title>მიწერე წერილი - რაც ვერ გითხარი</title>
+                <link rel="icon" href="./favicon.ico" />
                 <meta name="description" content="გააზიარეთ თქვენი ისტორია. ახალი პოსტის დამატება."/>
                 <meta name="keywords" content="Georgian, stories, share, submit post, React"/>
                 <meta property="og:title" content="დამატე ახალი პოსტი - რაც ვერ გითხარი"/>

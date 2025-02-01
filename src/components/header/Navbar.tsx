@@ -1,8 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-interface NavbarProps {
-    resetHomeKey?: () => void;
-}
+import { NavbarProps } from "../../types/types";
 
 function Navbar({ resetHomeKey }: NavbarProps) {
     const ClassName = "text-lg font-dejavu tracking-wider transition-colors duration-200 px-4 py-2";

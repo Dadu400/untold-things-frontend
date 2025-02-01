@@ -1,14 +1,15 @@
+import { NavLink } from "react-router-dom";
+
 import logo from '../../assets/icons/logo.png';
 import Navbar from "./Navbar";
 import PostButton from "./PostButton";
 import BurgerMenu from "./BurgerMenu";
-import {NavLink} from "react-router-dom";
 import ThemeSwitcher from './ThemeSwitcher';
 
-function Header( { resetHomeKey } : { resetHomeKey?: () => void } ) {
+function Header({ resetHomeKey }: { resetHomeKey?: () => void }) {
 
     const handleLogoClick = () => {
-        if (resetHomeKey) resetHomeKey(); 
+        if (resetHomeKey) resetHomeKey();
     };
 
     return (
@@ -22,8 +23,8 @@ function Header( { resetHomeKey } : { resetHomeKey?: () => void } ) {
                 </NavLink>
                 <Navbar resetHomeKey={resetHomeKey} />
                 <div className='flex items-center gap-4'>
-                <ThemeSwitcher className="hidden lg:flex"/>
-                <PostButton className="hidden lg:flex" />
+                    <ThemeSwitcher className="hidden lg:flex" />
+                    <PostButton className="hidden lg:flex" />
                 </div>
                 <BurgerMenu className="flex lg:hidden" />
             </div>

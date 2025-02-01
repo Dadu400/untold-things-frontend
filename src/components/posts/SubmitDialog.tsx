@@ -5,13 +5,7 @@ import Dialog from "../posts/Dialog";
 import SinglePost from "./SinglePost";
 import "./SubmitDialog.css";
 
-interface SubmitDialogProps {
-    isModalOpen: boolean;
-    setIsModalOpen: (isOpen: boolean) => void;
-    messageTo: string;
-    message: string;
-    onSubmit?: () => void;
-}
+import { SubmitDialogProps } from "../../types/types";
 
 const SubmitDialog: React.FC<SubmitDialogProps> = ({ isModalOpen, setIsModalOpen, messageTo, message, onSubmit }) => {
     const [isClicked, setIsClicked] = useState(false);

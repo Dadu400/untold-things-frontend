@@ -1,14 +1,8 @@
 import CloseIcon from '@mui/icons-material/Close';
-import {ReactNode} from "react";
+import { DialogProps } from '../../types/types';
 
-interface ShareDialogProps {
-    open: boolean;
-    onClose: () => void;
-    children: ReactNode;
-    className?: string;
-}
 
-function Dialog ({ open, onClose, children, className } : ShareDialogProps )  {
+function Dialog ({ open, onClose, children, className } : DialogProps )  {
     if (!open) return null;
 
     return (

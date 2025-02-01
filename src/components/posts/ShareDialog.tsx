@@ -6,13 +6,7 @@ import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from "re
 import LinkIcon from "@mui/icons-material/Link";
 import CheckIcon from "@mui/icons-material/Check";
 
-interface ShareDialogProps {
-    isModalOpen: boolean;
-    setIsModalOpen: (isOpen: boolean) => void;
-    onSharePost: () => void;
-    shareUrl: string;
-    shareMessage: string;
-}
+import { ShareDialogProps } from "../../types/types";
 
 function ShareDialog({ isModalOpen, setIsModalOpen, onSharePost, shareUrl, shareMessage }: ShareDialogProps) {
     const [isCopied, setIsCopied] = useState(false);

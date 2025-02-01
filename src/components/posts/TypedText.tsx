@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import Typed from "typed.js";
+
 function TypedText() {
     const textRef = useRef(null);
 

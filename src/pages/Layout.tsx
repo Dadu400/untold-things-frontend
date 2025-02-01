@@ -1,14 +1,9 @@
-import React from "react";
-
 import { Outlet } from "react-router-dom";
 
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 
-interface LayoutProps {
-    particlesComponent?: React.ReactNode;
-    resetHomeKey?: () => void;
-}
+import { LayoutProps } from "../types/types";
 
 const Layout = ({ particlesComponent, resetHomeKey }: LayoutProps) => {
     return (

@@ -3,9 +3,7 @@ import { useState, useEffect } from "react";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeIcon from "@mui/icons-material/LightMode";
 
-interface ThemeSwitcherProps {
-    className?: string;
-}
+import { ThemeSwitcherProps } from "../../types/types";
 
 function ThemeSwitcher({ className }: ThemeSwitcherProps) {
     const [darkMode, setDarkMode] = useState(false);

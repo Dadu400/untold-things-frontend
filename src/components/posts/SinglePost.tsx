@@ -7,23 +7,8 @@ import ShareIcon from "@mui/icons-material/Share";
 import ShareDialog from "./ShareDialog";
 import UserIcon from "../../assets/icons/user.svg";
 
+import { SinglePostProps } from "../../types/types";
 
-
-export interface SinglePostProps {
-    id: number;
-    messageTo: string;
-    message: string;
-    timestamp: number;
-    likes: number;
-    shares: number;
-    liked: boolean;
-    status: string;
-    onLike: (id: number, liked: boolean) => void;
-    onShare: () => void;
-    onClick: () => void;
-    className?: string;
-    disabled?: boolean;
-}
 
 function SinglePost({ id, messageTo, message, timestamp, likes, shares, status, liked: initialLiked, onShare, onClick, className, disabled }: SinglePostProps) {
 

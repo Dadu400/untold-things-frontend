@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import { PostButtonProps } from "../../types/types";
 
-function PostButton({ className, onClick }: { className?: string; onClick?: () => void }) {
+function PostButton({ className, onClick }: PostButtonProps) {
     return (
         <Link to="/submit" onClick={onClick}>
             <button

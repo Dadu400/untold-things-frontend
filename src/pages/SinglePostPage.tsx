@@ -77,6 +77,7 @@ function SinglePostPage() {
         <section className="flex flex-col my-2 gap-5">
             <Helmet>
                 <title>{`უთქმელი სიტყვები ${postData.MessageTo}ს, პოსტი #${postData.id} - რაც ვერ გითხარი`}</title>
+                <link rel="icon" href="./favicon.ico" />
                 <meta name="description" content={`უთქმელი სიტყვები ${postData.MessageTo}ს, პოსტი ID: ${postData.id}`}/>
                 <meta property="og:title" content={`Post #${postData.id} - Untold Words`}/>
                 <meta property="og:description" content={`უთქმელი სიტყვები ${postData.MessageTo}, პოსტი ID: ${postData.id}`}/>

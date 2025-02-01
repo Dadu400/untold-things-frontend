@@ -8,21 +8,10 @@ import SinglePost from "./SinglePost";
 import TypedText from "./TypedText";
 import NoPostsAvailable from "./NoPostsAvailable";
 
+import { PostsListProps } from "../../types/types";
+
 gsap.registerPlugin(ScrollTrigger);
 
-type Post = {
-    id: number;
-    messageTo: string;
-    message: string;
-    timestamp: number;
-    likes: number;
-    shares: number;
-    messageStatus: string;
-};
-
-type PostsListProps = {
-    posts: Post[];
-};
 
 const PostsList: React.FC<PostsListProps> = ({ posts }) => {
     const postsRef = useRef<HTMLDivElement>(null);
@@ -78,7 +67,7 @@ const PostsList: React.FC<PostsListProps> = ({ posts }) => {
                         timestamp={post.timestamp}
                         likes={post.likes}
                         shares={post.shares}
-                        status={post.messageStatus}
+                        status={post.status}
                         liked={false}
                         onLike={() => handleLike(post.id, true)}
                         onShare={() => handleShare(post.id)}

@@ -6,9 +6,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import PostButton from "./PostButton";
 import ThemeSwitcher from './ThemeSwitcher';
 
-export interface BurgerMenuDialogProps {
-    setMenuOpen: (isOpen: boolean) => void;
-}
+import { BurgerMenuDialogProps } from "../../types/types";
+
 function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
     const dialogRef = useRef<HTMLDivElement>(null);
     const handleMenuClick = () => {
@@ -40,7 +39,7 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
                     <li>
                         <NavLink
                             to="/"
-                            className= "text-lg font-dejavu tracking-wider text-gray-950 dark:text-white"
+                            className="text-lg font-dejavu tracking-wider text-gray-950 dark:text-white"
                             onClick={handleMenuClick}>
                             წერილები
                         </NavLink>
@@ -54,7 +53,7 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
                     <li>
                         <NavLink
                             to="/terms"
-                            className= "text-lg font-dejavu tracking-wider text-gray-950 dark:text-white"
+                            className="text-lg font-dejavu tracking-wider text-gray-950 dark:text-white"
                             onClick={handleMenuClick} >
                             წესები
                         </NavLink>
@@ -63,13 +62,12 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
             </div>
             <div className="flex justify-start gap-[15px] mt-5">
                 <div className="flex gap-[10px] items-center">
-                    <PostButton className="flex lg:hidden" onClick={handleMenuClick}/>
+                    <PostButton className="flex lg:hidden" onClick={handleMenuClick} />
                     <ThemeSwitcher className="flex lg:hidden" />
                 </div>
             </div>
         </div>
-)
-    ;
+    );
 }
 
 export default BurgerMenuDialog;
