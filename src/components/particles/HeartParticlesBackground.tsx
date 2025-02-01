@@ -1,5 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
+
 import Particles from 'react-tsparticles';
+
 import { loadFull } from 'tsparticles';
 import { loadHeartShape } from 'tsparticles-shape-heart';
 import type { Engine } from 'tsparticles-engine';

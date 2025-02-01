@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import SinglePost from "../components/posts/SinglePost";
 import WarningBadge from "../components/posts/WarningBadge";
-import Loader from "../Loader";
+import Loader from "../components/loader/Loader";
 
 import warning from "../assets/icons/warning.svg";
 import Rejected from "../assets/icons/rejected.svg";

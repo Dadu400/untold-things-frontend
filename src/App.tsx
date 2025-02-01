@@ -1,9 +1,10 @@
 import './index.css';
-import Loader from './Loader';
+
+import Loader from './components/loader/Loader';
 
 import { Helmet } from 'react-helmet';
-function App() {
 
+function App() {
   return (
     <div className="App">
         <Helmet>

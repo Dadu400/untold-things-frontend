@@ -9,7 +9,7 @@ import TypedText from "./TypedText";
 import NoPostsAvailable from "./NoPostsAvailable";
 
 import { PostsListProps } from "../../types/types";
-import Loader from "../../Loader";
+import Loader from "../loader/Loader";
 
 gsap.registerPlugin(ScrollTrigger);
 

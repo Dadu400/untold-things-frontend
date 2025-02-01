@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 
-import TermsAndCondition from "../components/TermsAndCondition";
+import TermsAndCondition from "../components/terms/TermsAndCondition";
 
 function Terms() {
     return (

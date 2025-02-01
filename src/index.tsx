@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom/client";
+import { useState } from "react";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ReactDOM from "react-dom/client";
 
 import './index.css';
 
@@ -11,8 +12,8 @@ import Submit from "./pages/Submit";
 import Terms from "./pages/Terms";
 import SinglePostPage from "./pages/SinglePostPage";
 
-import HeartParticlesBackground from "./HeartParticlesBackground";
-import ParticlesBackground from "./ParticlesBackground";
+import HeartParticlesBackground from "./components/particles/HeartParticlesBackground";
+import ParticlesBackground from "./components/particles/ParticlesBackground";
 
 export default function App() {
     const [homeKey, setHomeKey] = useState(0);
