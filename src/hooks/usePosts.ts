@@ -10,7 +10,9 @@ export const usePosts = () => {
     const searchPosts = async () => {
         setLoading(true);
         try {
-            const allPosts = await fetchPosts(query.trim());
+            const CURR_PAGE = "0";
+            const PAGE_SIZE = "100";
+            const allPosts = await fetchPosts(query.trim(), CURR_PAGE, PAGE_SIZE);
             setPosts(allPosts);
         } catch (err) {
             setError("Failed to load posts.");

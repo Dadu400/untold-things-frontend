@@ -1,7 +1,7 @@
-export const fetchPosts = async (query: string) => {
+export const fetchPosts = async (query: string, page: string, size: string) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/v1/messages?` + new URLSearchParams({ query }).toString()
+      `${process.env.REACT_APP_API_URL}/v1/messages?` + new URLSearchParams({ query, page, size }).toString()
     );
     const data = await response.json();
     return data.messages;
