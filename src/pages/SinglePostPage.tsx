@@ -19,6 +19,8 @@ function SinglePostPage() {
     if (error) return <NoPostsAvailable />;
     if (!postData) return <NoPostsAvailable />;
 
+    console.log(postData);
+
     return (
         <section className="flex flex-col my-2 gap-5">
             <Helmet>
@@ -31,7 +33,7 @@ function SinglePostPage() {
                 <meta property="og:url" content={`https://racvergitxari.ge/post/${postData.id}`} />
             </Helmet>
 
-            {postData.status === "PENDING" && (
+            {postData.messageStatus === "PENDING" && (
                 <WarningBadge
                     className="border-[#ffcc00] bg-bg dark:bg-bgDark"
                     text="მიმდინარეობს წერილის გადამოწმება"
@@ -40,7 +42,7 @@ function SinglePostPage() {
                 />
             )}
 
-            {postData.status === "REJECTED" && (
+            {postData.messageStatus === "REJECTED" && (
                 <div className="flex flex-col self-center items-center gap-y-2 bg-bgColor dark:bg-bgDark rounded-md">
                     <WarningBadge
                         className="border-[#cc3300] bg-bgColor dark:bg-bgDark"
@@ -56,14 +58,11 @@ function SinglePostPage() {
                 id={postData.id}
                 messageTo={postData.messageTo}
                 message={postData.message}
-                status={postData.status}
+                messageStatus={postData.messageStatus}
                 timestamp={postData.timestamp}
                 likes={postData.likes}
                 shares={postData.shares}
                 liked={false}
-                onLike={() => console.log("Liked!")}
-                onShare={() => console.log("Shared!")}
-                onClick={() => console.log("Post clicked!")}
             />
         </section>
     );

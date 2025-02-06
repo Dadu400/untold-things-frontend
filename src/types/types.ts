@@ -8,10 +8,7 @@ export type SinglePostProps = {
     likes: number;
     shares: number;
     liked: boolean;
-    status: string;
-    onLike: (id: number, liked: boolean) => void;
-    onShare: () => void;
-    onClick: () => void;
+    messageStatus: string;
     className?: string;
     disabled?: boolean;
 };

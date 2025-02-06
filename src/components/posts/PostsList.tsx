@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -21,7 +20,6 @@ interface Props {
 
 function PostsList({ posts, loading, error }: Props) {
     const postsRef = useRef<HTMLDivElement>(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (posts.length === 0) return;
@@ -44,18 +42,6 @@ function PostsList({ posts, loading, error }: Props) {
             context.revert();
         };
     }, [posts]);
-
-    const handleLike = (id: number, liked: boolean) => {
-        console.log(`Post ${id} liked: ${liked}`);
-    };
-
-    const handleShare = (id: number) => {
-        console.log(`Post ${id} shared`);
-    };
-
-    const navigateToPost = (id: number) => {
-        navigate(`/post/${id}`, { state: { fromList: true } });
-    };
 
     if (loading) {
         return <Loader />;
@@ -83,11 +69,8 @@ function PostsList({ posts, loading, error }: Props) {
                         timestamp={post.timestamp}
                         likes={post.likes}
                         shares={post.shares}
-                        status={post.status}
+                        messageStatus={post.messageStatus}
                         liked={false}
-                        onLike={() => handleLike(post.id, true)}
-                        onShare={() => handleShare(post.id)}
-                        onClick={() => navigateToPost(post.id)}
                         disabled={false}
                     />
                 ))}

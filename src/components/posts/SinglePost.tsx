@@ -8,9 +8,11 @@ import ShareDialog from "./ShareDialog";
 import UserIcon from "../../assets/icons/user.svg";
 
 import { SinglePostProps } from "../../types/types";
+import { useNavigate } from "react-router-dom";
 
 
-function SinglePost({ id, messageTo, message, timestamp, likes, shares, status, liked: initialLiked, onShare, onClick, className, disabled }: SinglePostProps) {
+function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageStatus, liked: initialLiked, className, disabled }: SinglePostProps) {
+    const navigate = useNavigate();
 
     const formatTime = (timestamp: number) => {
         const date = new Date(timestamp);
@@ -39,7 +41,7 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, status, 
         localStorage.setItem(`post_${id}_liked`, JSON.stringify(liked));
     }, [liked, id]);
 
-    const isInteractionDisabled = status === "PENDING" || status === "REJECTED";
+    const isInteractionDisabled = messageStatus === "PENDING" || messageStatus === "REJECTED";
 
     const handlePostClick = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -47,7 +49,7 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, status, 
         
         if (disabled || isInteractionDisabled) return;
 
-        onClick();
+        navigate(`/post/${id}`, { state: { fromList: true } })
     };
 
     const handleLikeClick = async (e: React.MouseEvent) => {
@@ -107,7 +109,6 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, status, 
         }
 
         setShareCount((prev) => prev + 1);
-        onShare();
         setIsModalOpen(false);
     };
 

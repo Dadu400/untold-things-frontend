@@ -37,10 +37,7 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ isModalOpen, setIsModalOpen
                         likes={0}
                         shares={0}
                         liked={false}
-                        status={"pending"}
-                        onLike={() => {}}
-                        onShare={() => {}}
-                        onClick={() => {}}
+                        messageStatus={"pending"}
                         disabled={true}
                     />
                 </div>
