@@ -1,7 +1,7 @@
-export const fetchAllPosts = async () => {
+export const fetchPosts = async (query: string) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/v1/messages`
+      `${process.env.REACT_APP_API_URL}/v1/messages?` + new URLSearchParams({ query }).toString()
     );
     const data = await response.json();
     return data.messages;
@@ -54,24 +54,4 @@ export const sharePost = async (id: number) => {
         console.error("Error sharing post:", error);
         throw error;
     }
-};
-
-export const fetchPostsForQuery = async (query: string) => {
-  try {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/v1/messages/filtered`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query }),
-      }
-    );
-    const data = await response.json();
-    return data.messages;
-  } catch (error) {
-    console.error("Error fetching posts for query:", error);
-    return [];
-  }
 };

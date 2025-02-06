@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchAllPosts, fetchPostsForQuery } from "../api/posts";
+import { fetchPosts } from "../api/posts";
 
 export const usePosts = () => {
     const [posts, setPosts] = useState([]);
@@ -7,47 +7,23 @@ export const usePosts = () => {
     const [error, setError] = useState<string | null>(null);
     const [query, setQuery] = useState("");
 
-    useEffect(() => {
-        const loadPosts = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const allPosts = await fetchAllPosts();
-                setPosts(allPosts);
-            } catch (err) {
-                setError("Failed to load posts.");
-            } finally {
-                setLoading(false);
-            }
-        };
-        loadPosts();
-    }, []);
-
     const searchPosts = async () => {
-        if (!query.trim()) {
-            setLoading(true);
-            try {
-                const allPosts = await fetchAllPosts();
-                setPosts(allPosts);
-            } catch (err) {
-                setError("Failed to load posts.");
-            } finally {
-                setLoading(false);
-            }
-            return;
-        }
-
         setLoading(true);
-        setError(null);
         try {
-            const results = await fetchPostsForQuery(query);
-            setPosts(results);
+            const allPosts = await fetchPosts(query.trim());
+            setPosts(allPosts);
         } catch (err) {
-            setError("Error fetching search results.");
+            setError("Failed to load posts.");
         } finally {
             setLoading(false);
         }
+        return;
     };
+
+    useEffect(() => {
+        searchPosts();
+    }, []);
+
 
     return { posts, loading, error, query, setQuery, searchPosts };
 };
