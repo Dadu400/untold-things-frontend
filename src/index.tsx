@@ -14,6 +14,9 @@ import SinglePostPage from "./pages/SinglePostPage";
 
 import HeartParticlesBackground from "./components/particles/HeartParticlesBackground";
 import ParticlesBackground from "./components/particles/ParticlesBackground";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 export default function App() {
     const [homeKey, setHomeKey] = useState(0);
@@ -26,7 +29,11 @@ export default function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Layout resetHomeKey={resetHomeKey} />}>
-                    <Route index element={<Home key={homeKey} />} />
+                    <Route index element={
+                        <QueryClientProvider client={queryClient}>
+                            <Home key={homeKey} />
+                        </QueryClientProvider>
+                    } />
                     <Route path="aboutus" element={<AboutUs />} />
                     <Route path="terms" element={<Terms />} />
                 </Route>

@@ -9,17 +9,20 @@ import NoPostsAvailable from "./NoPostsAvailable";
 
 import { PostsListProps } from "../../types/types";
 import Loader from "../loader/Loader";
+import Spinner from "../loader/Spinner";
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface Props {
     posts: PostsListProps["posts"];
+    fetchNextPage: () => void;
+    hasNextPage: boolean;
     loading: boolean;
-    error: string | null;
 }
 
-function PostsList({ posts, loading, error }: Props) {
+function PostsList({ posts, fetchNextPage, hasNextPage, loading }: Props) {
     const postsRef = useRef<HTMLDivElement>(null);
+    const loadMoreRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (posts.length === 0) return;
@@ -43,13 +46,25 @@ function PostsList({ posts, loading, error }: Props) {
         };
     }, [posts]);
 
-    if (loading) {
-        return <Loader />;
-    }
+    useEffect(() => {
+        if (!hasNextPage) return;
 
-    if (error) {
-        return <NoPostsAvailable />;
-    }
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    fetchNextPage();
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        const currentElement = loadMoreRef.current;
+        if (currentElement) observer.observe(currentElement);
+
+        return () => {
+            if (currentElement) observer.unobserve(currentElement);
+        };
+    }, [hasNextPage, fetchNextPage]);
 
     if (!posts.length) {
         return <NoPostsAvailable />;
@@ -74,6 +89,8 @@ function PostsList({ posts, loading, error }: Props) {
                         disabled={false}
                     />
                 ))}
+                { loading && <Spinner />}
+                {hasNextPage && <div ref={loadMoreRef} className="h-10 w-full" />}
             </div>
         </section>
     );

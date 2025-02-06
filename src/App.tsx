@@ -1,7 +1,5 @@
 import './index.css';
 
-import Loader from './components/loader/Loader';
-
 import { Helmet } from 'react-helmet';
 
 function App() {
@@ -22,7 +20,6 @@ function App() {
             <meta property="og:type" content="website" />
             <meta property="og:locale" content="ka_GE" />
         </Helmet>
-        <Loader />
     </div>
   );
 }

@@ -1,7 +1,8 @@
-export const fetchPosts = async (query: string, page: string, size: string) => {
+export const fetchPosts = async ({ pageParam = 0, queryKey }: { pageParam?: number, queryKey: string[] }) => {
+
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/v1/messages?` + new URLSearchParams({ query, page, size }).toString()
+      `${process.env.REACT_APP_API_URL}/v1/messages?` + new URLSearchParams({ query: queryKey[0], page: pageParam.toString(), size: "20" }).toString()
     );
     const data = await response.json();
     return data.messages;

@@ -5,9 +5,30 @@ import PostsList from "../components/posts/PostsList";
 import SearchBar from "../components/search/Searchbar";
 
 import { usePosts } from "../hooks/usePosts";
+import { useEffect, useState } from "react";
+import { SinglePostProps } from "../types/types";
 
 const Home = () => {
-    const { posts, loading, error,  setQuery, searchPosts } = usePosts();
+    const [query, setQuery] = useState('');
+    const {data, fetchNextPage, hasNextPage, isFetchingNextPage } = usePosts(query);
+
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
+
+    const searchPosts = (query: string) => {
+        setQuery(query);
+    }
+    
+    const formatData = (data: any) => {
+        let formattedData: SinglePostProps[] = [];
+        if (data && data.pages) {
+            data.pages.forEach((page: SinglePostProps[]) => {
+                formattedData = formattedData.concat(page);
+            });
+        }
+        return formattedData;
+    }
 
     return (
         <>
@@ -25,8 +46,8 @@ const Home = () => {
                 <meta property="og:locale" content="ka_GE"/>
             </Helmet>
             <Banner />
-            <SearchBar setQueryValue={setQuery} onSearchClicked={searchPosts} />
-            <PostsList posts={posts} loading={loading} error={error} />
+            <SearchBar onSearchClicked={searchPosts} />
+            <PostsList posts={formatData(data)} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} loading={isFetchingNextPage} />
         </>
     );
 };
