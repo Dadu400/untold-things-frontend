@@ -5,16 +5,13 @@ import PostsList from "../components/posts/PostsList";
 import SearchBar from "../components/search/Searchbar";
 
 import { usePosts } from "../hooks/usePosts";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SinglePostProps } from "../types/types";
 
 const Home = () => {
     const [query, setQuery] = useState('');
     const {data, fetchNextPage, hasNextPage, isFetchingNextPage } = usePosts(query);
 
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
 
     const searchPosts = (query: string) => {
         setQuery(query);

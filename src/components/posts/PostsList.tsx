@@ -8,7 +8,7 @@ import TypedText from "./TypedText";
 import NoPostsAvailable from "./NoPostsAvailable";
 
 import { PostsListProps } from "../../types/types";
-import Loader from "../loader/Loader";
+
 import Spinner from "../loader/Spinner";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -31,13 +31,26 @@ function PostsList({ posts, fetchNextPage, hasNextPage, loading }: Props) {
             const postElements = postsRef.current?.querySelectorAll(".single-post");
 
             if (postElements && postElements.length > 0) {
-                gsap.set(postElements, { opacity: 0, y: 50 });
-
-                ScrollTrigger.batch(postElements, {
-                    start: "top 90%",
-                    onEnter: (batch) =>
-                        gsap.to(batch, { opacity: 1, y: 0, stagger: 0.2, duration: 1 }),
+                postElements.forEach((element) => {
+                    gsap.fromTo(element,
+                        {
+                            opacity: 0, y: 50
+                        },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 1,
+                            scrollTrigger: {
+                                trigger: element,
+                                start: "top bottom-=10%", 
+                                toggleActions: "play none none none",
+                                onEnter: () => ScrollTrigger.refresh(),
+                            },
+                        }
+                    );
                 });
+
+                ScrollTrigger.refresh();
             }
         }, postsRef);
 
@@ -89,9 +102,9 @@ function PostsList({ posts, fetchNextPage, hasNextPage, loading }: Props) {
                         disabled={false}
                     />
                 ))}
-                { loading && <Spinner />}
                 {hasNextPage && <div ref={loadMoreRef} className="h-10 w-full" />}
             </div>
+            {loading && <Spinner />}
         </section>
     );
 }

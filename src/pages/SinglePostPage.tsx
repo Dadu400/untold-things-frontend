@@ -19,8 +19,6 @@ function SinglePostPage() {
     if (error) return <NoPostsAvailable />;
     if (!postData) return <NoPostsAvailable />;
 
-    console.log(postData);
-
     return (
         <section className="flex flex-col my-2 gap-5">
             <Helmet>
