@@ -10,6 +10,7 @@ module.exports = {
         roboto: ['Roboto', 'sans-serif'],
         dejavu: ['DejaVuSans', 'sans-serif'],
         firago: ['FiraGo', 'sans-serif'],
+        dancing: ["'Dancing Script'", ...fontFamily.sans],
         sans: [...fontFamily.sans],
       },
       colors : {
