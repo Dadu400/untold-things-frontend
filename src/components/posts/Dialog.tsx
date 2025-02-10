@@ -8,7 +8,7 @@ function Dialog ({ open, onClose, children, className } : DialogProps )  {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50"
             onClick={onClose} >
-            <div className={` ${className} bg-gray-100 rounded-lg shadow-lg p-6 w-full flex items-baseline justify-center relative mx-4`}
+            <div className={` ${className} bg-gray-100 rounded-lg shadow-lg p-6 flex items-baseline justify-center relative mx-4`}
                 onClick={(e) => e.stopPropagation()}>
                 {children}
                 <button
