@@ -124,7 +124,7 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageS
                     <img src={UserIcon} alt="User" className="w-12 h-12 rounded-full" />
                     <span className="text-sm">{messageTo}</span>
                 </div>
-                <div className="ml-auto flex gap-2">
+                <div className="ml-auto flex items-center gap-2">
                     <div className="flex flex-col items-center gap-1">
                         <AnimatedHeartButton
                             active={liked} 

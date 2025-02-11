@@ -126,8 +126,8 @@ interface HeartButtonProps {
         aria-label="Like"
       >
         <svg
-          width="20"
-          height="20"
+          width="22"
+          height="18"
           viewBox="0 0 128 128"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -135,7 +135,7 @@ interface HeartButtonProps {
             className="transition-colors duration-250"
             d="M64.425 19.75l-.46-.462c-13.72-13.717-35.96-13.717-49.677 0C.57 33.006.57 55.246 14.288 68.964l49.676 49.676.46-.46.46.46 49.677-49.676c13.72-13.718 13.72-35.958 0-49.676-13.715-13.717-35.955-13.717-49.673 0l-.46.46z"
             stroke={active ? "#FF4136" : "#0078FE"}
-            strokeWidth="5"
+            strokeWidth="10"
             fill={active ? "#FF4136" : "transparent"}
             fillRule="evenodd"
           />

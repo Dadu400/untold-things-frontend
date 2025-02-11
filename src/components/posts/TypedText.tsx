@@ -21,7 +21,7 @@ function TypedText() {
     }, []);
     return (
         <div>
-            <span ref={textRef} className='text-xl md:text-3xl tracking-wider font-dejavu font-regular'></span>
+            <span ref={textRef} className='text-2xl md:text-3xl tracking-wider font-dejavu font-regular'></span>
         </div>
     );
 }
