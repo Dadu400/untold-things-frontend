@@ -83,7 +83,7 @@ function PostsList({ posts, fetchNextPage, hasNextPage, loading }: Props) {
     }
 
     return (
-        <section ref={postsRef} className="w-[90%] md:w-[85%] flex flex-col mx-auto my-10">
+        <section ref={postsRef} className="w-[90%] md:w-[85%] flex flex-col mx-auto my-8">
             <TypedText />
             <div className="container grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 gap-y-12 mt-10 place-items-center">
                 {posts.map((post) => (
