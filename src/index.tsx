@@ -17,7 +17,7 @@ import ParticlesBackground from "./components/particles/ParticlesBackground";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ValentinesDay from "./pages/ValentinesDay";
 import ValentinesParticles from "./components/particles/ValentinesDayParticlesBackground";
-import ValentinesUploadForm from "./pages/ValentinesUploadForm";
+import ValentinesUploadForm from "./components/valentines/ValentinesUpload";
 
 const queryClient = new QueryClient();
 
