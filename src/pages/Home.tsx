@@ -10,7 +10,7 @@ import { SinglePostProps } from "../types/types";
 
 const Home = () => {
     const [query, setQuery] = useState('');
-    const {data, fetchNextPage, hasNextPage, isFetchingNextPage } = usePosts(query);
+    const {data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = usePosts(query);
 
 
     const searchPosts = (query: string) => {
@@ -44,7 +44,7 @@ const Home = () => {
             </Helmet>
             <Banner />
             <SearchBar onSearchClicked={searchPosts} />
-            <PostsList posts={formatData(data)} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} loading={isFetchingNextPage} />
+            <PostsList posts={formatData(data)} fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} loading={isFetchingNextPage} isInitialLoading={isLoading} />
         </>
     );
 };

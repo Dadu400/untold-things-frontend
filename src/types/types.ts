@@ -17,6 +17,14 @@ export type PostsListProps = {
     posts: SinglePostProps[];
 };
 
+export type PostListsProps = {
+    posts: PostsListProps["posts"];
+    fetchNextPage: () => void;
+    hasNextPage: boolean;
+    loading: boolean;
+    isInitialLoading: boolean;
+};
+
 export type DialogProps = {
     open: boolean;
     onClose?: () => void;

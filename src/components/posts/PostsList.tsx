@@ -7,20 +7,14 @@ import SinglePost from "./SinglePost";
 import TypedText from "./TypedText";
 import NoPostsAvailable from "./NoPostsAvailable";
 
-import { PostsListProps } from "../../types/types";
+import { PostListsProps } from "../../types/types";
 
 import Spinner from "../loader/Spinner";
+import Loader from "../loader/Loader";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface Props {
-    posts: PostsListProps["posts"];
-    fetchNextPage: () => void;
-    hasNextPage: boolean;
-    loading: boolean;
-}
-
-function PostsList({ posts, fetchNextPage, hasNextPage, loading }: Props) {
+function PostsList({ posts, fetchNextPage, hasNextPage, loading, isInitialLoading }: PostListsProps) {
     const postsRef = useRef<HTMLDivElement>(null);
     const loadMoreRef = useRef<HTMLDivElement>(null);
 
@@ -78,14 +72,18 @@ function PostsList({ posts, fetchNextPage, hasNextPage, loading }: Props) {
         };
     }, [hasNextPage, fetchNextPage]);
 
-    if (!posts.length) {
+    if (isInitialLoading) {
+        return <Loader />;
+    }
+
+    if (!isInitialLoading && posts.length === 0) {
         return <NoPostsAvailable />;
     }
 
     return (
-        <section ref={postsRef} className="w-[90%] md:w-[85%] flex flex-col mx-auto my-10">
+        <section ref={postsRef} className="w-[90%] md:w-[85%] flex flex-col mx-auto mt-10 mb-16">
             <TypedText />
-            <div className="container grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 gap-y-12 mt-10 place-items-center">
+            <div className="container grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 gap-y-12 place-items-center">
                 {posts.map((post) => (
                     <SinglePost
                         key={post.id}

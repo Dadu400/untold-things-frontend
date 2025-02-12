@@ -1,6 +1,6 @@
 function Footer() {
     return (
-        <footer className="flex py-3 z-9 left-0 bottom-0 w-full bg-bgColor dark:bg-bgDark">
+        <footer className="flex py-4 z-9 left-0 bottom-0 w-full bg-bgColor dark:bg-bgDark">
             <div className="flex flex-col mx-auto items-center gap-3">
                 <h1 className="font-bpg">
                     #რაცვერგითხარი
