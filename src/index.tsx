@@ -14,10 +14,12 @@ import SinglePostPage from "./pages/SinglePostPage";
 
 import HeartParticlesBackground from "./components/particles/HeartParticlesBackground";
 import ParticlesBackground from "./components/particles/ParticlesBackground";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import ValentinesDay from "./pages/ValentinesDay";
-import ValentinesParticles from "./components/particles/ValentinesDayParticlesBackground";
-import ValentinesUploadForm from "./components/valentines/ValentinesUpload";
+import ValentinesPageLayout from "./pages/ValentinesPageLayout";
+import ValentinesPosts from "./components/valentines/ValentinesPost";
+import Envelope from "./components/valentines/Envelope";
+
 
 const queryClient = new QueryClient();
 
@@ -47,20 +49,16 @@ export default function App() {
                     <Route index element={<Submit />} />
                 </Route>
                 <Route path="/valentinesday" element={
-                    <main className="relative w-screen h-screen overflow-hidden flex items-center justify-center">
-                        <div className="absolute inset-0 animate-anime"></div>
-                        <div className="absolute inset-0 z-0">
-                            <ValentinesParticles />
-                        </div>
-                        <div className="relative z-10">
-                            <ValentinesDay />
-                        </div>
-                    </main>
-                } />
-                <Route
-                    path="/valentinesday/upload"
-                    element={ <ValentinesUploadForm /> }
-                />
+                <ValentinesPageLayout>
+                   <ValentinesPosts />
+                </ValentinesPageLayout>
+            } />
+               <Route path="/valentinesday/letter" element={
+                <ValentinesPageLayout>
+                   <Envelope />
+                </ValentinesPageLayout>
+            } />
+            
             </Routes>
         </BrowserRouter>
     );

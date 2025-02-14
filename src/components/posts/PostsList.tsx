@@ -19,40 +19,6 @@ function PostsList({ posts, fetchNextPage, hasNextPage, loading, isInitialLoadin
     const loadMoreRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (posts.length === 0) return;
-
-        const context = gsap.context(() => {
-            const postElements = postsRef.current?.querySelectorAll(".single-post");
-
-            if (postElements && postElements.length > 0) {
-                postElements.forEach((element) => {
-                    gsap.fromTo(element,
-                        {
-                            opacity: 0, y: 50
-                        },
-                        {
-                            opacity: 1,
-                            duration: 1,
-                            scrollTrigger: {
-                                trigger: element,
-                                start: "top bottom-=10%", 
-                                toggleActions: "play none none none",
-                                onEnter: () => ScrollTrigger.refresh(),
-                            },
-                        }
-                    );
-                });
-
-                ScrollTrigger.refresh();
-            }
-        }, postsRef);
-
-        return () => {
-            context.revert();
-        };
-    }, [posts]);
-
-    useEffect(() => {
         if (!hasNextPage) return;
 
         const observer = new IntersectionObserver(
@@ -83,7 +49,7 @@ function PostsList({ posts, fetchNextPage, hasNextPage, loading, isInitialLoadin
     return (
         <section ref={postsRef} className="w-[90%] md:w-[85%] flex flex-col mx-auto mt-10 mb-16">
             <TypedText />
-            <div className="container grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 gap-y-12 place-items-center">
+            <div className="container grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 gap-y-12 place-items-center mt-10">
                 {posts.map((post) => (
                     <SinglePost
                         key={post.id}

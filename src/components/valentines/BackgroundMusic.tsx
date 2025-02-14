@@ -8,13 +8,12 @@ interface BackgroundMusicProps {
   startTime?: number;
 }
 
-function BackgroundMusic({ audio, playAudio, setPlayAudio, startTime = 0 }: BackgroundMusicProps) {
+function BackgroundMusic({ audio, playAudio, setPlayAudio}: BackgroundMusicProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (!audioRef.current) {
       audioRef.current = new Audio(audio);
-        audioRef.current.currentTime = startTime;
       audioRef.current.volume = 0.15;
       audioRef.current.loop = true;
     }
@@ -32,7 +31,7 @@ function BackgroundMusic({ audio, playAudio, setPlayAudio, startTime = 0 }: Back
         audioRef.current.pause();
       }
     };
-  }, [playAudio, audio, startTime]);
+  }, [playAudio, audio]);
 
   const onButtonClick = () => {
     if (!audioRef.current) return;
@@ -54,15 +53,15 @@ function BackgroundMusic({ audio, playAudio, setPlayAudio, startTime = 0 }: Back
   };
 
   return (
-    <div className="fixed z-9 top-0 right-0 p-6">
+
       <div onClick={onButtonClick} className="flex items-center gap-2 cursor-pointer p-2 rounded-full">
-        <img src={Vynil} alt="Vynil" className="w-10 h-10 lg:w-28 lg:h-28" />
+        <img src={Vynil} alt="Vynil" className="w-10 h-10 lg:w-24 lg:h-24" />
         <div className="flex flex-col">
           <p className="text-sm lg:text-lg font-oswald font-semibold">KESHI</p>
           <span className="text-sm lg:text-lg font-oswald font-extralight">Understand</span>
         </div>
       </div>
-    </div>
+
   );
 }
 
