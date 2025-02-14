@@ -1,0 +1,264 @@
+:root {
+  --color-flap: #8b0000;
+  --color-env: #e8a8bd;
+  --color-env2: #c9849b;
+  --color-heart: #8b0000;
+  --color-sparkle: #f8d409;
+}
+
+#env-envelope {
+  position: relative;
+  width: 280px;
+  height: 180px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  margin: 0 auto;
+  top: 80px;
+  background-color: var(--color-flap);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.env-front {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 10;
+}
+
+.env-flap {
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-bottom: 82px solid transparent;
+  border-top: 98px solid var(--color-flap);
+  transform-origin: top;
+  pointer-events: none;
+}
+
+.env-pocket {
+  border-left: 140px solid var(--color-env);
+  border-right: 140px solid var(--color-env);
+  border-bottom: 90px solid var(--color-env2);
+  border-top: 90px solid transparent;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.env-letter {
+  position: relative;
+  background-color: #e0d9dd;
+  width: 90%;
+  margin: 0 auto;
+  height: 90%;
+  top: 5%;
+  border-radius: 6px;
+  box-shadow: 0 2px 26px rgba(0, 0, 0, 0.08);
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.env-message {
+  position: relative;
+  z-index: 2;
+  color: crimson;
+  text-align: center;
+  line-height: 1;
+  padding-top: 0px;
+}
+
+.env-wrapper {
+  height: 380px;
+  animation: float 3s ease-in-out infinite;
+  position: relative;
+}
+
+.env-open .env-flap {
+  transform: rotateX(180deg);
+  transition: transform 0.4s ease, z-index 0.6s;
+  z-index: 1;
+}
+
+.env-close .env-flap {
+  transform: rotateX(0deg);
+  transition: transform 0.4s 0.6s ease, z-index 1s;
+  z-index: 5;
+}
+
+.env-open .env-letter {
+  transform: translateY(-100px) rotate(-2deg);
+  transition: transform 0.4s 0.6s ease, z-index 0.6s;
+  z-index: 2;
+}
+
+.env-close .env-letter {
+  transform: translateY(0px);
+  transition: transform 0.4s ease, z-index 1s;
+  z-index: 1;
+}
+
+.env-letter-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid crimson;
+  border-radius: 5px;
+  z-index: 3;
+  background-color: #e0d9dd;
+}
+
+.env-corner-tl {
+  top: -5px;
+  left: -5px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.env-corner-br {
+  bottom: -5px;
+  right: -5px;
+  border-left: none;
+  border-top: none;
+}
+
+.env-hearts,
+.env-sparkles {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  opacity: 0;
+  animation: none;
+  width: 50%;
+}
+
+.env-open .env-hearts,
+.env-open .env-sparkles {
+  opacity: 1;
+  animation: float 3s ease-in-out infinite;
+}
+
+.env-heart,
+.env-sparkle {
+  position: absolute;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.env-heart:before,
+.env-heart:after {
+  content: "";
+  position: absolute;
+  left: 25px;
+  top: 0;
+  width: 25px;
+  height: 40px;
+  background: var(--color-heart);
+  border-radius: 25px 25px 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.env-heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+.env-sparkle {
+  width: 8px;
+  height: 8px;
+  background: var(--color-sparkle);
+  border-radius: 50%;
+  animation: sparkleTwinkle 1s infinite;
+}
+
+.heart1 {
+  left: 20%;
+  transform: scale(0.6);
+  animation: slideUp 4s linear infinite,
+    sideSway 2s ease-in-out infinite alternate;
+}
+.heart2 {
+  left: 55%;
+  animation: slideUp 5s linear infinite,
+    sideSway 4s ease-in-out infinite alternate;
+}
+.heart3 {
+  left: 10%;
+  transform: scale(0.8);
+  animation: slideUp 7s linear infinite,
+    sideSway 2s ease-in-out infinite alternate;
+}
+
+.sparkle1 {
+  opacity: 1;
+  left: 30%;
+  animation: sparkleUp 3s linear infinite;
+}
+.sparkle2 {
+  left: 60%;
+  animation: sparkleUp 4s linear infinite;
+}
+.sparkle3 {
+  left: 70%;
+  animation: sparkleUp 5s linear infinite;
+}
+.sparkle4 {
+  left: 10%;
+  animation: sparkleUp 4s linear infinite;
+}
+.sparkle5 {
+  left: 85%;
+  animation: sparkleUp 3s linear infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -600px;
+  }
+}
+
+@keyframes sideSway {
+  0% {
+    margin-left: 0;
+  }
+  50% {
+    margin-left: 50px;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+
+@keyframes sparkleUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-500px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkleTwinkle {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+}

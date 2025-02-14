@@ -111,7 +111,7 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageS
     };
 
     return (
-        <div className={`w-[300px] h-[410px] mx-auto bg-gray-100 dark:bg-[#1f1f1f] flex flex-col rounded-2xl overflow-hidden shadow-lg ${className}`}>
+        <div className={`w-[300px] h-[410px] relative mx-auto bg-gray-100 dark:bg-[#1f1f1f] flex flex-col rounded-2xl overflow-hidden shadow-lg ${className}`}>
             <a
                 href={`/post/${id}`}
                 className="flex flex-col h-full cursor-pointer"

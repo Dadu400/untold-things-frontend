@@ -81,3 +81,6 @@ export type ThemeSwitcherProps = {
     className?: string;
 };
 
+export type GamesProps ={
+    onClick: () => void;
+}

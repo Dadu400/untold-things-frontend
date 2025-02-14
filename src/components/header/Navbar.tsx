@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { NavbarProps } from "../../types/types";
 
 function Navbar({ resetHomeKey }: NavbarProps) {
-    const ClassName = "text-lg font-dejavu tracking-wider transition-colors duration-200 px-4 py-2";
+    const ClassName = "text-lg tracking-wider transition-colors duration-200 px-4 py-2";
 
     const handleHomeClick = () => {
         if (resetHomeKey) resetHomeKey();
@@ -16,27 +16,37 @@ function Navbar({ resetHomeKey }: NavbarProps) {
                     <NavLink
                         to="/"
                         className={({ isActive }) =>
-                            `${ClassName} ${isActive ? "text-white bg-black rounded-xl dark:text-gray-950 dark:bg-white" : "text-gray-950 dark:text-white"}`
+                            `${ClassName} ${isActive ? "text-white font-dejavu bg-black rounded-xl dark:text-gray-950 dark:bg-white" : "text-gray-950 dark:text-white font-dejavu"}`
                         }
                         onClick={handleHomeClick}
                     >
                         წერილები
                     </NavLink>
                 </li>
-                <li className={`${ClassName} text-gray-500 cursor-default dark:text-gray-300`}>
+                {/* <li className={`${ClassName} text-gray-500 cursor-default dark:text-gray-300`}>
                     ანონიმური SMS
                 </li>
                 <li className={`${ClassName} text-gray-500 cursor-default dark:text-gray-300`}>
                     ჩვენზე
-                </li>
+                </li> */}
                 <li>
                     <NavLink
                         to="/terms"
                         className={({ isActive }) =>
-                            `${ClassName} ${isActive ? "text-white bg-black rounded-xl dark:text-gray-950 dark:bg-white" : "text-gray-950 dark:text-white"}`
+                            `${ClassName} ${isActive ? "text-white bg-black rounded-xl dark:text-gray-950 dark:bg-white font-dejavu" : "text-gray-950 dark:text-white font-dejavu"}`
                         }
                     >
                         წესები
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                        to="/valentinesday"
+                        className={({ isActive }) =>
+                            `${ClassName} ${isActive ? "text-white bg-red-400 rounded-xl dark:text-gray-950 dark:bg-white font-dancing text-xl" : "text-gray-950 dark:text-white font-dancing text-xl pb-3"}`
+                        }
+                    >
+                        Valentine's Day Special
                     </NavLink>
                 </li>
             </ul>
