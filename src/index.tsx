@@ -16,9 +16,6 @@ import HeartParticlesBackground from "./components/particles/HeartParticlesBackg
 import ParticlesBackground from "./components/particles/ParticlesBackground";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import ValentinesPageLayout from "./pages/ValentinesPageLayout";
-import ValentinesPosts from "./components/valentines/ValentinesPost";
-import Envelope from "./components/valentines/Envelope";
 
 
 const queryClient = new QueryClient();
@@ -48,17 +45,6 @@ export default function App() {
                 <Route path="/submit" element={<Layout particlesComponent={<ParticlesBackground />} />} >
                     <Route index element={<Submit />} />
                 </Route>
-                <Route path="/valentinesday" element={
-                <ValentinesPageLayout>
-                   <ValentinesPosts />
-                </ValentinesPageLayout>
-            } />
-               <Route path="/valentinesday/letter" element={
-                <ValentinesPageLayout>
-                   <Envelope />
-                </ValentinesPageLayout>
-            } />
-            
             </Routes>
         </BrowserRouter>
     );

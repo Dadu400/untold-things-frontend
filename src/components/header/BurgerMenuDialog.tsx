@@ -44,12 +44,12 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
                             წერილები
                         </NavLink>
                     </li>
-                    {/* <li className="text-lg font-dejavu tracking-wider text-gray-500 cursor-default dark:text-gray-300">
+                    <li className="text-lg font-dejavu tracking-wider text-gray-500 cursor-default dark:text-gray-300">
                         ანონიმური SMS
                     </li>
                     <li className="text-lg font-dejavu tracking-wider text-gray-500 cursor-default dark:text-gray-300">
                         ჩვენზე
-                    </li> */}
+                    </li>
                     <li>
                         <NavLink
                             to="/terms"
@@ -58,14 +58,14 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
                             წესები
                         </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <NavLink
                             to="/valentinesday"
                             className="text-lg tracking-wider text-gray-950 dark:text-white font-dancing"
                             onClick={handleMenuClick} >
                             Valentine's Day Special
                         </NavLink>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
             <div className="flex flex-col justify-start gap-[15px] mt-5">

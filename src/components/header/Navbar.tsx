@@ -23,12 +23,12 @@ function Navbar({ resetHomeKey }: NavbarProps) {
                         წერილები
                     </NavLink>
                 </li>
-                {/* <li className={`${ClassName} text-gray-500 cursor-default dark:text-gray-300`}>
+                <li className={`${ClassName} text-gray-500 cursor-default dark:text-gray-300 font-dejavu`}>
                     ანონიმური SMS
                 </li>
-                <li className={`${ClassName} text-gray-500 cursor-default dark:text-gray-300`}>
+                <li className={`${ClassName} text-gray-500 cursor-default dark:text-gray-300 font-dejavu`}>
                     ჩვენზე
-                </li> */}
+                </li>
                 <li>
                     <NavLink
                         to="/terms"
@@ -39,7 +39,7 @@ function Navbar({ resetHomeKey }: NavbarProps) {
                         წესები
                     </NavLink>
                 </li>
-                <li>
+                {/* <li>
                     <NavLink
                         to="/valentinesday"
                         className={({ isActive }) =>
@@ -48,7 +48,7 @@ function Navbar({ resetHomeKey }: NavbarProps) {
                     >
                         Valentine's Day Special
                     </NavLink>
-                </li>
+                </li> */}
             </ul>
         </nav>
     );
