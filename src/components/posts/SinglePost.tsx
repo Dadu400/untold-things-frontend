@@ -112,13 +112,6 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageS
 
     return (
         <div className={`w-[300px] h-[410px] relative mx-auto bg-gray-100 dark:bg-[#1f1f1f] flex flex-col rounded-2xl overflow-hidden shadow-lg ${className}`}>
-            <a
-                href={`/post/${id}`}
-                className="flex flex-col h-full cursor-pointer"
-                onClick={handlePostClick}
-                role="article"
-                aria-label={`View message to ${messageTo}`}
-            >
             <div className="bg-[#f6f6f7] dark:bg-[#1f1f1f] border-b border-b-gray-300 dark:border-b-gray-600 px-4 py-5 flex items-center">
                 <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center">
                     <img src={UserIcon} alt="User" className="w-12 h-12 rounded-full" />
@@ -141,7 +134,12 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageS
                     </button>
                 </div>
             </div>
-            <div className="flex flex-col items-center mb-32 p-2">
+            <div 
+                className="flex flex-col items-center pb-32 p-2 cursor-pointer"
+                onClick={handlePostClick}
+                role="button"
+                aria-label={`View message to ${messageTo}`}
+            >
                 <div className="flex flex-col items-center">
                     <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Message</span>
                     <span className="text-xs text-gray-500 dark:text-gray-400">{formatTime(timestamp)}</span>
@@ -157,7 +155,6 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageS
                     </p>
                 </div>
             </div>
-            </a>
             <ShareDialog
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
