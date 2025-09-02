@@ -1,0 +1,28 @@
+{
+  "short_name": "racvergitxari",
+  "name": "რაც ვერ გითხარი",
+  "description": "A platform for Georgians to share untold stories and personal experiences.",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "any",
+      "type": "any"
+    },
+    {
+      "src": "logo192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#FAFAFA",
+  "background_color": "#FAFAFA",
+  "lang": "ka-GE",
+  "scope": "/"
+}
