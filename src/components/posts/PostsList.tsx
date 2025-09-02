@@ -38,6 +38,35 @@ function PostsList({ posts, fetchNextPage, hasNextPage, loading, isInitialLoadin
         };
     }, [hasNextPage, fetchNextPage]);
 
+    useEffect(() => {
+        const restore = () => {
+            try {
+                const stored = sessionStorage.getItem('postsListScrollY');
+                if (!stored) return;
+                const y = parseInt(stored, 10);
+                if (Number.isNaN(y)) return;
+
+                window.scrollTo(0, y);
+
+                const rafId = requestAnimationFrame(() => window.scrollTo(0, y));
+                const timeoutId = window.setTimeout(() => window.scrollTo(0, y), 50);
+
+                sessionStorage.removeItem('postsListScrollY');
+
+                return () => {
+                    cancelAnimationFrame(rafId);
+                    clearTimeout(timeoutId);
+                };
+            } catch (_) {
+            }
+        };
+
+        const cleanup = restore();
+        return () => {
+            if (typeof cleanup === 'function') cleanup();
+        };
+    }, [posts.length, isInitialLoading]);
+
     if (isInitialLoading) {
         return <Loader />;
     }

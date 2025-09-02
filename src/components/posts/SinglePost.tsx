@@ -48,6 +48,10 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageS
 
         if (disabled || isInteractionDisabled) return;
 
+        try {
+            sessionStorage.setItem('postsListScrollY', String(window.scrollY));
+        } catch (_) {
+        }
         navigate(`/post/${id}`, { state: { fromList: true } })
     };
 
