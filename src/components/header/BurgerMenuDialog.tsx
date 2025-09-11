@@ -5,12 +5,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import PostButton from "./PostButton";
 import ThemeSwitcher from './ThemeSwitcher';
 import { usePWAInstallContext } from '../../hooks/PWAInstallContext';
+import IOSInstallGuide from '../pwa/IOSInstallGuide';
 interface BurgerMenuDialogProps {
   setMenuOpen: (open: boolean) => void;
 }
 
 function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
-  const { triggerInstall, isInstalled, deferredPrompt } = usePWAInstallContext();
+  const { triggerInstall, isInstalled, deferredPrompt, isIOS, showIOSGuide, closeIOSGuide, showTestGuide } = usePWAInstallContext();
   const dialogRef = useRef<HTMLDivElement>(null);
 
   const handleMenuClick = () => {
@@ -62,15 +63,15 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
             <li>
               <button
                 onClick={triggerInstall}
-                disabled={!deferredPrompt}
-                className={`text-lg font-dejavu tracking-wider ${
-                  deferredPrompt
+                disabled={!deferredPrompt && !isIOS}
+                className={`text-lg font-firago tracking-wider ${
+                  deferredPrompt || isIOS
                     ? 'text-gray-950 dark:text-white hover:text-gray-700 dark:hover:text-gray-300'
                     : 'text-gray-400 dark:text-gray-500 cursor-not-allowed'
                 }`}
-                title={deferredPrompt ? '' : 'Install not available yet'}
+                title={(deferredPrompt || isIOS) ? '' : 'Install not available yet'}
               >
-                Install App
+                გადმოწერე
               </button>
             </li>
           )}
@@ -130,6 +131,7 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
                     </a>
                 </div>
             </div>
+            {(showIOSGuide || showTestGuide) && <IOSInstallGuide onClose={closeIOSGuide} />}
         </div>
     );
 }
