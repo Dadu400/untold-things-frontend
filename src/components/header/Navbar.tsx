@@ -23,12 +23,6 @@ function Navbar({ resetHomeKey }: NavbarProps) {
                         წერილები
                     </NavLink>
                 </li>
-                <li className={`${ClassName} text-gray-500 cursor-default dark:text-gray-300 font-dejavu`}>
-                    ანონიმური SMS
-                </li>
-                <li className={`${ClassName} text-gray-500 cursor-default dark:text-gray-300 font-dejavu`}>
-                    ჩვენზე
-                </li>
                 <li>
                     <NavLink
                         to="/terms"
