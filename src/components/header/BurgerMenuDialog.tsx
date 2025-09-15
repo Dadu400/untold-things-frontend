@@ -5,13 +5,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import PostButton from "./PostButton";
 import ThemeSwitcher from './ThemeSwitcher';
 import { usePWAInstallContext } from '../../hooks/PWAInstallContext';
-import IOSInstallGuide from '../pwa/IOSInstallGuide';
 interface BurgerMenuDialogProps {
   setMenuOpen: (open: boolean) => void;
 }
 
 function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
-  const { triggerInstall, isInstalled, deferredPrompt, isIOS, showIOSGuide, closeIOSGuide, showTestGuide } = usePWAInstallContext();
+  const { isInstalled, isIOS, triggerInstall } = usePWAInstallContext();
   const dialogRef = useRef<HTMLDivElement>(null);
 
   const handleMenuClick = () => {
@@ -61,18 +60,25 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
           </li>
           {!isInstalled && (
             <li>
-              <button
-                onClick={triggerInstall}
-                disabled={!deferredPrompt && !isIOS}
-                className={`text-lg font-firago tracking-wider ${
-                  deferredPrompt || isIOS
-                    ? 'text-gray-950 dark:text-white hover:text-gray-700 dark:hover:text-gray-300'
-                    : 'text-gray-400 dark:text-gray-500 cursor-not-allowed'
-                }`}
-                title={(deferredPrompt || isIOS) ? '' : 'Install not available yet'}
-              >
-                გადმოწერე
-              </button>
+              {isIOS ? (
+                <NavLink
+                  to="/install"
+                  className="text-lg font-firago tracking-wider text-gray-950 dark:text-white hover:text-gray-700 dark:hover:text-gray-300"
+                  onClick={handleMenuClick}
+                >
+                  გადმოწერე
+                </NavLink>
+              ) : (
+                <button
+                  onClick={() => {
+                    triggerInstall();
+                    handleMenuClick();
+                  }}
+                  className="text-lg font-firago tracking-wider text-gray-950 dark:text-white hover:text-gray-700 dark:hover:text-gray-300"
+                >
+                  გადმოწერე
+                </button>
+              )}
             </li>
           )}
         </ul>
@@ -131,7 +137,6 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
                     </a>
                 </div>
             </div>
-            {(showIOSGuide || showTestGuide) && <IOSInstallGuide onClose={closeIOSGuide} />}
         </div>
     );
 }

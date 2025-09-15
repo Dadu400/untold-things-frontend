@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import Submit from "./pages/Submit";
 import Terms from "./pages/Terms";
 import SinglePostPage from "./pages/SinglePostPage";
+import InstallGuide from "./pages/InstallGuide";
 
 import HeartParticlesBackground from "./components/particles/HeartParticlesBackground";
 import ParticlesBackground from "./components/particles/ParticlesBackground";
@@ -40,6 +41,7 @@ export default function App() {
                     } />
                     <Route path="aboutus" element={<AboutUs />} />
                     <Route path="terms" element={<Terms />} />
+                    <Route path="download" element={<InstallGuide />} />
                 </Route>
                 <Route path="/post/:id" element={<Layout particlesComponent={<HeartParticlesBackground />} />}>
                     <Route index element={<SinglePostPage />} />
