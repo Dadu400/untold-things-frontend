@@ -1,12 +1,13 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
 export const usePWAInstall = () => {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [deferredPrompt, setDeferredPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null);
   const [isInstalled, setIsInstalled] = useState<boolean>(false);
   const [showPrompt, setShowPrompt] = useState<boolean>(false);
   const [isIOS, setIsIOS] = useState<boolean>(false);
@@ -20,18 +21,19 @@ export const usePWAInstall = () => {
       setShowPrompt(true);
     };
 
-    window.addEventListener('beforeinstallprompt', handler);
+    window.addEventListener("beforeinstallprompt", handler);
 
     const installedHandler = () => {
       setIsInstalled(true);
       setShowPrompt(false);
       setDeferredPrompt(null);
     };
-    window.addEventListener('appinstalled', installedHandler);
+    window.addEventListener("appinstalled", installedHandler);
 
-    window.addEventListener('load', () => {
+    // Detect iOS Safari immediately, not just on load
+    const detectInstallStatus = () => {
       // Detect standalone mode (Android/desktop)
-      if (window.matchMedia('(display-mode: standalone)').matches) {
+      if (window.matchMedia("(display-mode: standalone)").matches) {
         setIsInstalled(true);
       }
       // Detect iOS Safari standalone
@@ -43,11 +45,18 @@ export const usePWAInstall = () => {
       if (isStandaloneIOS) {
         setIsInstalled(true);
       }
-    });
+    };
+
+    // Run detection immediately
+    detectInstallStatus();
+
+    // Also run on page load for consistency
+    window.addEventListener("load", detectInstallStatus);
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handler);
-      window.removeEventListener('appinstalled', installedHandler);
+      window.removeEventListener("beforeinstallprompt", handler);
+      window.removeEventListener("appinstalled", installedHandler);
+      window.removeEventListener("load", detectInstallStatus);
     };
   }, []);
 
@@ -56,7 +65,7 @@ export const usePWAInstall = () => {
     if (deferredPrompt) {
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
+      if (outcome === "accepted") {
         setIsInstalled(true);
         setShowPrompt(false);
       }
@@ -64,9 +73,14 @@ export const usePWAInstall = () => {
       return;
     }
 
-    // Safari/iOS: no beforeinstallprompt, guide the user
-    if (isIOS && !isInstalled) {
-      // Instead of alert, set state to show visual guide in the UI
+    // Check again for iOS in case it wasn't detected on load
+    const checkIOSAgain = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+    if ((checkIOSAgain || isIOS) && !isInstalled) {
+      // Make sure iOS state is set (in case it wasn't before)
+      if (!isIOS) {
+        setIsIOS(true);
+      }
+      // Show iOS guide
       setShowIOSGuide(true);
       return;
     }
@@ -74,12 +88,15 @@ export const usePWAInstall = () => {
 
   const dismissPrompt = () => {
     setShowPrompt(false);
-    localStorage.setItem('pwa-prompt-dismissed', Date.now().toString());
+    localStorage.setItem("pwa-prompt-dismissed", Date.now().toString());
   };
 
   useEffect(() => {
-    const dismissedTime = localStorage.getItem('pwa-prompt-dismissed');
-    if (dismissedTime && (Date.now() - parseInt(dismissedTime)) < 7 * 24 * 60 * 60 * 1000) {
+    const dismissedTime = localStorage.getItem("pwa-prompt-dismissed");
+    if (
+      dismissedTime &&
+      Date.now() - parseInt(dismissedTime) < 7 * 24 * 60 * 60 * 1000
+    ) {
       setShowPrompt(false);
     }
   }, []);
@@ -88,21 +105,21 @@ export const usePWAInstall = () => {
     setShowIOSGuide(false);
     setShowTestGuide(false);
   }, []);
-  
+
   const openTestGuide = useCallback(() => {
     setShowTestGuide(true);
   }, []);
 
-  return { 
-    deferredPrompt, 
-    isInstalled, 
-    showPrompt, 
-    triggerInstall, 
-    dismissPrompt, 
+  return {
+    deferredPrompt,
+    isInstalled,
+    showPrompt,
+    triggerInstall,
+    dismissPrompt,
     isIOS,
     showIOSGuide,
     closeIOSGuide,
     showTestGuide,
-    openTestGuide 
+    openTestGuide,
   };
 };
