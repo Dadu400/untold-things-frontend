@@ -21,32 +21,77 @@ function Footer() {
                         </svg>
                     </a>
                     <a href="https://www.instagram.com/racvergitxari" target="_blank" rel="noreferrer">
-                        <svg
-                            stroke="currentColor"
-                            fill="currentColor"
-                            strokeWidth="0"
-                            viewBox="0 0 512 512"
-                            fontSize="24"
-                            height="1em"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path d="M349.33 69.33a93.62 93.62 0 0193.34 93.34v186.66a93.62 93.62 0 01-93.34 93.34H162.67a93.62 93.62 0 01-93.34-93.34V162.67a93.62 93.62 0 0193.34-93.34h186.66m0-37.33H162.67C90.8 32 32 90.8 32 162.67v186.66C32 421.2 90.8 480 162.67 480h186.66C421.2 480 480 421.2 480 349.33V162.67C480 90.8 421.2 32 349.33 32z"></path>
-                            <path d="M377.33 162.67a28 28 0 1128-28 27.94 27.94 0 01-28 28zM256 181.33A74.67 74.67 0 11181.33 256 74.75 74.75 0 01256 181.33m0-37.33a112 112 0 10112 112 112 112 0 00-112-112z"></path>
+                        <svg strokeWidth="0" viewBox="0 0 512 512" fontSize="24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                            <linearGradient id="instagram-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                                <stop offset="0%" style={{ stopColor: '#FED373', stopOpacity: 1 }} />
+                                <stop offset="25%" style={{ stopColor: '#F15245', stopOpacity: 1 }} />
+                                <stop offset="50%" style={{ stopColor: '#D92E7F', stopOpacity: 1 }} />
+                                <stop offset="75%" style={{ stopColor: '#9B36B7', stopOpacity: 1 }} />
+                                <stop offset="100%" style={{ stopColor: '#515FD4', stopOpacity: 1 }} />
+                            </linearGradient>
+                            </defs>
+                            <path fill="url(#instagram-gradient)" stroke="url(#instagram-gradient)" d="M349.33 69.33a93.62 93.62 0 0193.34 93.34v186.66a93.62 93.62 0 01-93.34 93.34H162.67a93.62 93.62 0 01-93.34-93.34V162.67a93.62 93.62 0 0193.34-93.34h186.66m0-37.33H162.67C90.8 32 32 90.8 32 162.67v186.66C32 421.2 90.8 480 162.67 480h186.66C421.2 480 480 421.2 480 349.33V162.67C480 90.8 421.2 32 349.33 32z"></path>
+                            <path fill="url(#instagram-gradient)" stroke="url(#instagram-gradient)" d="M377.33 162.67a28 28 0 1128-28 27.94 27.94 0 01-28 28zM256 181.33A74.67 74.67 0 11181.33 256 74.75 74.75 0 01256 181.33m0-37.33a112 112 0 10112 112 112 112 0 00-112-112z"></path>
                         </svg>
                     </a>
                     <a href="mailto:info@racvergitxari.ge" target="_blank" rel="noreferrer" className="ml-1">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            stroke="currentColor"
-                            fill="currentColor"
                             strokeWidth="0"
                             fontSize="26"
                             height="1em"
                             width="1em"
                             viewBox="0 0 50 50"
                         >
-                            <path d="M12 23.403V23.39 10.389L11.88 10.3h-.01L9.14 8.28C7.47 7.04 5.09 7.1 3.61 8.56 2.62 9.54 2 10.9 2 12.41v3.602L12 23.403zM38 23.39v.013l10-7.391V12.41c0-1.49-.6-2.85-1.58-3.83-1.46-1.457-3.765-1.628-5.424-.403L38.12 10.3 38 10.389V23.39zM14 24.868l10.406 7.692c.353.261.836.261 1.189 0L36 24.868V11.867L25 20l-11-8.133V24.868zM38 25.889V41c0 .552.448 1 1 1h6.5c1.381 0 2.5-1.119 2.5-2.5V18.497L38 25.889zM12 25.889L2 18.497V39.5C2 40.881 3.119 42 4.5 42H11c.552 0 1-.448 1-1V25.889z" />
+                            <defs>
+                                <linearGradient id="gmail-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style={{ stopColor: '#4285F4', stopOpacity: 1 }} />
+                                    <stop offset="100%" style={{ stopColor: '#3367D6', stopOpacity: 1 }} />
+                                </linearGradient>
+                                <linearGradient id="gmail-red" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style={{ stopColor: '#EA4335', stopOpacity: 1 }} />
+                                    <stop offset="100%" style={{ stopColor: '#C5221F', stopOpacity: 1 }} />
+                                </linearGradient>
+                                <linearGradient id="gmail-yellow" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style={{ stopColor: '#FBBC04', stopOpacity: 1 }} />
+                                    <stop offset="100%" style={{ stopColor: '#F9AB00', stopOpacity: 1 }} />
+                                </linearGradient>
+                                <linearGradient id="gmail-green" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style={{ stopColor: '#34A853', stopOpacity: 1 }} />
+                                    <stop offset="100%" style={{ stopColor: '#0F9D58', stopOpacity: 1 }} />
+                                </linearGradient>
+                            </defs>
+                            
+                            {/* Left side - Blue */}
+                            <path 
+                                fill="url(#gmail-blue)" 
+                                d="M12 23.403V23.39 10.389L11.88 10.3h-.01L9.14 8.28C7.47 7.04 5.09 7.1 3.61 8.56 2.62 9.54 2 10.9 2 12.41v3.602L12 23.403z"
+                            />
+                            
+                            {/* Top right - Yellow */}
+                            <path 
+                                fill="url(#gmail-yellow)" 
+                                d="M38 23.39v.013l10-7.391V12.41c0-1.49-.6-2.85-1.58-3.83-1.46-1.457-3.765-1.628-5.424-.403L38.12 10.3 38 10.389V23.39z"
+                            />
+                            
+                            {/* Center - Red */}
+                            <path 
+                                fill="url(#gmail-red)" 
+                                d="M14 24.868l10.406 7.692c.353.261.836.261 1.189 0L36 24.868V11.867L25 20l-11-8.133V24.868z"
+                            />
+                            
+                            {/* Bottom right - Green */}
+                            <path 
+                                fill="url(#gmail-green)" 
+                                d="M38 25.889V41c0 .552.448 1 1 1h6.5c1.381 0 2.5-1.119 2.5-2.5V18.497L38 25.889z"
+                            />
+                            
+                            {/* Bottom left - Blue */}
+                            <path 
+                                fill="url(#gmail-blue)" 
+                                d="M12 25.889L2 18.497V39.5C2 40.881 3.119 42 4.5 42H11c.552 0 1-.448 1-1V25.889z"
+                            />
                         </svg>
                     </a>
                 </div>

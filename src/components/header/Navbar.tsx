@@ -25,6 +25,16 @@ function Navbar({ resetHomeKey }: NavbarProps) {
                 </li>
                 <li>
                     <NavLink
+                        to="/shop"
+                        className={({ isActive }) =>
+                            `${ClassName} ${isActive ? "text-white bg-black rounded-xl dark:text-gray-950 dark:bg-white font-dejavu" : "text-gray-950 dark:text-white font-dejavu"}`
+                        }
+                    >
+                        მერჩი 👕
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
                         to="/terms"
                         className={({ isActive }) =>
                             `${ClassName} ${isActive ? "text-white bg-black rounded-xl dark:text-gray-950 dark:bg-white font-dejavu" : "text-gray-950 dark:text-white font-dejavu"}`

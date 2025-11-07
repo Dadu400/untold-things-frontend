@@ -51,6 +51,7 @@ export type SubmitDialogProps = {
 export type LayoutProps = {
     particlesComponent?: React.ReactNode;
     resetHomeKey?: () => void;
+    centerContent?: boolean;
 };
 
 export type WarningBadgeProps ={
@@ -83,4 +84,13 @@ export type ThemeSwitcherProps = {
 
 export type GamesProps ={
     onClick: () => void;
+}
+
+export type Product = {
+    id: number;
+    name: string;
+    description: string;
+    imgUrl: string;
+    price: number;
+    category: string;
 }

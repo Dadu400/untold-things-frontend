@@ -52,6 +52,14 @@ function BurgerMenuDialog({ setMenuOpen }: BurgerMenuDialogProps) {
           </li>
           <li>
             <NavLink
+              to="/shop"
+              className="text-lg font-dejavu tracking-wider text-gray-950 dark:text-white"
+              onClick={handleMenuClick}>
+                  მერჩი 👕
+              </NavLink>
+            </li>
+          <li>
+            <NavLink
               to="/terms"
               className="text-lg font-dejavu tracking-wider text-gray-950 dark:text-white"
               onClick={handleMenuClick}
