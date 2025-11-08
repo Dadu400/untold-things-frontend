@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import CountUp from "react-countup";
 
 function ProductHero() {
   return (
@@ -67,15 +68,42 @@ function ProductHero() {
 
           <div className="grid grid-cols-3 gap-8 pt-12 border-t border-gray-200">
             <div>
-              <p className="text-3xl font-bold text-gray-900">36,000+</p>
+              <p className="text-3xl font-bold text-gray-900">
+                <CountUp
+                  end={36000}
+                  duration={2}
+                  separator=","
+                  enableScrollSpy
+                  scrollSpyOnce
+                />
+                +
+              </p>
               <p className="text-sm text-gray-500 mt-1">შეტყობინება</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-gray-900">10,000+</p>
+              <p className="text-3xl font-bold text-gray-900">
+                <CountUp
+                  end={10000}
+                  duration={2}
+                  separator=","
+                  enableScrollSpy
+                  scrollSpyOnce
+                />
+                +
+              </p>
               <p className="text-sm text-gray-500 mt-1">მოწონება</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-gray-900">1000+</p>
+              <p className="text-3xl font-bold text-gray-900">
+                <CountUp
+                  end={1000}
+                  duration={2}
+                  separator=","
+                  enableScrollSpy
+                  scrollSpyOnce
+                />
+                +
+              </p>
               <p className="text-sm text-gray-500 mt-1">გაზიარება</p>
             </div>
           </div>
@@ -95,7 +123,7 @@ function ProductHero() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
           </div>
-          
+
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
