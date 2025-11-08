@@ -9,7 +9,11 @@ function ProductSection({ products, addToCart } : { products: Product[], addToCa
     
     const filteredProducts = selectedCategory === 'ყველა' 
     ? products 
-    : products.filter(p => p.category === selectedCategory);
+    : products.filter(p => {
+        if (selectedCategory === 'ტანსაცმელი') return p.category === 'CLOTHING';
+        if (selectedCategory === 'აქსესუარები') return p.category === 'ACCESSORIES';
+        return true;
+    });
     
     return (
         <div>
