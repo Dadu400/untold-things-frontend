@@ -94,3 +94,7 @@ export type Product = {
     price: number;
     category: string;
 }
+
+export type Cart = {
+    [productId: number]: number;
+}

@@ -5,8 +5,10 @@ import ProductSection from "../components/shop/ProductSection";
 import { fetchProducts } from "../api/products";
 import { useEffect, useState } from "react";
 import FloatingCardButton from "../components/shop/FloatingCardButton";
+import ProductCartDrawer from "../components/shop/ProductCartDrawer";
 
 function Shop() {
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -23,7 +25,8 @@ function Shop() {
         <section className="max-w-7xl mx-auto px-6 py-12">
           <ProductSection products={products} />
           <ProductPromo />
-          <FloatingCardButton setIsCartOpen={() => {}} cartCount={1} />
+          <FloatingCardButton setIsCartOpen={setIsCartOpen} cartCount={1} />
+          { isCartOpen && (<ProductCartDrawer products={products} setIsCartOpen={setIsCartOpen} />) }
         </section>
     </main>
   );
