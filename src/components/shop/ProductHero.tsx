@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 function ProductHero() {
   return (
     <div className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 mb-16">
@@ -7,7 +9,11 @@ function ProductHero() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div>
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="flex items-center gap-2 mb-6">
             <svg
               className="w-5 h-5 text-[#D93835]"
@@ -73,25 +79,36 @@ function ProductHero() {
               <p className="text-sm text-gray-500 mt-1">გაზიარება</p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="relative">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="relative"
+        >
           <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl">
             <img
               src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800"
               alt="Featured"
               className="w-full h-full object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
           </div>
-          <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-2xl p-6 max-w-xs">
+          
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-2xl p-6 max-w-xs"
+          >
             <p className="text-sm font-medium text-gray-900 mb-1 font-bpg">
               ✨ ლიმიტირებული გამოშვება
             </p>
             <p className="text-xs text-gray-500 font-bpg">
               ექსკლუზიური დიზაინები მალე გამოჩნდება
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );
