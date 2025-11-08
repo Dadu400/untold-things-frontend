@@ -1,6 +1,9 @@
+import { useCart } from "../../context/CartContext";
 import { Product } from "../../types/types";
 
-function ProductCard({ product, addToCart }: { product: Product, addToCart: (product: Product) => void }) {
+function ProductCard({ product }: { product: Product }) {
+  const { addToCart } = useCart();
+
   return (
     <div 
       key={product.id} 
@@ -25,7 +28,7 @@ function ProductCard({ product, addToCart }: { product: Product, addToCart: (pro
             {product.price}₾
           </span>
           <button
-            onClick={() => addToCart(product)}
+            onClick={() => addToCart(product.id, 1)}
             className="bg-[#D93835] text-white px-6 py-3 rounded-lg border-none text-sm font-semibold cursor-pointer flex items-center gap-2 hover:bg-[#c22f2c] transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

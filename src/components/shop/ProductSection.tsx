@@ -10,10 +10,7 @@ function ProductSection({ products } : { products: Product[]}) {
     const filteredProducts = selectedCategory === 'ყველა' 
     ? products 
     : products.filter(p => p.category === selectedCategory);
-
-    const addToCart = (product: Product) => {
-    };
-
+    
     return (
         <div>
           <div className="flex justify-between items-center mb-12 flex-wrap gap-4">
@@ -47,7 +44,7 @@ function ProductSection({ products } : { products: Product[]}) {
           </div>
           <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-8">
             {filteredProducts.map(product => (
-              <ProductCard key={product.id} product={product} addToCart={addToCart} />
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
           </div>

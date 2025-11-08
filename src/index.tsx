@@ -19,6 +19,7 @@ import ParticlesBackground from "./components/particles/ParticlesBackground";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Shop from "./pages/Shop";
+import { CartProvider } from "./context/CartContext";
 
 
 const queryClient = new QueryClient();
@@ -43,7 +44,7 @@ export default function App() {
                     <Route path="terms" element={<Terms />} />
                 </Route>
                 <Route path="/shop" element={<Layout resetHomeKey={resetHomeKey} centerContent={false} />} >
-                    <Route index element={<Shop />} />
+                    <Route index element={<CartProvider><Shop /></CartProvider>} />
                 </Route>
                 <Route path="/post/:id" element={<Layout particlesComponent={<HeartParticlesBackground />} />}>
                     <Route index element={<SinglePostPage />} />

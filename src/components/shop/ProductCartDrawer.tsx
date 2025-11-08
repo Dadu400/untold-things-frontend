@@ -1,32 +1,18 @@
-import { useState } from "react";
-import { Cart, Product } from "../../types/types";
+import { Product } from "../../types/types";
 import ProductCartItem from "./ProductCartItem";
+import { useCart } from "../../context/CartContext";
 
 function ProductCartDrawer({ products, setIsCartOpen }: { products: Product[]; setIsCartOpen: (isOpen: boolean) => void }) {
-  const [cart, setCart] = useState<Cart>({
-    1: 1,
-    2: 1,
-  });
-
-  const updateQuantity = (id: number, quantity: number) => {
-    if (quantity < 1) return;
-    setCart({ ...cart, [id]: quantity });
-  };
-
-  const removeItem = (id: number) => {
-    const newCart = { ...cart };
-    delete newCart[id];
-    setCart(newCart);
-  };
-
-  const subtotal = Object.entries(cart).reduce((total, [productId, quantity]) => {
-    const product = products.find((p) => p.id === Number(productId));
-    return product ? total + product.price * quantity : total;
+  const { getCartItems, removeFromCart, updateQuantity } = useCart();
+  
+  const subtotal = getCartItems().reduce((acc, item) => {
+    const product = products.find((p) => p.id === item.productId)
+    return product ? acc + product.price * item.quantity : acc
   }, 0);
 
   const shipping = subtotal > 0 ? 5.99 : 0;
   const total = subtotal + shipping;
-  const cartLength = Object.keys(cart).length;
+  const cartLength = getCartItems().length;
 
   const setIsOrderOpen = (isOpen: boolean) => {
     // order open logic
@@ -69,11 +55,11 @@ function ProductCartDrawer({ products, setIsCartOpen }: { products: Product[]; s
             </div>
           ) : (
             <div className="flex flex-col gap-4">
-              {Object.entries(cart).map(([productId, quantity]) => {
+              {getCartItems().map(({ productId, quantity }) => {
                 const product = products.find((p) => p.id === Number(productId));
                 if (!product) return null;
 
-                return <ProductCartItem key={product.id} product={product} quantity={quantity} removeItem={removeItem} updateQuantity={updateQuantity} />;
+                return <ProductCartItem key={product.id} product={product} quantity={quantity} removeItem={removeFromCart} updateQuantity={updateQuantity} />;
               })}
             </div>
           )}
