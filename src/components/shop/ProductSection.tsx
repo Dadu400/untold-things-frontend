@@ -4,7 +4,7 @@ import { Product } from "../../types/types";
 import ProductCard from "./ProductCard";
 
 
-function ProductSection({ products } : { products: Product[]}) {
+function ProductSection({ products, addToCart } : { products: Product[], addToCart: (productId: number) => void }) {
     const [selectedCategory, setSelectedCategory] = useState('ყველა');
     
     const filteredProducts = selectedCategory === 'ყველა' 
@@ -44,7 +44,7 @@ function ProductSection({ products } : { products: Product[]}) {
           </div>
           <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-8">
             {filteredProducts.map(product => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} addToCart={addToCart} />
             ))}
           </div>
           </div>

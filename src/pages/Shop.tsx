@@ -11,7 +11,7 @@ import { useCart } from "../context/CartContext";
 function Shop() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [products, setProducts] = useState([]);
-  const { getCartCount } = useCart();
+  const { getCartCount, addToCart } = useCart();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -21,11 +21,16 @@ function Shop() {
     getProducts();
   }, []);
 
+  const onAddToCart = (productId: number) => {
+    addToCart(productId, 1);
+    setIsCartOpen(true);
+  }
+
   return (
     <main>
         <ProductHero />
         <section className="max-w-7xl mx-auto px-6 py-12">
-          <ProductSection products={products} />
+          <ProductSection products={products} addToCart={onAddToCart} />
           <ProductPromo />
           <FloatingCardButton setIsCartOpen={setIsCartOpen} cartCount={getCartCount()} />
           { isCartOpen && (<ProductCartDrawer products={products} setIsCartOpen={setIsCartOpen} />) }
