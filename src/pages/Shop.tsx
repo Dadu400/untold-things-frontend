@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import FloatingCardButton from "../components/shop/FloatingCardButton";
 import ProductCartDrawer from "../components/shop/ProductCartDrawer";
 import { useCart } from "../context/CartContext";
+import { AnimatePresence } from "framer-motion";
 
 function Shop() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -33,7 +34,9 @@ function Shop() {
           <ProductSection products={products} addToCart={onAddToCart} />
           <ProductPromo />
           <FloatingCardButton setIsCartOpen={setIsCartOpen} cartCount={getCartCount()} />
-          { isCartOpen && (<ProductCartDrawer products={products} setIsCartOpen={setIsCartOpen} />) }
+          <AnimatePresence>
+            {isCartOpen && (<ProductCartDrawer products={products} setIsCartOpen={setIsCartOpen} />)}
+          </AnimatePresence>
         </section>
     </main>
   );

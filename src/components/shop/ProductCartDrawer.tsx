@@ -1,6 +1,7 @@
 import { Product } from "../../types/types";
 import ProductCartItem from "./ProductCartItem";
 import { useCart } from "../../context/CartContext";
+import { motion } from "framer-motion";
 
 function ProductCartDrawer({ products, setIsCartOpen }: { products: Product[]; setIsCartOpen: (isOpen: boolean) => void }) {
   const { getCartItems, removeFromCart, updateQuantity } = useCart();
@@ -20,12 +21,20 @@ function ProductCartDrawer({ products, setIsCartOpen }: { products: Product[]; s
 
   return (
     <>
-      <div
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         onClick={() => setIsCartOpen(false)}
         className="fixed inset-0 bg-black/50 z-40"
-      ></div>
-
-      <div className="fixed right-0 top-0 h-full w-full max-w-[448px] bg-white shadow-2xl z-50 flex flex-col">
+      />
+      <motion.div
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "100%" }}
+        transition={{ type: "spring", damping: 30, stiffness: 300 }}
+        className="fixed right-0 top-0 h-full w-full max-w-[448px] bg-white shadow-2xl z-50 flex flex-col"
+      >
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <div className="flex items-center gap-3">
             <svg className="w-6 h-6 text-[#D93835]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,7 +106,7 @@ function ProductCartDrawer({ products, setIsCartOpen }: { products: Product[]; s
             </button>
           </div>
         )}
-      </div>
+      </motion.div>
     </>
   );
 }
