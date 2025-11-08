@@ -1,9 +1,6 @@
 import { Product } from "../../types/types";
-import { useState } from "react";
 
 function ProductCard({ product, addToCart }: { product: Product, addToCart: (product: Product) => void }) {
-  const [isFavorite, setIsFavorite] = useState(false);
-
   return (
     <div 
       key={product.id} 

@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
 
-import InstagramIcon from '@mui/icons-material/Instagram';
-
 function ProductPromo() {
     return (
       <div className="mt-16 relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#D93835] to-[#B82E2B] p-12 mb-12 shadow-2xl">
