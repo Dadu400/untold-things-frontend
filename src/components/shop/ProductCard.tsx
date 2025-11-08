@@ -11,7 +11,7 @@ function ProductCard({ product, addToCart }: { product: Product, addToCart: (pro
     >
       <div className="relative aspect-square bg-gray-50 overflow-hidden">
         <img 
-          src={product.imgUrl} 
+          src={product.imageUrl} 
           alt={product.name} 
           className="w-full h-full object-cover"
         />
