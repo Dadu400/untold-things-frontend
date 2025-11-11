@@ -8,9 +8,12 @@ import FloatingCardButton from "../components/shop/FloatingCardButton";
 import ProductCartDrawer from "../components/shop/ProductCartDrawer";
 import { useCart } from "../context/CartContext";
 import { AnimatePresence } from "framer-motion";
+import ProductOrderPopup from "../components/shop/ProductOrderPopup";
 
 function Shop() {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isOrderFormOpen, setIsOrderFormOpen] = useState(false);
+
   const [products, setProducts] = useState([]);
   const { getCartCount, addToCart } = useCart();
 
@@ -35,7 +38,8 @@ function Shop() {
           <ProductPromo />
           <FloatingCardButton setIsCartOpen={setIsCartOpen} cartCount={getCartCount()} />
           <AnimatePresence>
-            {isCartOpen && (<ProductCartDrawer products={products} setIsCartOpen={setIsCartOpen} />)}
+            {isCartOpen && (<ProductCartDrawer products={products} setIsCartOpen={setIsCartOpen} setIsOrderFormOpen={setIsOrderFormOpen} />)}
+            {isOrderFormOpen && (<ProductOrderPopup products={products} setIsOrderOpen={setIsOrderFormOpen} />)}
           </AnimatePresence>
         </section>
     </main>

@@ -3,8 +3,8 @@ import ProductCartItem from "./ProductCartItem";
 import { useCart } from "../../context/CartContext";
 import { motion } from "framer-motion";
 
-function ProductCartDrawer({ products, setIsCartOpen }: { products: Product[]; setIsCartOpen: (isOpen: boolean) => void }) {
-  const { getCartItems, removeFromCart, updateQuantity } = useCart();
+function ProductCartDrawer({ products, setIsCartOpen, setIsOrderFormOpen }: { products: Product[]; setIsCartOpen: (isOpen: boolean) => void; setIsOrderFormOpen: (isOpen: boolean) => void }) {
+  const { getCartCount, getCartItems, removeFromCart, updateQuantity } = useCart();
   
   const subtotal = getCartItems().reduce((acc, item) => {
     const product = products.find((p) => p.id === item.productId)
@@ -14,10 +14,6 @@ function ProductCartDrawer({ products, setIsCartOpen }: { products: Product[]; s
   const shipping = subtotal > 0 ? 5.99 : 0;
   const total = subtotal + shipping;
   const cartLength = getCartItems().length;
-
-  const setIsOrderOpen = (isOpen: boolean) => {
-    // order open logic
-  };
 
   return (
     <>
@@ -40,7 +36,7 @@ function ProductCartDrawer({ products, setIsCartOpen }: { products: Product[]; s
             <svg className="w-6 h-6 text-[#D93835]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
             </svg>
-            <h2 className="text-xl font-bold text-gray-900 font-dejavu">კალათა ({cartLength})</h2>
+            <h2 className="text-xl font-bold text-gray-900 font-dejavu">კალათა ({getCartCount()})</h2>
           </div>
 
           <button
@@ -98,7 +94,7 @@ function ProductCartDrawer({ products, setIsCartOpen }: { products: Product[]; s
             <button
               onClick={() => {
                 setIsCartOpen(false);
-                setIsOrderOpen(true);
+                setIsOrderFormOpen(true);
               }}
               className="w-full bg-[#D93835] text-white py-4 rounded-xl text-lg font-semibold hover:opacity-90 transition"
             >
