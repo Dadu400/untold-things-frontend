@@ -14,7 +14,7 @@ function ProductCartItem({
   return (
     <div className="flex gap-4 bg-gray-50 rounded-xl p-4">
       <img
-        src={product.imageUrl}
+        src={product.imageUrls[0]}
         alt={product.name}
         className="w-24 h-24 object-cover rounded-lg"
       />

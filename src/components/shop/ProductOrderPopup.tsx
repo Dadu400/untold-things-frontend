@@ -36,10 +36,8 @@ const ProductOrderPopup = ({ products, setIsOrderOpen, setShowSuccessPopup } : {
 
     const sizes = ['S', 'M', 'L', 'XL'];
 
-    // Check if all items have sizes selected
     const allSizesSelected = getCartItems().every(item => itemSizes[item.productId]);
 
-    // Validate phone number
     const validatePhone = (phone: string): boolean => {
         const cleanPhone = phone.replace(/\s/g, '');
         if (cleanPhone.length !== 9) {
@@ -58,13 +56,10 @@ const ProductOrderPopup = ({ products, setIsOrderOpen, setShowSuccessPopup } : {
         return true;
     };
 
-    // Handle phone input
     const handlePhoneChange = (value: string) => {
-        // Allow only digits
         const cleaned = value.replace(/\D/g, '');
         setOrderForm({...orderForm, phone: cleaned});
         
-        // Validate on change
         if (cleaned.length > 0) {
             validatePhone(cleaned);
         } else {
@@ -72,7 +67,6 @@ const ProductOrderPopup = ({ products, setIsOrderOpen, setShowSuccessPopup } : {
         }
     };
 
-    // Check if form is valid
     const isFormValid = 
         allSizesSelected && 
         orderForm.name.trim() !== '' &&
@@ -169,7 +163,7 @@ const ProductOrderPopup = ({ products, setIsOrderOpen, setShowSuccessPopup } : {
                                         >
                                             <div className="flex gap-4 mb-4">
                                                 <img 
-                                                    src={product.imageUrl} 
+                                                    src={product.imageUrls[0]} 
                                                     alt={product.name} 
                                                     className="w-20 h-20 object-cover rounded-lg" 
                                                 />

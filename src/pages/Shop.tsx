@@ -10,13 +10,14 @@ import { useCart } from "../context/CartContext";
 import { AnimatePresence } from "framer-motion";
 import ProductOrderPopup from "../components/shop/ProductOrderPopup";
 import OrderSuccessPopup from "../components/shop/OrderSuccessPopup";
+import { Product } from "../types/types";
 
 function Shop() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isOrderFormOpen, setIsOrderFormOpen] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const { getCartCount, addToCart } = useCart();
 
   useEffect(() => {
