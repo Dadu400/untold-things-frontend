@@ -43,8 +43,8 @@ const FlyingHeart = () => {
                 cursor-pointer
                 transition-all duration-300
                 hover:scale-110
-                focus:outline-none
                 animate-fade-in
+                no-tap-highlight
                 ${isFlying ? 'animate-fly-up pointer-events-none' : ''}
             `}
             aria-label="Scroll to top"
@@ -53,7 +53,7 @@ const FlyingHeart = () => {
                 animationData={flyingHeartAnimation}
                 loop={true}
                 autoplay={true}
-                className="w-full h-full drop-shadow-lg"
+                className="w-full h-full drop-shadow-lg no-tap-highlight"
             />
         </button>
     );

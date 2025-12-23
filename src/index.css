@@ -147,3 +147,29 @@ input:focus::-webkit-input-placeholder {
 .animate-fade-in {
     animation: fade-in 0.3s ease-out forwards;
 }
+
+/* Remove tap highlight and borders on mobile */
+.no-tap-highlight {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.no-tap-highlight:focus,
+.no-tap-highlight:active,
+.no-tap-highlight:hover {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.no-tap-highlight * {
+    outline: none !important;
+    border: none !important;
+}
