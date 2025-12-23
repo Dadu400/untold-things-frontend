@@ -30,7 +30,7 @@ function SearchBar({ onSearchClicked }: { onSearchClicked: (query: string) => vo
                 className={`
                     flex items-center mx-auto transition-all duration-500 ease-out
                     ${isScrolled
-                        ? 'h-9 w-full lg:h-10 lg:w-[70%] lg:mt-4'
+                        ? 'h-9 w-full lg:h-10 lg:w-[70%] mt-1'
                         : 'h-10 w-[90%] lg:w-[70%] mt-4'
                     }
                 `}
@@ -45,7 +45,7 @@ function SearchBar({ onSearchClicked }: { onSearchClicked: (query: string) => vo
                             transition-all duration-500 ease-out
                             focus:border-rose-200 dark:focus:border-rose-300
                             ${isScrolled
-                                ? 'text-sm rounded-full h-9 py-2 px-4 pr-9 tracking-wider lg:text-sm lg:md:text-lg lg:rounded-xl lg:h-10 lg:py-6 lg:tracking-widest'
+                                ? 'text-sm rounded-full h-10 py-2 px-4 pr-9 tracking-wider lg:text-sm lg:md:text-lg lg:rounded-xl lg:h-10 lg:py-6 lg:tracking-widest'
                                 : 'text-sm md:text-lg rounded-xl h-10 py-6 px-4 tracking-widest'
                             }
                         `}

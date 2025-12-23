@@ -19,7 +19,7 @@ function Header({ resetHomeKey }: { resetHomeKey?: () => void }) {
                     to="/"
                     onClick={handleLogoClick}
                 >
-                    <img src={logo} alt="logo" className="w-12 h-12 lg:w-14 lg:h-14" />
+                    <img src={logo} alt="logo" className="w-14 h-[54px] lg:w-16 lg:h-16" />
                 </NavLink>
                 <Navbar resetHomeKey={resetHomeKey} />
                 <div className='flex items-center lg:gap-4'>
