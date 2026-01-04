@@ -26,6 +26,26 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageS
         }).format(date);
     };
 
+    const formatDisplayTime = (timestamp: number) => {
+        const date = new Date(timestamp);
+        const currentYear = new Date().getFullYear();
+        const messageYear = date.getFullYear();
+
+        if (messageYear < currentYear) {
+            return new Intl.DateTimeFormat("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+                timeZone: "Asia/Tbilisi",
+            }).format(date).replace(",", "").replace(" at", ", at");
+        }
+
+        return formatTime(timestamp);
+    };
+
     const getInitialLikedState = () => {
         const storedLiked = localStorage.getItem(`post_${id}_liked`);
         return storedLiked !== null ? JSON.parse(storedLiked) : initialLiked;
@@ -146,7 +166,7 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageS
             >
                 <div className="flex flex-col items-center">
                     <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Message</span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{formatTime(timestamp)}</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">{formatDisplayTime(timestamp)}</span>
                 </div>
                 <div className="flex flex-col self-end max-w-[240px] mt-3 mr-2 gap-1">
                     <div className="flex self-end">
