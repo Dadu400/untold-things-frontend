@@ -6,6 +6,9 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 import SubmitDialog from "../posts/SubmitDialog";
 
+// Temporary flag to disable posting
+const POSTING_DISABLED = true;
+
 function NewPost() {
     const MAX_TEXT_LENGTH = 230;
     const MAX_INPUT_LENGTH = 10;
@@ -30,12 +33,13 @@ function NewPost() {
 
     const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (POSTING_DISABLED) return;
         if (text.trim() && to.trim()) {
             setIsModalOpen(true);
         }
     };
 
-    const isButtonDisabled = !text.trim() || !to.trim();
+    const isButtonDisabled = POSTING_DISABLED || !text.trim() || !to.trim();
 
     const handlePostSubmit = async () => {
         try {

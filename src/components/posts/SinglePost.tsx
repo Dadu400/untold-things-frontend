@@ -9,6 +9,8 @@ import { SinglePostProps } from "../../types/types";
 import { useNavigate } from "react-router-dom";
 import AnimatedHeartButton from "./AnimatedHeartButton";
 
+// Temporary flag to disable like/share
+const INTERACTIONS_DISABLED = true;
 
 function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageStatus, liked: initialLiked, className, disabled }: SinglePostProps) {
     const navigate = useNavigate();
@@ -79,7 +81,7 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageS
         e.preventDefault();
         e.stopPropagation();
 
-        if (disabled || isInteractionDisabled) return;
+        if (INTERACTIONS_DISABLED || disabled || isInteractionDisabled) return;
 
         const nextLikedState = !liked;
         setLiked(nextLikedState);
@@ -113,7 +115,7 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageS
         e.preventDefault();
         e.stopPropagation();
 
-        if (disabled || isInteractionDisabled) return;
+        if (INTERACTIONS_DISABLED || disabled || isInteractionDisabled) return;
         setIsModalOpen(true);
     };
 
