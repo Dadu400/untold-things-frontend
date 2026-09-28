@@ -10,13 +10,13 @@ interface IOSInstallGuideProps {
 
 const IOSInstallGuide: React.FC<IOSInstallGuideProps> = ({ onClose }) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 max-w-md w-full flex flex-col">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white">ინსტრუქცია</h3>
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 animate-overlay-in">
+      <div className="bg-surface border border-line/60 rounded-3xl shadow-2xl p-6 max-w-md w-full max-h-[calc(100svh-2rem)] flex flex-col animate-dialog-in">
+        <div className="relative flex justify-center items-center mb-4 px-8">
+          <h3 className="font-heading font-normal text-[22px] md:text-[24px] leading-[1.25] tracking-normal text-center text-gray-900 dark:text-white">ინსტრუქცია</h3>
           <button 
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+            className="absolute right-0 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

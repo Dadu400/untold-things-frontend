@@ -31,7 +31,11 @@ function ThemeSwitcher({ className }: ThemeSwitcherProps) {
     };
 
     return (
-        <button onClick={toggleDarkMode} className={className}>
+        <button
+            onClick={toggleDarkMode}
+            className={`${className} items-center justify-center w-10 h-10 rounded-full text-ink transition-colors duration-200 hover:bg-black/5 dark:hover:bg-white/10`}
+            aria-label={darkMode ? "Light mode" : "Dark mode"}
+        >
             {darkMode ? <LightModeIcon /> : <DarkModeOutlinedIcon />}
         </button>
     );

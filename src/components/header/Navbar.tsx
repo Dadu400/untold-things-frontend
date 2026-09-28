@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { NavbarProps } from "../../types/types";
 
 function Navbar({ resetHomeKey }: NavbarProps) {
-    const ClassName = "text-lg tracking-wider transition-colors duration-200 px-4 py-2";
+    const ClassName = "inline-flex items-center h-10 text-lg tracking-wider transition-colors duration-200 px-4 rounded-full";
 
     const handleHomeClick = () => {
         if (resetHomeKey) resetHomeKey();
@@ -11,12 +11,12 @@ function Navbar({ resetHomeKey }: NavbarProps) {
 
     return (
         <nav>
-            <ul className="hidden lg:flex items-center gap-6">
+            <ul className="hidden lg:flex items-center gap-2">
                 <li>
                     <NavLink
                         to="/"
                         className={({ isActive }) =>
-                            `${ClassName} ${isActive ? "text-white font-dejavu bg-black rounded-xl dark:text-gray-950 dark:bg-white" : "text-gray-950 dark:text-white font-dejavu"}`
+                            `${ClassName} font-dejavu ${isActive ? "text-white bg-black dark:text-gray-950 dark:bg-white" : "text-gray-950 dark:text-white hover:bg-black/5 dark:hover:bg-white/10"}`
                         }
                         onClick={handleHomeClick}
                     >
@@ -27,7 +27,7 @@ function Navbar({ resetHomeKey }: NavbarProps) {
                     <NavLink
                         to="/terms"
                         className={({ isActive }) =>
-                            `${ClassName} ${isActive ? "text-white bg-black rounded-xl dark:text-gray-950 dark:bg-white font-dejavu" : "text-gray-950 dark:text-white font-dejavu"}`
+                            `${ClassName} font-dejavu ${isActive ? "text-white bg-black dark:text-gray-950 dark:bg-white" : "text-gray-950 dark:text-white hover:bg-black/5 dark:hover:bg-white/10"}`
                         }
                     >
                         წესები
