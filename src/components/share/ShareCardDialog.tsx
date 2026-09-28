@@ -8,6 +8,7 @@ import Dialog from "../posts/Dialog";
 import { renderShareCard } from "./renderShareCard";
 
 const FILE_NAME = "racvergitxari.png";
+const SHARE_TEXT = "#რაცვერგითხარი @racvergitxari.ge";
 
 type ShareCardDialogProps = {
     open: boolean;
@@ -64,7 +65,7 @@ function ShareCardDialog({ open, onClose, message, messageTo }: ShareCardDialogP
     const handleShare = async () => {
         if (!file) return;
         try {
-            await navigator.share({ files: [file] });
+            await navigator.share({ files: [file], text: SHARE_TEXT });
         } catch (error) {
             // user closed the share sheet
             if (error instanceof DOMException && error.name === "AbortError") return;

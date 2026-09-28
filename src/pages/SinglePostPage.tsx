@@ -33,8 +33,9 @@ function SinglePostPage() {
 
             {postData.messageStatus === "PENDING" && (
                 <WarningBadge
-                    className="border-[#ffcc00]/70"
-                    text="მიმდინარეობს წერილის გადამოწმება"
+                    compact
+                    className="border-[#ffcc00]/40 bg-[#ffcc00]/[0.08]"
+                    text="წერილი გადამოწმების პროცესშია"
                     icon={warning}
                     altText="Pending"
                 />

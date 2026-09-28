@@ -11,6 +11,8 @@ export type SinglePostProps = {
     messageStatus: string;
     className?: string;
     disabled?: boolean;
+    // defaults to off while a post awaits moderation; also off for the unsent confirmation preview
+    showDelivered?: boolean;
 };
 
 export type PostsListProps = {
@@ -37,7 +39,8 @@ export type SubmitDialogProps = {
     setIsModalOpen: (isOpen: boolean) => void;
     messageTo: string;
     message: string;
-    onSubmit?: () => void;
+    // resolves with the created message id, rejects on failure
+    onSubmit: () => Promise<string>;
 };
 
 export type LayoutProps = {
@@ -50,6 +53,7 @@ export type WarningBadgeProps ={
     icon: string;
     className?: string;
     altText?: string;
+    compact?: boolean;
 };
 
 export type BurgerMenuProps = {

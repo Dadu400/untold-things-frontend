@@ -167,6 +167,19 @@ input:focus::-webkit-input-placeholder {
     background: #171c1b;
 }
 
+/* desktop: hide the page scrollbar UI only; the viewport still scrolls normally */
+@media (min-width: 1024px) {
+    html {
+        scrollbar-width: none;
+    }
+
+    html::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+}
+
 /* Flying heart animation */
 @keyframes fly-up {
     0% {
