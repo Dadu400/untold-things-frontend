@@ -74,7 +74,7 @@ const TicTacToe = () => {
     return (
         <div className="flex flex-col items-center justify-center">
             <Games onClick={() => setOpen(true)} />
-            <Dialog open={open} onClose={() => setOpen(false)} className="w-96 bg-white dark:bg-bgDark p-6">
+            <Dialog open={open} onClose={() => setOpen(false)} className="w-96 max-w-96 bg-white dark:bg-bgDark p-6">
                 <div className="flex flex-col items-center justify-center">
                     <h2 className="text-xl font-semibold font-oswald">Tic-Tac-Toe</h2>
                     <div className="grid grid-cols-3 gap-2 bg-white dark:bg-bgDark p-4 rounded-lg shadow-lg">

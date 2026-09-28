@@ -5,21 +5,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap');
 
 @layer base {
+    html {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-text-size-adjust: 100%;
+    }
+
     body {
         background-color: hsl(var(--background));
         color: hsl(var(--foreground));
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+
+    :focus-visible {
+        outline: 2px solid #a4bafc;
+        outline-offset: 2px;
     }
 }
 
 @layer base {
     :root {
-        --background: 0 0% 98%; 
-        --foreground: 222.2 84% 4.9%;
+        /* warm paper white instead of a neutral grey */
+        --background: 24 33% 98%;
+        --foreground: 15 12% 10%;
+        --surface: 0 0% 100%;
+        --surface-muted: 24 30% 97%;
+        --line: 20 14% 89%;
+        --muted: 20 6% 45%;
+        --brand-soft: 356 90% 96%;
+        --shadow: 15 30% 25%;
     }
 
     .dark {
-        --background: 168 11% 10%; 
-        --foreground: 210 40% 98%;
+        /* keep the original green-charcoal, tint surfaces to match it */
+        --background: 168 11% 10%;
+        --foreground: 40 20% 94%;
+        --surface: 168 9% 13.5%;
+        --surface-muted: 168 8% 15.5%;
+        --line: 168 7% 22%;
+        --muted: 168 5% 62%;
+        --brand-soft: 0 35% 17%;
+        --shadow: 168 30% 2%;
     }
 }
 
@@ -43,6 +70,33 @@
     src: url('./assets/fonts/regular.woff2') format('woff2');
 }
 
+/* 63Font: Georgian-only reading face; Latin/digits fall through to the system sans */
+@font-face {
+    font-family: 'Font63';
+    src: url('./assets/fonts/regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+    unicode-range: U+10A0-10FF;
+}
+
+@font-face {
+    font-family: 'Font63';
+    src: url('./assets/fonts/medium.woff2') format('woff2');
+    font-weight: 500 700;
+    font-display: swap;
+    unicode-range: U+10A0-10FF;
+}
+
+/* FiraGO Regular (Georgian subset) for dialog headings. Named apart from 'FiraGo' above,
+   which is a different caps face; CSS family names are case-insensitive. */
+@font-face {
+    font-family: 'FiraGOText';
+    src: url('./assets/fonts/firago-regular-georgian.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+    unicode-range: U+10A0-10FF;
+}
+
 @font-face {
     font-family: 'DejaVuSans';
     src: url('./assets/fonts/book.woff2') format('woff2');
@@ -55,6 +109,7 @@
 
 .typed-cursor {
     font-size: 30px;
+    color: #D93835;
     opacity: 1;
     animation: blink .7s infinite;
     display: inline-block;
@@ -93,7 +148,7 @@ input:focus::-webkit-input-placeholder {
 }
 
 ::-webkit-scrollbar-track {
-    background: #FAFAFA;
+    background: hsl(var(--background));
     border-radius: 5px;
 }
 
@@ -171,4 +226,54 @@ input:focus::-webkit-input-placeholder {
 .no-tap-highlight * {
     outline: none !important;
     border: none !important;
+}
+
+/* keep a ring for keyboard users; taps don't trigger :focus-visible */
+.no-tap-highlight:focus-visible {
+    outline: 2px solid #a4bafc !important;
+    outline-offset: 2px;
+    border-radius: 9999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* iMessage-style bubble with tail; the notch colour follows the card surface */
+.imessage-bubble {
+    position: relative;
+    z-index: 0;
+    background: #248bf5;
+    border-radius: 20px;
+    padding: 8px 14px;
+}
+
+.imessage-bubble::before,
+.imessage-bubble::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    height: 20px;
+}
+
+.imessage-bubble::before {
+    right: -7px;
+    width: 20px;
+    background: #248bf5;
+    border-bottom-left-radius: 16px 14px;
+}
+
+.imessage-bubble::after {
+    right: -10px;
+    width: 10px;
+    background: hsl(var(--surface));
+    border-bottom-left-radius: 10px;
 }
