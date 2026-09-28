@@ -1,4 +1,4 @@
-import React, { useEffect, useRef} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 const mojs = require("@mojs/core");
 
 interface HeartButtonProps {
@@ -11,6 +11,8 @@ const AnimatedHeartButton: React.FC<HeartButtonProps> = ({
   active = false,
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const iconRef = useRef<SVGSVGElement>(null);
+  const [popKey, setPopKey] = useState(0);
   const moTimeline = useRef<any>(null);
   const moburst1 = useRef<any>(null);
   const moburst2 = useRef<any>(null);
@@ -20,7 +22,8 @@ const AnimatedHeartButton: React.FC<HeartButtonProps> = ({
     if (!buttonRef.current) return;
 
     const button = buttonRef.current;
-    const rect = button.getBoundingClientRect();
+    // size the burst from the icon, not the padded tap target
+    const rect = (iconRef.current ?? button).getBoundingClientRect();
     const buttonSize = Math.max(rect.width, rect.height);
 
     const timeline = new mojs.Timeline();
@@ -103,6 +106,8 @@ const AnimatedHeartButton: React.FC<HeartButtonProps> = ({
         onClick(e);
       }
 
+      if (!active) setPopKey((k) => k + 1);
+
       if (moburst1.current && moburst2.current && moBubbles.current && moTimeline.current) {
         moburst1.current
           .generate()
@@ -124,12 +129,16 @@ const AnimatedHeartButton: React.FC<HeartButtonProps> = ({
       <button
         ref={buttonRef}
         onClick={handleClick}
-        className={`relative transition-transform hover:scale-110 focus:outline-none ${
+        className={`relative flex items-center justify-center w-12 h-11 rounded-full text-muted transition-transform duration-200 [@media(hover:hover)]:hover:scale-110 active:scale-90 focus:outline-none focus-visible:outline-periwinkle ${
           active ? 'active' : ''
         }`}
         aria-label="Like"
+        aria-pressed={active}
       >
         <svg
+          ref={iconRef}
+          key={popKey}
+          className={popKey > 0 && active ? 'animate-heart-pop' : ''}
           width="22"
           height="18"
           viewBox="0 0 128 128"
@@ -138,7 +147,7 @@ const AnimatedHeartButton: React.FC<HeartButtonProps> = ({
           <path
             className="transition-colors duration-250"
             d="M64.425 19.75l-.46-.462c-13.72-13.717-35.96-13.717-49.677 0C.57 33.006.57 55.246 14.288 68.964l49.676 49.676.46-.46.46.46 49.677-49.676c13.72-13.718 13.72-35.958 0-49.676-13.715-13.717-35.955-13.717-49.673 0l-.46.46z"
-            stroke={active ? "#FF4136" : "#0078FE"}
+            stroke={active ? "#FF4136" : "currentColor"}
             strokeWidth="10"
             fill={active ? "#FF4136" : "transparent"}
             fillRule="evenodd"

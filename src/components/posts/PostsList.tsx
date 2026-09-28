@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import SinglePost from "./SinglePost";
+import MasonryGrid from "./MasonryGrid";
 import TypedText from "./TypedText";
 import NoPostsAvailable from "./NoPostsAvailable";
 
@@ -76,13 +77,13 @@ function PostsList({ posts, fetchNextPage, hasNextPage, loading, isInitialLoadin
     }
 
     return (
-        <section ref={postsRef} className="w-[90%] md:w-[85%] flex flex-col mx-auto mt-10 mb-16">
+        <section ref={postsRef} className="w-full max-w-[1200px] flex flex-col mx-auto px-4 sm:px-6 mt-8 md:mt-10 mb-16">
             <TypedText />
-            <div className="container grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 gap-y-12 place-items-center mt-10">
+            <MasonryGrid className="mt-6 md:mt-8">
                 {posts.map((post) => (
                     <SinglePost
                         key={post.id}
-                        className="single-post"
+                        className="single-post animate-fade-up"
                         id={post.id}
                         messageTo={post.messageTo}
                         message={post.message}
@@ -94,8 +95,8 @@ function PostsList({ posts, fetchNextPage, hasNextPage, loading, isInitialLoadin
                         disabled={false}
                     />
                 ))}
-                {hasNextPage && <div ref={loadMoreRef} className="h-10 w-full" />}
-            </div>
+            </MasonryGrid>
+            {hasNextPage && <div ref={loadMoreRef} className="h-10 w-full" />}
             {loading && <Spinner />}
         </section>
     );

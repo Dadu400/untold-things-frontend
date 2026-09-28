@@ -32,14 +32,6 @@ export type DialogProps = {
     className?: string;
 };
 
-export type ShareDialogProps = {
-    isModalOpen: boolean; 
-    setIsModalOpen: (isOpen: boolean) => void;
-    onSharePost: () => void;
-    shareUrl: string;
-    shareMessage: string;
-};
-
 export type SubmitDialogProps = {
     isModalOpen: boolean;
     setIsModalOpen: (isOpen: boolean) => void;

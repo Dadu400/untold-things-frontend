@@ -20,7 +20,7 @@ function SinglePostPage() {
     if (!postData) return <NoPostsAvailable />;
 
     return (
-        <section className="flex flex-col my-2 gap-5">
+        <section className="flex flex-col mt-4 mb-8 md:mt-8 gap-5 px-4">
             <Helmet>
                 <title>{`უთქმელი სიტყვები ${postData.messageTo}ს, პოსტი #${postData.id} - რაც ვერ გითხარი`}</title>
                 <meta name="description" content={`უთქმელი სიტყვები ${postData.messageTo}ს, პოსტი ID: ${postData.id}`} />
@@ -33,7 +33,7 @@ function SinglePostPage() {
 
             {postData.messageStatus === "PENDING" && (
                 <WarningBadge
-                    className="border-[#ffcc00] bg-bg dark:bg-bgDark"
+                    className="border-[#ffcc00]/70"
                     text="მიმდინარეობს წერილის გადამოწმება"
                     icon={warning}
                     altText="Pending"
@@ -41,14 +41,14 @@ function SinglePostPage() {
             )}
 
             {postData.messageStatus === "REJECTED" && (
-                <div className="flex flex-col self-center items-center gap-y-2 bg-bgColor dark:bg-bgDark rounded-md">
+                <div className="flex flex-col self-center items-center gap-y-2 rounded-2xl">
                     <WarningBadge
-                        className="border-[#cc3300] bg-bgColor dark:bg-bgDark"
+                        className="border-[#cc3300]/60"
                         text="წერილი უარყოფილია"
                         icon={Rejected}
                         altText="Rejected"
                     />
-                    <a href="/terms" className="font-dejavu text-lg text-[#cc3300]">გადახედე წესებს</a>
+                    <a href="/terms" className="font-dejavu text-lg text-[#cc3300] underline-offset-4 hover:underline">გადახედე წესებს</a>
                 </div>
             )}
 
@@ -61,6 +61,7 @@ function SinglePostPage() {
                 likes={postData.likes}
                 shares={postData.shares}
                 liked={false}
+                className="animate-fade-up min-h-[380px] sm:min-h-[400px]"
             />
         </section>
     );

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import ShareIcon from "@mui/icons-material/Share";
 
-import ShareDialog from "./ShareDialog";
+import ShareCardDialog from "../share/ShareCardDialog";
 import UserIcon from "../../assets/icons/user.svg";
 
 import { SinglePostProps } from "../../types/types";
@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import AnimatedHeartButton from "./AnimatedHeartButton";
 
 
-function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageStatus, liked: initialLiked, className, disabled }: SinglePostProps) {
+function SinglePost({ id, messageTo, message, timestamp, likes, messageStatus, liked: initialLiked, className, disabled }: SinglePostProps) {
     const navigate = useNavigate();
 
     const formatTime = (timestamp: number) => {
@@ -53,8 +53,7 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageS
 
     const [liked, setLiked] = useState(getInitialLikedState());
     const [likeCount, setLikeCount] = useState(likes);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [shareCount, setShareCount] = useState(shares);
+    const [isShareOpen, setIsShareOpen] = useState(false);
 
     useEffect(() => {
         localStorage.setItem(`post_${id}_liked`, JSON.stringify(liked));
@@ -114,79 +113,68 @@ function SinglePost({ id, messageTo, message, timestamp, likes, shares, messageS
         e.stopPropagation();
 
         if (disabled || isInteractionDisabled) return;
-        setIsModalOpen(true);
-    };
-
-    const handleSharePost = async () => {
-        try {
-            await fetch(`${process.env.REACT_APP_API_URL}/v1/messages/${id}/share`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ postId: id }),
-            });
-        } catch (error) {
-            console.error("Error sharing post:", error);
-        }
-
-        setShareCount((shareCount) => shareCount + 1);
-        setIsModalOpen(false);
+        setIsShareOpen(true);
     };
 
     return (
-        <div className={`w-[300px] h-[410px] relative mx-auto bg-gray-100 dark:bg-[#1f1f1f] flex flex-col rounded-2xl overflow-hidden shadow-lg ${className}`}>
-            <div className="bg-[#f6f6f7] dark:bg-[#1f1f1f] border-b border-b-gray-300 dark:border-b-gray-600 px-4 py-5 flex items-center">
-                <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center">
-                    <img src={UserIcon} alt="User" className="w-12 h-12 rounded-full" />
-                    <span className="text-sm">{messageTo}</span>
-                </div>
-                <div className="ml-auto flex items-center gap-2">
-                    <div className="flex flex-col items-center gap-1">
-                        <AnimatedHeartButton
-                            active={liked} 
-                            onClick={handleLikeClick}
-                        />
-                        <span className="text-xs text-gray-500 dark:text-gray-300">{likeCount}</span>
+        <article className={`group relative mx-auto w-full max-w-[340px] flex flex-col rounded-[28px] bg-surface border border-line/70 shadow-card overflow-hidden transition-[transform,box-shadow] duration-300 ease-out [@media(hover:hover)]:hover:-translate-y-0.5 [@media(hover:hover)]:hover:shadow-card-hover ${className ?? ""}`}>
+            <header className="relative bg-surface-muted border-b border-line px-4 py-3.5 flex flex-col items-center">
+                <img src={UserIcon} alt="" className="w-12 h-12 rounded-full" />
+                <span className="mt-1 max-w-[55%] truncate font-read text-[15px] font-medium leading-snug text-ink">{messageTo}</span>
+                <div className="absolute inset-y-0 right-2 flex items-center">
+                    <div className="grid grid-cols-2">
+                        <div className="flex flex-col items-center">
+                            <AnimatedHeartButton
+                                active={liked} 
+                                onClick={handleLikeClick}
+                            />
+                            {/* no count at zero; the slot stays so the heart doesn't shift on the first like */}
+                            <span className={`-mt-1 text-xs tabular-nums text-muted ${likeCount > 0 ? "" : "invisible"}`} aria-hidden={likeCount > 0 ? undefined : true}>{likeCount}</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <button
+                                className="flex items-center justify-center w-12 h-11 rounded-full text-muted transition-colors duration-200 [@media(hover:hover)]:hover:bg-ink/[0.05] [@media(hover:hover)]:hover:text-ink/70 active:bg-ink/[0.08]"
+                                onClick={handleShareClick}
+                                aria-label="Share as image"
+                            >
+                                {/* two of the glyph's three nodes sit on the right; nudge left to centre its visual weight */}
+                                <ShareIcon className="-translate-x-px" style={{ fontSize: 20 }} />
+                            </button>
+                            {/* mirrors the like count so both columns share the same geometry */}
+                            <span className="-mt-1 text-xs invisible" aria-hidden="true">0</span>
+                        </div>
                     </div>
-                    <button
-                        className="flex flex-col items-center cursor-pointer"
-                        onClick={handleShareClick}
-                    >
-                        <ShareIcon style={{ color: "#0078FE" }} />
-                        <span className="text-xs text-gray-500 dark:text-gray-300">{shareCount}</span>
-                    </button>
                 </div>
-            </div>
+            </header>
             <div 
-                className="flex flex-col items-center pb-32 p-2 cursor-pointer"
+                // inset ring: an outer outline would be clipped by the card's overflow-hidden
+                className="flex-1 flex flex-col px-4 pt-3 pb-10 cursor-pointer rounded-b-[27px] focus-visible:-outline-offset-4"
                 onClick={handlePostClick}
+                onKeyDown={(e) => { if (e.key === "Enter") (e.currentTarget as HTMLElement).click(); }}
                 role="button"
+                tabIndex={0}
                 aria-label={`View message to ${messageTo}`}
             >
-                <div className="flex flex-col items-center">
-                    <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Message</span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{formatDisplayTime(timestamp)}</span>
+                <div className="flex flex-col items-center leading-tight">
+                    <span className="text-[11px] font-medium tracking-wide text-muted">Message</span>
+                    <span className="text-[11px] tabular-nums text-muted">{formatDisplayTime(timestamp)}</span>
                 </div>
-                <div className="flex flex-col self-end max-w-[240px] mt-3 mr-2 gap-1">
-                    <div className="flex self-end">
-                        <span className="word-break bg-[#248bf5] p-2 text-sm leading-normal rounded-xl text-white text-wrap">
-                            {message}
-                        </span>
-                    </div>
-                    <p className="flex items-center text-gray-500 dark:text-gray-400 self-end text-xs font-semibold">
+                <div className="flex flex-col self-end max-w-[88%] mt-4 mr-1 gap-1">
+                    <p className="imessage-bubble word-break whitespace-pre-line font-read text-[16px] leading-[1.55] text-white">
+                        {message}
+                    </p>
+                    <p className="self-end mr-0.5 text-[11px] font-semibold text-muted">
                         Delivered
                     </p>
                 </div>
             </div>
-            <ShareDialog
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-                onSharePost={handleSharePost}
-                shareUrl={`https://racvergitxari.ge/post/${id}`}
-                shareMessage={`უთქმელი სიტყვები ${messageTo}ს: "${message}"`}
+            <ShareCardDialog
+                open={isShareOpen}
+                onClose={() => setIsShareOpen(false)}
+                message={message}
+                messageTo={messageTo}
             />
-        </div>
+        </article>
     );
 }
 
