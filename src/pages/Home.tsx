@@ -7,6 +7,7 @@ import SearchBar from "../components/search/Searchbar";
 import { usePosts } from "../hooks/usePosts";
 import { useState } from "react";
 import { SinglePostProps } from "../types/types";
+import { normalizeSearchQuery } from "../utils/recipient";
 
 const Home = () => {
     const [query, setQuery] = useState('');
@@ -14,7 +15,7 @@ const Home = () => {
 
 
     const searchPosts = (query: string) => {
-        setQuery(query);
+        setQuery(normalizeSearchQuery(query));
     }
     
     const formatData = (data: any) => {

@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import AnimatedHeartButton from "./AnimatedHeartButton";
 
 
-function SinglePost({ id, messageTo, message, timestamp, likes, messageStatus, liked: initialLiked, className, disabled }: SinglePostProps) {
+function SinglePost({ id, messageTo, message, timestamp, likes, messageStatus, liked: initialLiked, className, disabled, showDelivered = messageStatus !== "PENDING" }: SinglePostProps) {
     const navigate = useNavigate();
 
     const formatTime = (timestamp: number) => {
@@ -120,7 +120,7 @@ function SinglePost({ id, messageTo, message, timestamp, likes, messageStatus, l
         <article className={`group relative mx-auto w-full max-w-[340px] flex flex-col rounded-[28px] bg-surface border border-line/70 shadow-card overflow-hidden transition-[transform,box-shadow] duration-300 ease-out [@media(hover:hover)]:hover:-translate-y-0.5 [@media(hover:hover)]:hover:shadow-card-hover ${className ?? ""}`}>
             <header className="relative bg-surface-muted border-b border-line px-4 py-3.5 flex flex-col items-center">
                 <img src={UserIcon} alt="" className="w-12 h-12 rounded-full" />
-                <span className="mt-1 max-w-[55%] truncate font-read text-[15px] font-medium leading-snug text-ink">{messageTo}</span>
+                <span className="mt-1 max-w-[55%] line-clamp-2 break-words text-center font-read text-[15px] font-medium leading-snug text-ink">{messageTo}</span>
                 <div className="absolute inset-y-0 right-2 flex items-center">
                     <div className="grid grid-cols-2">
                         <div className="flex flex-col items-center">
@@ -163,9 +163,11 @@ function SinglePost({ id, messageTo, message, timestamp, likes, messageStatus, l
                     <p className="imessage-bubble word-break whitespace-pre-line font-read text-[16px] leading-[1.55] text-white">
                         {message}
                     </p>
-                    <p className="self-end mr-0.5 text-[11px] font-semibold text-muted">
-                        Delivered
-                    </p>
+                    {showDelivered && (
+                        <p className="self-end mr-0.5 text-[11px] font-semibold text-muted">
+                            Delivered
+                        </p>
+                    )}
                 </div>
             </div>
             <ShareCardDialog
