@@ -25,10 +25,9 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ isModalOpen, setIsModalOpen
     };
 
     return (
-        <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)} className="max-w-[460px] dark:bg-bgDark">
-            <div className="p-4 flex flex-col items-center">
-                <h2 className="text-2xl font-firago tracking-wider mb-2">გადახედე წერილს</h2>
-                <div className="mb-4">
+        <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)} className="max-w-[420px] px-3 sm:px-6">
+            <div className="w-full pt-9 flex flex-col items-center">
+                <div className="w-full mb-5">
                     <SinglePost
                         id={0}
                         messageTo={messageTo}
@@ -41,20 +40,20 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ isModalOpen, setIsModalOpen
                         disabled={true}
                     />
                 </div>
-                <div className="flex flex-col justify-end">
-                    <div className="flex">
+                <div className="w-full max-w-[340px] flex flex-col justify-end">
+                    <label className="flex items-center gap-3 cursor-pointer select-none py-1">
                         <input
                             type="checkbox"
-                            className="mr-2"
+                            className="w-5 h-5 shrink-0 accent-[#D93835] cursor-pointer"
                             checked={isChecked}
                             onChange={(e) => setIsChecked(e.target.checked)}
                         />
-                        <label className="text-md font-dejavu tracking-wider">
-                            გავეცანი და ვეთანხმები <a href="/terms" className="text-blue-500">წესებს</a>
-                        </label>
-                    </div>
+                        <span className="text-md font-dejavu tracking-wider">
+                            გავეცანი და ვეთანხმები <a href="/terms" className="text-[#0078FE] underline-offset-4 hover:underline">წესებს</a>
+                        </span>
+                    </label>
                     <button
-                        className={`button font-dejavu bg-[#D93835] text-white py-2 rounded-xl tracking-widest mt-4 flex justify-center items-center gap-1 ${isClicked ? "clicked" : ""} ${!isChecked ? "opacity-50 cursor-not-allowed" : ""}`}
+                        className={`button font-dejavu bg-brand text-white h-12 tracking-widest mt-4 flex justify-center items-center gap-1 ${isClicked ? "clicked" : ""} ${!isChecked ? "opacity-50 cursor-not-allowed" : "shadow-cta hover:bg-brand-hover active:scale-[0.98]"}`}
                         onClick={handleButtonClick}
                         disabled={!isChecked}
                     >

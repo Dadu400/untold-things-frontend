@@ -1,6 +1,6 @@
 .button {
     overflow: visible;
-    border-radius: 3px;
+    border-radius: 9999px;
     position: relative;
     transition: all 0.15s;
 }
