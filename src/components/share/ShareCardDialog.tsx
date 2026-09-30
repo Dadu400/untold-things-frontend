@@ -64,8 +64,12 @@ function ShareCardDialog({ open, onClose, message, messageTo }: ShareCardDialogP
 
     const handleShare = async () => {
         if (!file) return;
+        // Image-only share: attaching text hides image-only targets like TikTok/Instagram
+        // from the iOS share sheet. The caption goes to the clipboard instead (not awaited,
+        // so the user gesture is still valid for navigator.share).
+        navigator.clipboard?.writeText(SHARE_TEXT).catch(() => {});
         try {
-            await navigator.share({ files: [file], text: SHARE_TEXT });
+            await navigator.share({ files: [file] });
         } catch (error) {
             // user closed the share sheet
             if (error instanceof DOMException && error.name === "AbortError") return;
